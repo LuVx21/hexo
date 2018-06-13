@@ -106,3 +106,34 @@ public Object invoke(Object obj,Object... args)
 > 解决办法:防止JVM拆开你的数组
 > 方式一:把数组看做是一个Object对象
 > 方式二:重新构建一个Object数组,那个参数数组作为唯一的元素存在.
+
+
+***反射能修改final的变量吗?***
+
+能
+
+```Java
+public class Ren {
+    public static void main(String[] args) throws Exception {
+        Field nameField = Name.class.getDeclaredField("name");
+
+        // 修改final变量用,非final不需要此三行
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(nameField, nameField.getModifiers() & ~Modifier.FINAL);
+
+        nameField.setAccessible(true);
+        nameField.set(null, "newname");
+        System.out.println(Name.getName());
+    }
+}
+
+class Name {
+    private static final String name = new String("oldname");
+    public static String getName() {
+        return name;
+    }
+}
+```
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
