@@ -1,5 +1,5 @@
 ---
-title: 主从复制,读写分离的实现
+title: MySQL:主从复制
 date:
 tags:
 - Docker
@@ -11,10 +11,7 @@ tags:
 - [配置MySQL](#配置mysql)
     - [配置master](#配置master)
     - [配置slave](#配置slave)
-- [读写分离](#读写分离)
-    - [应用层实现](#应用层实现)
-    - [中间件实现](#中间件实现)
-- [配合Redis缓存](#配合redis缓存)
+- [二进制日志](#二进制日志)
 
 <!-- /TOC -->
 
@@ -96,7 +93,7 @@ slave服务器配置的主要内容：
 2. 使用master分配的用户账号读取master二进制日志
 3. 启用slave服务
 
-slave值配置server-id即可,方法和master的相同
+slave只配置server-id即可,方法和master的相同
 
 slave上登录mysql会话,配置后两项内容
 
@@ -115,20 +112,27 @@ show slave status\G;
 
 状态信息中`Slave_IO_Running`和`Slave_SQL_Running`都是yes即说明同步配置成功.
 
-# 读写分离
 
-## 应用层实现
+# 二进制日志
 
-读写分离应用层实现
-itcast
+记录所有与更新相关的操作(DDL,DML)
 
-## 中间件实现
+```sql
+mysql> show variables like 'log_bin%';
++---------------------------------+-------+
+| Variable_name                   | Value |
++---------------------------------+-------+
+| log_bin                         | OFF   |
+| log_bin_basename                |       |
+| log_bin_index                   |       |
+| log_bin_trust_function_creators | OFF   |
+| log_bin_use_v1_row_events       | OFF   |
++---------------------------------+-------+
+```
 
-mysql读写分离的配置:使用docker配置主从数据库
+可以使用`show binary logs;`命令查看所有的二进制日志.
+使用`show binlog events in <Log_name>`查看详细内容,
+另外,mysql提供了查看二进制日志的命令-`msyqlbinlog ../data/mysql-bin.000001`
 
 
-# 配合Redis缓存
-
-读之前-先查缓存
-写之后-更新缓存
-
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

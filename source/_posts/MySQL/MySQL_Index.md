@@ -8,10 +8,11 @@ tags:
 <!-- TOC -->
 
 - [索引](#索引)
-- [Index_type](#index_type)
 - [索引设置原则](#索引设置原则)
 - [索引的使用](#索引的使用)
     - [联合索引](#联合索引)
+- [全文索引](#全文索引)
+- [推荐](#推荐)
 
 <!-- /TOC -->
 
@@ -70,12 +71,6 @@ show keys from <table_name>;
 |Comment:||
 |Index_comment:||
 
-
-# Index_type
-
-BTREE
-
-
 # 索引设置原则
 
 1. 频繁被用作查询条件的字段应该创建索引
@@ -126,6 +121,64 @@ B+树按照从左到右的顺序来建立搜索树,
 mysql索引规则中要求联合索引要想使用第二个字段,必须先使用第一个字段,而且第一个索引必须是等值匹配
 
 ***最左前缀原则***
+
 最左前缀:查询条件最左条件匹配某个联合索引
 使用联合索引时,依据where条件中的最左条件选择使用的索引
 (id,name,password)
+
+<!--
+索引类型
+InnoDB引擎的索引实现,了解B+树和B树
+聚簇索引和非聚簇索引
+sql优化, 索引覆盖,延迟关联
+-->
+
+# 全文索引
+
+MySQL5.6开始,InnoDB引擎也支持全文索引<br/>
+全文索引,是一种通过建立倒排索引,快速匹配文档的方式.
+
+```sql
+create table <table_name> ([...], fulltext (<filed1>,<filed2>,...));
+alter table <table_name> add fulltext index <index_name> (<filed1>,<filed2>,...);
+create fulltext <index_name> on <table_name>(<filed1>,<filed2>,...);
+```
+
+使用:
+
+```sql
+-- match (<filed1>) against ('string')
+select * from user where match(`username`) against('foo' in boolean mode);
+```
+
+```sql
+mysql> show variables like 'ft%';
++--------------------------+----------------+
+| Variable_name            | Value          |
++--------------------------+----------------+
+| ft_boolean_syntax        | + -><()~*:""&| |
+| ft_max_word_len          | 84             |
+| ft_min_word_len          | 4              |
+| ft_query_expansion_limit | 20             |
+| ft_stopword_file         | (built-in)     |
++--------------------------+----------------+
+```
+依次为:
+1. IN BOOLEAN MODE的查询字符
+2. 最短索引字符串长度,默认值为4,修改后需重建索引
+3. 最长索引字符串长度,默认值为84,修改后需重建索引
+4. 查询扩展检索时取最相关的几个值用作二次查询
+5. 全文索引的过滤词文件
+
+重建索引:`repair table <table_name> quick`
+
+当表上存在全文索引时，就会隐式的建立一个名为FTS_DOC_ID的列，并在其上创建一个唯一索引，用于标识分词出现的记录行。你也可以显式的创建一个名为FTS_DOC_ID的列，但需要和隐式创建的列类型保持一致。
+
+部分内容有参考→[MySQL·引擎特性·InnoDB 全文索引简介](http://mysql.taobao.org/monthly/2015/10/01/)
+
+# 推荐
+
+[MySQL和Lucene索引对比分析](https://www.cnblogs.com/luxiaoxun/p/5452502.html)
+[MySQL索引背后的数据结构及算法原理](http://blog.codinglabs.org/articles/theory-of-mysql-index.html)
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
