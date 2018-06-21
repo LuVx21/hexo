@@ -1,0 +1,340 @@
+---
+title: MySQL:事务原理
+date:
+tags:
+- MySQL
+---
+
+<!-- TOC -->
+
+- [事务](#事务)
+- [命令](#命令)
+- [隔离级别的实现](#隔离级别的实现)
+    - [RU](#ru)
+    - [RC](#rc)
+    - [RR](#rr)
+    - [Serializable](#serializable)
+    - [总结](#总结)
+- [封锁协议](#封锁协议)
+- [锁](#锁)
+- [MVCC](#mvcc)
+- [参考](#参考)
+
+<!-- /TOC -->
+
+# 事务
+
+事务特性(ACID):
+* 原子性(Atomicity)
+* 一致性(Consistency)
+* 隔离性(Isolation)
+* 持久性(Durability)
+
+事务隔离级别:
+
+|隔离级别|说明|脏读(Dirty Read)|不可重复读(NonRepeatable Read)|幻读(Phantom Read)|加锁读|
+|:---|:---|:---|:---|:---|:---|:---|
+|未提交读(Read uncommitted)|最低级别,任何情况都无法保证|可能|可能|可能|×|
+|提交读(Read committed)||×|可能|可能|×|
+|可重复读(Repeatable read)|MySQL默认隔离级别|×|×|可能|×|
+|可串行化(Serializable)|强制事务串行执行,每次读都需要获得表级共享锁,读写相互都会阻塞|×|×|×|yes|
+
+> * 脏读:当前事务读取到未提交事务中的修改
+> * 不可重复读:在同一事务中两次读取的数据不一致(由其他事务删改现有数据引起)
+> * 幻读:简单的可以理解为在同一事务中两次读取的数据条数不一致(由其他事务增数据引起)
+
+RU级别下,读不会加任何锁,写会加排它锁,虽说此级别提高了并发性能,但几乎无法保证并发读取数据的正确性,通常在实际开发中不会使用,
+而串行级别会强制事务串行,会极大地降低数据库的并发能力,只有在并发要求不高,同时要求强数据一致性时才会使用.
+
+# 命令
+
+```sql
+-- 查看事务隔离级别
+select @@session.tx_isolation;
+-- 设置事务隔离级别(session范围)
+set session transaction isolation level read committed;
+-- 开启事务
+start transaction; -- 使用begin;也可
+-- 查看表的加锁情况
+select * from information_schema.INNODB_LOCKS;
+-- 事务状态
+select * from information_schema.INNODB_TRX;
+```
+
+# 隔离级别的实现
+
+
+```sql
+mysql> show create table user\G
+*************************** 1. row ***************************
+       Table: user
+Create Table: CREATE TABLE `user` (
+  `userid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(32) DEFAULT NULL,
+  `password` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8
+1 row in set (0.00 sec)
+mysql> select * from user where userid = '100';
++--------+-----------+----------+
+| userid | user_name | password |
++--------+-----------+----------+
+|    100 | foo       | foo      |
++--------+-----------+----------+
+```
+
+## RU
+
+读不加锁,写(增删改)加锁
+
+验证:
+session1:
+```sql
+mysql> set session transaction isolation level read uncommitted;begin; -- 步骤1
+mysql> select * from user where userid = '100'; -- 步骤3
+mysql> select * from user where userid = '100'; -- 步骤5:脏读:读取到session2的未提交事务的修改
++--------+-----------+----------+
+| userid | user_name | password |
++--------+-----------+----------+
+|    100 | foo       | foo1     |
++--------+-----------+----------+
+mysql> update user set password = 'foo2' where userid = '100'; -- 步骤6:此步会阻塞,因为session2的事务未提交
+Query OK, 1 row affected (32.86 sec)-- 步骤7后此更新才会执行,可以看出阻塞了32秒
+Rows matched: 1  Changed: 1  Warnings: 0
+```
+
+session2:
+```sql
+mysql> set session transaction isolation level read uncommitted;begin; -- 步骤2
+mysql> update user set password = 'foo1' where userid = '100'; -- 步骤4
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> commit; -- 步骤7
+Query OK, 0 rows affected (0.00 sec)
+```
+
+脏读产生的原因,
+RC是怎样解决的脏读?
+
+> 更改隔离级别时针对的是session级别,另开一个session仍然会是默认的RR级别,不要忘记修改session2
+
+## RC
+
+读不加锁,写(增删改)加锁
+
+验证:
+
+session1:
+```sql
+mysql> set session transaction isolation level read committed;begin; -- 步骤1
+mysql> select * from user where userid = '100'; -- 步骤3
+mysql> select * from user where userid = '100'; -- 步骤5:未读取到session2未提交事务的修改,避免了脏读
++--------+-----------+----------+
+| userid | user_name | password |
++--------+-----------+----------+
+|    100 | foo       | foo      |
++--------+-----------+----------+
+mysql> update user set password = 'foo2' where userid = '100'; -- 步骤6:此步会阻塞,因为session2的事务未提交
+ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+mysql> select * from user where userid = '100'; -- 步骤8:发生不可重复读:读取到session2已提交事务的修改
++--------+-----------+----------+
+| userid | user_name | password |
++--------+-----------+----------+
+|    100 | foo       | foo1     |
++--------+-----------+----------+
+```
+
+session2:
+```sql
+mysql> set session transaction isolation level read committed;begin; -- 步骤2
+mysql> update user set password = 'foo1' where userid = '100'; -- 步骤4:会加锁
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> commit; -- 步骤7
+```
+
+只有写写互斥,实际上是session2将userid='100'的数据行加锁,未commit前,session1是无法获取写锁的.
+由于userid是主键,是索引,能够快速过滤掉不会被修改的数据,因此加的是行锁,如果是非索引列,则会加表锁.
+
+```sql
+mysql> update user set password = 'foo1' where userid = '100'; -- session1
+mysql> update user set password = 'foo1' where userid = '101'; -- session2:不会阻塞(修改的不是同一条数据)
+
+mysql> update user set password = 'foo1' where user_name = 'foo'; -- session1
+mysql> update user set password = 'foo1' where user_name = 'xx'; -- session2:阻塞(即使修改的不是同一条数据)
+```
+
+实际使用中,针对非索引列的条件,MySQL为了性能也可能将非修改数据释放开,如上面会将user_name <> 'foo'的数据的锁释放.
+
+## RR
+
+session1
+```sql
+mysql> begin; -- 步骤1
+mysql> select * from user; -- 步骤3
++--------+-----------+----------+
+| userid | user_name | password |
++--------+-----------+----------+
+|    100 | foo       | foo      |
++--------+-----------+----------+
+mysql> select * from user; -- 步骤5:解决了脏读
++--------+-----------+----------+
+| userid | user_name | password |
++--------+-----------+----------+
+|    100 | foo       | foo      |
++--------+-----------+----------+
+mysql> update user set password = 'foo2' where userid = '100'; -- 步骤6:此步会阻塞,因为session2的事务未提交
+ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+mysql> select * from user; -- 步骤8:解决了不可重复读
++--------+-----------+----------+
+| userid | user_name | password |
++--------+-----------+----------+
+|    100 | foo       | foo      |
++--------+-----------+----------+
+mysql> select * from user; -- 步骤12:为什么没有发生幻读
++--------+-----------+----------+
+| userid | user_name | password |
++--------+-----------+----------+
+|    100 | foo       | foo      |
++--------+-----------+----------+
+```
+
+session2
+```sql
+mysql> begin; -- 步骤2
+mysql> update user set password = 'foo1' where userid = '100'; -- 步骤4:会加锁
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> commit; -- 步骤7
+mysql> begin; -- 步骤9
+mysql> insert into user values(null,'foo','bar'); -- 步骤10
+Query OK, 1 row affected (0.00 sec)
+mysql> commit; -- 步骤11
+```
+
+默认事务隔离级别,不用特地去配置
+
+所以RR级别是怎样解决了不可重复读的问题呢?
+如果是基于锁机制,在第一次读到对应数据后,对这些数据加行锁,其他事务无法修改,也就实现了可重复读,
+但其他insert一条也符合条件的数据并提交后,第二次读就会发现多了一条,这就是幻读,不能通过行锁解决.
+
+根据上面的示例可以看出,
+读数据后,session2事务仍然可以修改session1事务读的那些数据,
+由于写是加的X锁,所以可以推断读的时候并没有加锁,可重复读的读问题的解决没有基于锁机制.
+实际上是基于MVCC的,在session2事务修改后,session1第二次读的都已经不是最新的数据版本,而是数据数据快照.
+
+> 如果是基于时间戳呢,增加一个隐藏的时间戳字段,同样的如果是增加一个version字段呢?
+
+## Serializable
+
+读加共享锁,写加排他锁,读写互斥
+
+session1
+```sql
+mysql> set session transaction isolation level serializable;begin; -- 步骤1
+mysql> select * from user where userid = '100'; -- 步骤3
+```
+
+session2
+```sql
+mysql> set session transaction isolation level serializable;begin; -- 步骤2
+mysql> update user set password ='foo1' where userid = '100'; -- 步骤4:此步阻塞,说明session1的读操作加了锁(读写互斥)
+mysql> select * from user where userid = '100'; -- 步骤5:此步不阻塞,读锁为共享锁
+```
+
+步骤3 和 4调换顺序仍然会阻塞(阻塞读操作),除非前一步骤事务结束.
+
+## 总结
+
+只有在Serializable级别,读操作才会加锁,
+其他级别仅会对写写操作加锁,这也是导致脏读和不可重复读的原因
+
+# 封锁协议
+
+
+
+运用S锁和X锁对数据M加锁的时候,需要遵守的规则
+S锁:可以存在复数个,其他事务可以继续加S锁,不能加X锁
+X锁:
+
+# 锁
+
+S锁:共享锁,其它事务可以继续加共享锁,但不能加排它锁
+X锁:排它锁,其它事务不能再获得任何锁
+
+表锁:对整张表进行加锁,会导致并发能力下降,如DDL,无条件的写操作,未使用索引的有条件写操作等.
+行锁:只锁定使用的数据,并发能力强,如使用了索引的写操作
+
+悲观锁:读写都要加锁
+乐观锁:
+
+
+# MVCC
+
+MVCC是基于乐观锁的思想实现,并且只在RC,RR这两个级别下工作,其他级别和MVCC不兼容.
+
+在InnoDB中，每行数据后会增加两个隐藏字段,存储的是系统版本号,
+一个记录数据的创建时的系统版本号,另一个记录数据被删除(非物理删除)时的版本号.
+
+每开启一个新事务,事务的版本号就会递增
+
+根据MVCC理论分析可重复读的实现过程:
+
+1. 事务1创建了一条数据用于测试,事务2读取了这条数据
+
+|userid|user_name|password|create|delete
+|:---|:---|:---|:---|:---|
+|100|foo|foo|1||
+
+2. 事务3修改这条数据
+
+|userid|user_name|password|create|delete
+|:---|:---|:---|:---|:---|
+|100|foo|foo|1|3|
+|100|foo|foo1|3||
+
+3. 事务2再读取这条数据时,只会读取创建版本号小于当前事务版本的数据,即事务修改前的数据
+
+通过读数据快照,不用再对目标数据加锁,因而其他事务能够修改,同时实现可重复读.
+
+**MVCC解决幻读**
+
+在上面RR级别的验证测试中,事务2新增了一条数据并提交,根据幻读的成因,在步骤12应该发现幻读现象的,但实际上没有,
+这就说明MySQL在RR级别中,是解决了幻读的读问题的,
+理论上,只有串行化级别才能够解决幻读问题,RR级别能够解决其实是依靠的MVCC,只读取小于当前事务版本的数据.
+
+虽说在RR级别解决了幻读的读问题,这个读只是select读(快照读),读的是数据快照
+但update,delete等语句其实是读+写操作,类似的语句还有
+```sql
+-- 读取最新的数据,其他事务未提交同样也会发生阻塞
+select * from user lock in share mode;
+select * from user for update;
+```
+这些语句也有读的阶段(当前读),再去读旧版本的数据就不行了,这个时候就必须要加锁了.
+为了解决当前读中的幻读问题,MySQL事务使用了Next-Key锁.
+
+Next-Key:行锁+GAP锁(间隙锁)
+
+```sql
+-- 排除非索引列锁表的影响
+create index index_username on user(user_name);
+update user set password = 'foo1' where user_name = 'foo'; -- 事务1
+insert into user values(null,'foo1','xx'); -- 事务2:不阻塞,说明没有锁表
+insert into user values(null,'foo','xx'); -- 事务2:阻塞
+```
+```sql
+update user set user_name = 'foo' where password = 'bar'; -- 事务1
+insert into user values(null,'xxx','bar'); -- 事务2:阻塞
+insert into user values(null,'xxx','bar1'); -- 事务2:阻塞,即使新加的数据符合不符合session1的条件,所以不是GPA锁,而是表锁
+```
+
+行锁防止别的事务修改或删除,GAP锁防止别的事务新增,
+行锁和GAP锁结合形成的的Next-Key锁共同解决了RR级别在写数据时的幻读问题.
+
+# 参考
+
+1. [Innodb中的事务隔离级别和锁的关系](https://tech.meituan.com/innodb-lock.html)
+2. [MySQL 5.6 Reference Manual](https://dev.mysql.com/doc/refman/5.6/en/)
+
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
