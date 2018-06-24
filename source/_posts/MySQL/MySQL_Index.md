@@ -1,8 +1,8 @@
 ---
-title: 索引
+title: MySQL:索引
 date:
 tags:
--
+- MySQL
 ---
 
 <!-- TOC -->
@@ -178,7 +178,7 @@ mysql> show variables like 'ft%';
 
 # 推荐
 
-[MySQL和Lucene索引对比分析](https://www.cnblogs.com/luxiaoxun/p/5452502.html)
-[MySQL索引背后的数据结构及算法原理](http://blog.codinglabs.org/articles/theory-of-mysql-index.html)
+1. [MySQL和Lucene索引对比分析](https://www.cnblogs.com/luxiaoxun/p/5452502.html)
+2. [MySQL索引背后的数据结构及算法原理](http://blog.codinglabs.org/articles/theory-of-mysql-index.html)
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

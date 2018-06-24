@@ -15,9 +15,10 @@ tags:
     - [RR](#rr)
     - [Serializable](#serializable)
     - [总结](#总结)
-- [封锁协议](#封锁协议)
 - [锁](#锁)
+    - [封锁协议](#封锁协议)
 - [MVCC](#mvcc)
+- [ACID](#acid)
 - [参考](#参考)
 
 <!-- /TOC -->
@@ -56,9 +57,15 @@ set session transaction isolation level read committed;
 -- 开启事务
 start transaction; -- 使用begin;也可
 -- 查看表的加锁情况
-select * from information_schema.INNODB_LOCKS;
+select * from information_schema.innodb_locks;
 -- 事务状态
-select * from information_schema.INNODB_TRX;
+select * from information_schema.innodb_trx;
+
+begin;
+select * from user;
+select trx_id from information_schema.innodb_trx where trx_mysql_thread_id = connection_id();
+commit;
+-- show engine innodb status;
 ```
 
 # 隔离级别的实现
@@ -246,16 +253,11 @@ mysql> select * from user where userid = '100'; -- 步骤5:此步不阻塞,读�
 
 ## 总结
 
+RC:当前语句执行前其他事务提交的修改就能看到
+RR:当前事务开始前其他事务提交的修改才能看到,即使提交发生在当前事务的中途时刻,也是无法看到
+
 只有在Serializable级别,读操作才会加锁,
 其他级别仅会对写写操作加锁,这也是导致脏读和不可重复读的原因
-
-# 封锁协议
-
-
-
-运用S锁和X锁对数据M加锁的时候,需要遵守的规则
-S锁:可以存在复数个,其他事务可以继续加S锁,不能加X锁
-X锁:
 
 # 锁
 
@@ -265,30 +267,39 @@ X锁:排它锁,其它事务不能再获得任何锁
 表锁:对整张表进行加锁,会导致并发能力下降,如DDL,无条件的写操作,未使用索引的有条件写操作等.
 行锁:只锁定使用的数据,并发能力强,如使用了索引的写操作
 
-悲观锁:读写都要加锁
-乐观锁:
+悲观锁:读写整个过程都要加锁,依靠数据库提供的锁机制,实现一致性锁定读,为了提高性能,派生出各种不同粒度(表锁,行锁),性质(X,S锁)的锁
+乐观锁:每行添加一个version字段,随着更新,version递增,写入的时候,比较版本号,写入的版本小于当前版本号则更新失败,除了使用版本号以外,也可以使用时间戳,本质上是一样的.
 
+## 封锁协议
+
+运用S锁和X锁对数据M加锁的时候,需要遵守的规则
+S锁:可以存在复数个,其他事务可以继续加S锁,不能加X锁
+X锁:
+
+
+**从锁的角度分析脏读的成因及解决**
+脏读:RU级别下,写操作加X锁,由于读不加锁,所以能够读到未提交的数据.
+不可重复读:RC级别下,写同样加X锁,读不加锁,引入MVCC解决了脏读问题,因为事务列表read view的更新频率(或时机)导致,解决不可重复读问题.
+幻读:没有锁表的查询,是能够插入新数据,从而导致幻读,RR级别下,使用MVCC,Next-Key一定成都上解决了幻读问题,彻底解决是在串行级别.
 
 # MVCC
 
-MVCC是基于乐观锁的思想实现,并且只在RC,RR这两个级别下工作,其他级别和MVCC不兼容.
+MVCC是基于乐观锁的思想实现,并且只在RC,RR这两个级别下工作,其他级别和MVCC不兼容,因为RU总是读最新的数据,串行化总是串行执行事务.
 
-在InnoDB中，每行数据后会增加两个隐藏字段,存储的是系统版本号,
+根据<<高性能MySQL>>书中的记述,在InnoDB中,每行数据后会增加两个隐藏字段,存储的是系统版本号,
 一个记录数据的创建时的系统版本号,另一个记录数据被删除(非物理删除)时的版本号.
 
-每开启一个新事务,事务的版本号就会递增
-
-根据MVCC理论分析可重复读的实现过程:
+在这种设计下分析可重复读的实现过程:
 
 1. 事务1创建了一条数据用于测试,事务2读取了这条数据
 
-|userid|user_name|password|create|delete
+|userid|user_name|password|create|delete|
 |:---|:---|:---|:---|:---|
 |100|foo|foo|1||
 
 2. 事务3修改这条数据
 
-|userid|user_name|password|create|delete
+|userid|user_name|password|create|delete|
 |:---|:---|:---|:---|:---|
 |100|foo|foo|1|3|
 |100|foo|foo1|3||
@@ -296,6 +307,130 @@ MVCC是基于乐观锁的思想实现,并且只在RC,RR这两个级别下工作,
 3. 事务2再读取这条数据时,只会读取创建版本号小于当前事务版本的数据,即事务修改前的数据
 
 通过读数据快照,不用再对目标数据加锁,因而其他事务能够修改,同时实现可重复读.
+
+然而,官方文档中如下记述:
+
+> Internally, InnoDB adds three fields to each row stored in the database. 
+> A 6-byte DB_TRX_ID field indicates the transaction identifier for the last transaction that inserted or updated the row. 
+> Also, a deletion is treated internally as an update where a special bit in the row is set to mark it as deleted. 
+> Each row also contains a 7-byte DB_ROLL_PTR field called the roll pointer. The roll pointer points to an undo log record written to the rollback segment. 
+> If the row was updated, the undo log record contains the information necessary to rebuild the content of the row before it was updated. 
+> A 6-byte DB_ROW_ID field contains a row ID that increases monotonically as new rows are inserted. 
+> If InnoDB generates a clustered index automatically, the index contains row ID values. Otherwise, the DB_ROW_ID column does not appear in any index.
+
+引自[InnoDB Multi-Versioning](https://dev.mysql.com/doc/refman/5.6/en/innodb-multi-versioning.html)
+
+归纳一下:
+
+1. DB_TRX_ID:标记该行数据被插入或最后一次被修改的事务id
+2. DB_ROLL_PTR:回滚指针,执行该行数据的undo log记录,包含被更新前的数据信息
+3. DB_ROW_ID:行id,通常不被用于构建索引,只在聚集索引中被使用
+
+也就是说,其实是添加了3个字段,而这3个字段也比书上的2个字段作用要大.
+目前没能在官网上找到和书上一致的解释,但在MySQL5.1文档[中译本](http://tool.oschina.net/apidocs/apidoc?api=mysql-5.1-zh)的"15.2.12. 多版本的实施"章节中有相似的添加两个字段的说明,但和MySQL5.6的也仅仅差一个`DB_ROW_ID`.
+
+下面说明这种方式下MVCC的实现:
+
+read view的可见性判断代码
+
+
+```java
+trx_id_t    low_limit_id;
+            /*!< The read should not see any transaction
+            with trx id >= this value. In other words,
+            this is the "high water mark". */
+trx_id_t    up_limit_id;
+            /*!< The read should see all trx ids which
+            are strictly smaller (<) than this value.
+            In other words,
+            this is the "low water mark". */
+trx_id_t*    trx_ids;/*!< Additional trx ids which the read should
+            not see: typically, these are the read-write
+            active transactions at the time when the read
+            is serialized, except the reading transaction
+            itself; the trx ids in this array are in a
+            descending order. These trx_ids should be
+            between the "low" and "high" water marks,
+            that is, up_limit_id and low_limit_id. */
+trx_id_t    creator_trx_id;
+            /*!< trx id of creating transaction, or
+            0 used in purge */
+......
+{
+    if (trx_id < view->up_limit_id) {
+        return(true);
+    } else if (trx_id >= view->low_limit_id) {
+        return(false);
+    } else {
+        ulint    lower = 0;
+        ulint    upper = view->n_trx_ids - 1;
+        ut_a(view->n_trx_ids > 0);
+        do { // 二分查找是否在活跃事务列表中
+            ulint        mid    = (lower + upper) >> 1;
+            trx_id_t    mid_id    = view->trx_ids[mid];
+
+            if (mid_id == trx_id) {
+                return(FALSE);
+            } else if (mid_id < trx_id) {
+                if (mid > 0) {
+                    upper = mid - 1;
+                } else {
+                    break;
+                }
+            } else {
+                lower = mid + 1;
+            }
+        } while (lower <= upper);
+    }
+    return(true);
+}
+```
+
+源码位置:
+> mysql-5.6.40/storage/innobase/include/read0read.h
+> mysql-5.6.40/storage/innobase/include/read0read.ic
+> mysql-5.6.40/storage/innobase/read/read0read.cc
+
+为实现RC,RR级别下非锁定一致性读,引入了[`read view`](http://mysql.taobao.org/monthly/2017/12/01/),它存储了当前系统下活跃的事务id.
+low_limit_id:高水线,事务id >= low_limit_id的记录,对于当前事务都是不可见的,值为未分配id的最小值,即出现过的最大事务id+1,参看源码`trx0sys.h`(创建read view之后的事务修改了该数据,所以不可读)
+up_limit_id:低水线,事务id < up_limit_id ,对于当前事务都是可见的,值为活跃id中最小的(创建read view时已经提交了的事务修改了该数据,所以可读)
+trx_ids:活跃事务id列表,降序存储,RR读时,其中的事务对当前事务来说都是不可读的(自身事务除外).
+
+由于DB_ROW_ID的特殊作用,以下分析不考虑这个字段.RR级别下:
+
+1. 事务1创建了一条数据用于测试,经过一系列事务后,假设2,4活跃,3完毕,到达事务5读取了这条数据(此时low_limit_id=6,up_limit_id=2,trx_ids={2,4,5})
+
+|userid|user_name|password|DB_TRX_ID|DB_ROLL_PTR|
+|:---|:---|:---|:---|:---|
+|100|foo|foo|1||
+
+2. 事务6修改这条数据,并提交
+
+`update user set password = 'foo1' where userid = '100';`
+
+|userid|user_name|password|DB_TRX_ID|DB_ROLL_PTR|
+|:---|:---|:---|:---|:---|
+|100|foo|foo1|6|指向undo log的指针|
+
+|userid|user_name|password|DB_TRX_ID|DB_ROLL_PTR|
+|:---|:---|:---|:---|:---|
+|100|foo|foo|1||
+
+3. 事务5再读取这条数据时,发现其DB_TRX_ID为事务6,大于等于low_limit_id,表明修改数据的事务在本事务之后开启,标记该数据不可读,并根据回滚指针查找旧版本数据,旧数据版本为1,小于up_limit_id,表明修改旧数据的事务在本事务之前就已经提交,可以读取,于是读到这条旧数据,保证了可重复读,如果是多次修改,就重复这个过程.
+
+4. 假设这之后事务4也修改了这条数据,事务5再读取,事务4在trx_ids在trx_ids中且不是当前事务本身,因此也不可读,查找旧数据.
+
+在RC级别下重现上述过程,最终结果我们知道,步骤3时能读取事务6的修改,4时能读取到事务4的修改,原因是什么?
+这是因为和RR不同的是,每次select读时都会重建read view,所以提交过的事务被移出Read View,所以事务6,事务4都不在trx_ids中,因此是可读的,从而造成了不可重复读现象.
+
+
+> With REPEATABLE READ isolation level, the snapshot is based on the time when the first read operation is performed. With READ COMMITTED > isolation level, the snapshot is reset to the time of each consistent read operation.
+引自[consistent read](https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_consistent_read)
+
+上面的文字虽然是解释一致性读和快照的,但实质上也是read view ,因为要根据read view判断读取哪个数据或redo log.
+RR:Read View不是在事务开始阶段创建,而是在第一次select读时,证明就是:先后开启两个事务,事务2更新提交后,此时事务1开始第一次select读,能够读到事务2的修改(宏观上就是可重复读保证的是两次select读是一致的).
+RC:每条select语句执行时都会更新Read View,移除结束的事务.
+
 
 **MVCC解决幻读**
 
@@ -330,6 +465,22 @@ insert into user values(null,'xxx','bar1'); -- 事务2:阻塞,即使新加的数
 
 行锁防止别的事务修改或删除,GAP锁防止别的事务新增,
 行锁和GAP锁结合形成的的Next-Key锁共同解决了RR级别在写数据时的幻读问题.
+
+> MVCC是解决读写并行的幻读,而next key lock 是解决写写并行的幻读。
+
+实际上,RR级别只是一定程度上解决了幻读问题,并没有彻底解决.
+如,虽然不能读到新加的数据,但可以修改这条数据,之后就能读取到这条数据.
+
+# ACID
+
+原子性,持久性保证一致性,隔离性本质上也可以说是保证了一致性.
+
+* 一组事务必须全部成功或全部失败,否则无法保证一致性.
+* 对失败的事务进行回滚,成功的事务进行持久化,即使是宕机,重启后,根据undo log,redo log进行故障恢复,保证最终一致性.
+* 各个事务并发执行的结果和串行执行的结果是一致的.
+
+***数据库中的隔离性是怎样实现的;原子性、一致性、持久性又是如何实现的;***
+
 
 # 参考
 
