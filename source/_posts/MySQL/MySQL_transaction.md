@@ -34,8 +34,8 @@ tags:
 事务隔离级别:
 
 |隔离级别|说明|脏读(Dirty Read)|不可重复读(NonRepeatable Read)|幻读(Phantom Read)|加锁读|
-|:---|:---|:---|:---|:---|:---|:---|
-|未提交读(Read uncommitted)|最低级别,任何情况都无法保证|可能|可能|可能|×|
+|:---|:---|:---|:---|:---|:---|
+|未提交读(Read uncommitted)|最低级别,任何情况都无法保证|可能|可能|可能|×|
 |提交读(Read committed)||×|可能|可能|×|
 |可重复读(Repeatable read)|MySQL默认隔离级别|×|×|可能|×|
 |可串行化(Serializable)|强制事务串行执行,每次读都需要获得表级共享锁,读写相互都会阻塞|×|×|×|yes|
@@ -425,6 +425,7 @@ trx_ids:活跃事务id列表,降序存储,RR读时,其中的事务对当前事�
 
 
 > With REPEATABLE READ isolation level, the snapshot is based on the time when the first read operation is performed. With READ COMMITTED > isolation level, the snapshot is reset to the time of each consistent read operation.
+
 引自[consistent read](https://dev.mysql.com/doc/refman/5.7/en/glossary.html#glos_consistent_read)
 
 上面的文字虽然是解释一致性读和快照的,但实质上也是read view ,因为要根据read view判断读取哪个数据或redo log.
