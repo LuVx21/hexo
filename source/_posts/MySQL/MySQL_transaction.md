@@ -278,6 +278,7 @@ X锁:
 
 
 **从锁的角度分析脏读的成因及解决**
+
 脏读:RU级别下,写操作加X锁,由于读不加锁,所以能够读到未提交的数据.
 不可重复读:RC级别下,写同样加X锁,读不加锁,引入MVCC解决了脏读问题,因为事务列表read view的更新频率(或时机)导致,解决不可重复读问题.
 幻读:没有锁表的查询,是能够插入新数据,从而导致幻读,RR级别下,使用MVCC,Next-Key一定成都上解决了幻读问题,彻底解决是在串行级别.
@@ -387,13 +388,16 @@ trx_id_t    creator_trx_id;
 ```
 
 源码位置:
-> mysql-5.6.40/storage/innobase/include/read0read.h
-> mysql-5.6.40/storage/innobase/include/read0read.ic
-> mysql-5.6.40/storage/innobase/read/read0read.cc
+> * mysql-5.6.40/storage/innobase/include/read0read.h
+> * mysql-5.6.40/storage/innobase/include/read0read.ic
+> * mysql-5.6.40/storage/innobase/read/read0read.cc
 
 为实现RC,RR级别下非锁定一致性读,引入了[`read view`](http://mysql.taobao.org/monthly/2017/12/01/),它存储了当前系统下活跃的事务id.
+
 low_limit_id:高水线,事务id >= low_limit_id的记录,对于当前事务都是不可见的,值为未分配id的最小值,即出现过的最大事务id+1,参看源码`trx0sys.h`(创建read view之后的事务修改了该数据,所以不可读)
+
 up_limit_id:低水线,事务id < up_limit_id ,对于当前事务都是可见的,值为活跃id中最小的(创建read view时已经提交了的事务修改了该数据,所以可读)
+
 trx_ids:活跃事务id列表,降序存储,RR读时,其中的事务对当前事务来说都是不可读的(自身事务除外).
 
 由于DB_ROW_ID的特殊作用,以下分析不考虑这个字段.RR级别下:

@@ -24,6 +24,7 @@ tags:
 - [git clean](#git-clean)
 - [删除:git rm](#删除git-rm)
 - [移动:git mv](#移动git-mv)
+- [比较:git diff](#比较git-diff)
 - [配置提交模板](#配置提交模板)
 - [彻底删除提交](#彻底删除提交)
 
@@ -239,6 +240,16 @@ git rm --cached <filename>
 
 可以用于重命名
 
+# 比较:git diff
+
+```shell
+# 工作空间<->暂存空间
+git diff
+# 暂存空间<->版本库
+git diff --cached
+# 工作空间<->版本库
+git diff HEAD
+```
 # 配置提交模板
 
 ```
@@ -259,3 +270,5 @@ git config –-global core.editor vim
 > 参考:
 
 [Pro Git Ed1](http://iissnan.com/progit/)
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

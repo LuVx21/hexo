@@ -9,6 +9,7 @@ tags:
 - [标签:tag](#标签tag)
 - [分支:branch](#分支branch)
 - [储藏:stash](#储藏stash)
+- [patch](#patch)
 - [](#)
 - [分析](#分析)
 
@@ -72,6 +73,23 @@ git config --global alias.stash-unapply '!git stash show -p | git apply -R'
 git stash branch <branch_name>
 ```
 
+# patch
+
+`git diff`生成patch文件
+```shell
+# 测试是否可以apply
+git apply --check <patch_file>
+# apply patch
+git apply <patch_file>
+# 直接apply,冲突的手动解决
+git apply --reject <patch_file>
+```
+或
+`git format-patch`生成patch文件
+
+```shell
+git am <patch_file>
+```
 # 
 
 git blame -L 10,+2 request.js
