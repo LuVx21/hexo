@@ -161,7 +161,7 @@ mysql> commit; -- 步骤7
 ```
 
 只有写写互斥,实际上是session2将userid='100'的数据行加锁,未commit前,session1是无法获取写锁的.
-由于userid是主键,是索引,能够快速过滤掉不会被修改的数据,因此加的是行锁,如果是非索引列,则会加表锁.
+由于userid是主键,是索引,能够快速过滤掉不会被修改的数据,因此加的是行锁(行锁其实是加在索引上的),如果是非索引列,则会加表锁.
 
 ```sql
 mysql> update user set password = 'foo1' where userid = '100'; -- session1
