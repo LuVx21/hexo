@@ -9,6 +9,7 @@ tags:
 
 - [架构组成](#架构组成)
     - [Connector & Container](#connector--container)
+- [Q&A](#qa)
 - [参考](#参考)
 
 <!-- /TOC -->
@@ -35,7 +36,13 @@ Socket来进行连接
 Request和Response是按照HTTP协议来封装
 需要实现TCP/IP协议和HTTP协议
 
+# Q&A
+
+如何优化Tomcat,常见的优化方式有哪些;
 
 # 参考
 
-[Tomcat](http://blog.csdn.net/xlgen157387/article/details/79006434)
+1. [Tomcat](http://blog.csdn.net/xlgen157387/article/details/79006434)
+
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
