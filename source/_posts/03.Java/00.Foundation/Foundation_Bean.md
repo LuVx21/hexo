@@ -82,3 +82,5 @@ po的规范(Persistent Object 持久化对象)
   <jsp:setProperty property="age" name="p" value="18"/>  //基本类型自动转换
 ```
 > Tips:标签可以替换Java脚本.
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
