@@ -1,12 +1,9 @@
 ---
-title: Java 基础
-date: 2017-10-29
+title: Java 内部类
+date: 
 tags:
 - Java
-- Fileter
-- Web
 ---
-
 <!-- TOC -->
 
 - [内部类](#内部类)
@@ -24,6 +21,12 @@ tags:
 4. 方便编写线程代码
 
 个人觉得第一点是最重要的原因之一，内部类的存在使得Java的多继承机制变得更加完善。在这之前，Java 的继承机制主要由接口和单根继承实现，通过实现多个接口里的方法，看似能够实现多继承，但是并不总是高效的，因为一旦我们继承了一个接口就必然要实现它内部定义的所有方法。现在我们可以通过内部类多次继承某个具体类或者接口，省去一些不必要的实现动作。
+
+> 普通内部类和静态内部类能被继承,
+>
+> 内部类不会被重写:即父子类中有同名的内部类,各自的该内部类属于各自.
+
+
 
 先来看一段示例代码来方便理解利用内部类完善多继承机制：
 
@@ -231,3 +234,5 @@ public class InnerClassSingleton {
 此外，我们 Integer 类中的 IntegerCache 就是一个静态的内部类，它不需要访问外围类中任何成员，却通过内部定义的一些属性和方法为外围类提供缓存服务。
 
 > [Java内部类详解](https://www.cnblogs.com/latter/p/5665015.html)
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

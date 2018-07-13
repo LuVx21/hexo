@@ -15,6 +15,7 @@ tags:
     - [Statement](#statement)
     - [ResultSet](#resultset)
 - [PreparedStatment](#preparedstatment)
+- [连接池](#连接池)
 
 <!-- /TOC -->
 
@@ -121,3 +122,22 @@ void getObject(String fieldName):按照字段名(取数).
 1. 防止SQL注入
 2. 插入的数据值可以使用占位符替代(问号).
 3. 支持SQL语句预编译(数据库执行快)
+
+
+# 连接池
+
+缓存起来的链接对象存储在连接池中,特点是共享,重复使用的.
+
+数据库连接和关闭开销很大,为提高性能,会在线程池中维护一定量的连接对象,在收到连接数据库请求时,取出连接使用.
+没有可使用的连接时,或进入排队序列等待或创建新的连接,具体取决于连接池的配置.
+使用结束则放回连接池,其他请求可以继续使用.整个过程减少了创建数据库连接的时间.
+
+应用服务器负责以下等功能:
+* 创建连接对象
+* 添加它们到连接池中
+* 分派连接对象给请求
+* 回收使用完毕的连接对象
+* 重新将连接放回连接池
+
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

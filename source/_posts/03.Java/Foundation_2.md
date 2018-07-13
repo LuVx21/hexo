@@ -243,7 +243,6 @@ Proxy.newProxyInstance(被代理对象.getClass().getClassLoader(), 被代理对
 
 
 ////////////////////////////////////////////////
-上午回顾:
 注解:
 	注释:给程序员看的
 	注解:给jvm看的
