@@ -3,6 +3,8 @@
 [![forks](https://img.shields.io/github/forks/luvx21/hexo.svg?style=flat&label=Fork)](https://github.com/luvx21/hexo/fork)
 
 
+本库实质内容在`source/_posts`目录下,结构如下:
+
 |目录|说明|
 |:---|:---|
 |00.Interview|面试相关|

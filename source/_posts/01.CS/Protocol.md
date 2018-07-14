@@ -29,7 +29,7 @@ tags:
 
 数据在源站自上而下递交的过程实际上就是不断封装的过程，而到达目的地后自下而上递交的过程就是不断拆封的过程
 
-![](https://raw.githubusercontent.com/LuVx21/hexo/master/source/_posts/01.CS/img/PDU封装实例.png)
+![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/01.CS/img/PDU封装实例.png)
 
 IP:不可靠协议,不会重复,使用ICMP协议通知失败
 ICMP:
@@ -40,7 +40,7 @@ SNMP:简单网络管理协议
 
 开放系统互连基本参考模型OSI/RM (Open System Interconnection Reference Model)
 
-![](https://raw.githubusercontent.com/LuVx21/hexo/master/source/_posts/01.CS/img/典型网络体系结构.png)
+![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/01.CS/img/典型网络体系结构.png)
 
 
 # TCP/IP四层结构

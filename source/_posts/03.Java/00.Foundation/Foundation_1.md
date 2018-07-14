@@ -12,24 +12,6 @@ tags:
 
 <!-- /TOC -->
 
-# 基本类型
-
-8种=4整型+2浮点型+1字符型+1布尔型
-
-| 类型    | 位数 | 默认  | 说明                                          |
-| :------ | :--- | :---- | :-------------------------------------------- |
-| byte    | 8    | 0     |                                               |
-| short   | 16   | 0     |                                               |
-| int     | 32   | 0     |                                               |
-| long    | 64   | 0L    |                                               |
-| float   | 32   | 0.0f  | 单精度,8位有效数字,数量级38                   |
-| double  | 64   | 0.0d  | 双精度,17位有效数字,数量级308                 |
-| char    | 16   |       | 单一的Unicode字符,范围:\u0000~\uffff(0~65535) |
-| boolean | 1    | false |                                               |
-
-> BigInteger 支持任意精度的整数
-> BigDecimal 支持任何精度的浮点数
-
 # 00
 
 **`==`和`equals`和`hashCode`的区别**
@@ -52,7 +34,7 @@ Set集合中,元素无序且不可重复,其不可重复的实现则是依靠has
 分别是4,2,8个字节(byte),每个字节对应8位(bit)
 Java采用unicode编码,使用2个字节表示一个字符
 
-![](https://raw.githubusercontent.com/LuVx21/hexo/master/source/_posts/99.img/type_trans.jpg)
+![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/type_trans.jpg)
 
 当将一个数值范围小的类型赋给一个数值范围大的数值型变量,jvm在编译过程中会将此数值的类型自动提升,
 如两个short类型数据相加,之后要强转为short.而是用`+=`则会把后面的数值自动强制转换为前面的类型,然后在那块内存上直接修改数值
