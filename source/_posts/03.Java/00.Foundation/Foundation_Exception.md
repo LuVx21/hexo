@@ -65,6 +65,12 @@ Java程序运行过程中,如果出现异常就会生成一个异常对象,封�
 
 重写方法时,只能和原方法抛出的异常一致或不抛出异常,不能将异常的范围方法或缩小.
 
+finally语句块的代码无论是否出现异常都会执行,当try中存在return语句时,并不会立即执行return语句,而是进入finally中,若其中有return
+
+等终止程序的代码则会执行,不会再返回try中的return语句,如果不存在这样的语句就会返回执行try中的return语句,
+
+另外,当try中的return的内容有计算,如`return i+=1,return dosome()`,则会先执行语句但不return,之后执行finally
+
 # 方法
 
 | 方法              | 作用                   |
