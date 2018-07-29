@@ -5,23 +5,23 @@
 本库实质内容在[source/_posts](./source/_posts)目录下,结构如下:
 
 
-| 目录          | 说明               |
-| :------------ | :----------------- |
-| 00.Interview  | 面试相关           |
-| 01.CS         | 计算机科学         |
-| 02.Data       | 数据处理           |
-| 03.Java       | Java基础及开发知识 |
-| 04.Linux      |                    |
-| 05.Distribute | 分布式架构         |
-| 06.Pattern    | 设计模式           |
-| 07.MySQL      |                    |
-| 08.Redis      |                    |
-| 09.Python     |                    |
-| 10.Algorithm  |                    |
-| MongoDB       |                    |
-| Oracle        |                    |
-| Web           |                    |
-| tips          |                    |
+| 目录                                          | 说明               |
+| :-------------------------------------------- | :----------------- |
+| [00.Interview](./source/_posts/00.Interview)  | 面试相关           |
+| [01.CS](./source/_posts/01.CS)                | 计算机科学         |
+| [02.Data](./source/_posts/02.Data)            | 数据处理           |
+| [03.Java](./source/_posts/03.Java)            | Java基础及开发知识 |
+| [04.Linux](./source/_posts/04.Linux)          |                    |
+| [05.Distribute](./source/_posts/05.Distribute) | 分布式架构         |
+| [06.Pattern](./source/_posts/06.Pattern)      | 设计模式           |
+| [07.MySQL](./source/_posts/07.MySQL)          |                    |
+| [08.Redis](./source/_posts/08.Redis)          |                    |
+| [09.Python](./source/_posts/09.Python)        |                    |
+| [10.Algorithm](./source/_posts/10.Algorithm)  |                    |
+| [MongoDB](./source/_posts/MongoDB)            |                    |
+| [Oracle](./source/_posts/Oracle)              |                    |
+| [Web](./source/_posts/Web)                    |                    |
+| [tips](./source/_posts/tips)                  |                    |
 
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
