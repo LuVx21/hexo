@@ -114,10 +114,13 @@ Connection: keep-alive
     * 401 unauthorized,表示发送的请求需要有通过 HTTP 认证的认证信息
     * 403 forbidden,表示对请求资源的访问被服务器拒绝
     * 404 not found,表示在服务器上没有找到请求的资源
+    * 412 Precondition Failed,前置条件失败
     * 416 Requested Range Not Satisfiable,范围请求是请求的范围越界时返回
 * 5××:服务器端错误,服务器不能处理合法请求
     * 500 internal sever error,表示服务器端在执行请求时发生了错误
     * 503 service unavailable,表明服务器暂时处于超负载或正在停机维护,无法处理请求
+
+[更多](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)
 
 ## Get与POST的区别
 
@@ -204,21 +207,21 @@ Session机制采用的是在服务器端保持状态,但也会在客户端留下
 * 服务器进程停止
 这3中情形下会删除Session
 
-|方法|说明|
-|:---|:---|
-|void setAttribute(String attribute, Object value)|设置Session属性.value参数可以为任何Java Object.通常为Java Bean.value信息不宜过大|
-|String getAttribute(String attribute)|返回Session属性|
-|Enumeration getAttributeNames()|返回Session中存在的属性名|
-|void removeAttribute(String attribute)|移除Session属性|
-|String getId()|返回Session的ID.该ID由服务器自动创建,不会重复|
-|long getCreationTime()|返回Session的创建日期.返回类型为long,常被转化为Date类型,例如:Date createTime = new Date(session.get CreationTime())|
-|long getLastAccessedTime()|返回Session的最后活跃时间.返回类型为long|
-|int getMaxInactiveInterval()|返回Session的超时时间.单位为秒.超过该时间没有访问,服务器认为该Session失效|
-|void setMaxInactiveInterval(int second)|设置Session的超时时间.单位为秒|
-|void putValue(String attribute, Object value)|不推荐的方法.已经被setAttribute(String attribute, Object Value)替代|
-|Object getValue(String attribute)|不被推荐的方法.已经被getAttribute(String attr)替代|
-|boolean isNew()|返回该Session是否是新创建的|
-|void invalidate()|使该Session失效|
+| 方法                                              | 说明                                                         |
+| :------------------------------------------------ | :----------------------------------------------------------- |
+| void setAttribute(String attribute, Object value) | 设置Session属性.value参数可以为任何Java Object.通常为Java Bean.value信息不宜过大 |
+| String getAttribute(String attribute)             | 返回Session属性                                              |
+| Enumeration getAttributeNames()                   | 返回Session中存在的属性名                                    |
+| void removeAttribute(String attribute)            | 移除Session属性                                              |
+| String getId()                                    | 返回Session的ID.该ID由服务器自动创建,不会重复                |
+| long getCreationTime()                            | 返回Session的创建日期.返回类型为long,常被转化为Date类型,例如:Date createTime = new Date(session.get CreationTime()) |
+| long getLastAccessedTime()                        | 返回Session的最后活跃时间.返回类型为long                     |
+| int getMaxInactiveInterval()                      | 返回Session的超时时间.单位为秒.超过该时间没有访问,服务器认为该Session失效 |
+| void setMaxInactiveInterval(int second)           | 设置Session的超时时间.单位为秒                               |
+| void putValue(String attribute, Object value)     | 不推荐的方法.已经被setAttribute(String attribute, Object Value)替代 |
+| Object getValue(String attribute)                 | 不被推荐的方法.已经被getAttribute(String attr)替代           |
+| boolean isNew()                                   | 返回该Session是否是新创建的                                  |
+| void invalidate()                                 | 使该Session失效                                              |
 
 # 缓存
 
@@ -227,11 +230,27 @@ Session机制采用的是在服务器端保持状态,但也会在客户端留下
 ETag:资源的唯一标识.
 将缓存资源的 ETag 值放入 If-None-Match 首部,服务器接收后和该资源的ETag对比,如果一致,说明自上次被缓存依赖该资源没有更新,则响应304,告知浏览器使用缓存.
 
+If-Match: ETag-value
+如果匹配,返回304,否则重发资源
+
+If-None-Match: ETag-value
+不匹配(服务端资源有更新),返回412(Precondition Failed)
+
 Last-Modified:
 包含在服务器发送的响应报文中,代表资源的最后修改时间.但是它是一种弱校验器,因为只能精确到一秒,所以它通常作为 ETag 的备用方案.
 
-If-Modified-Since:
+If-Modified-Since: Last-Modified-value
 包含在请求中,服务器接收后和服务器上的版本最后修改时间进行对比,若一致,则返回304,告知浏览器使用缓存
+
+If-Unmodified-Since: Last-Modified-value
+包含在请求中, 如果Last-Modified不一致(服务端资源有更新),则返回412(Precondition Failed),一致则忽略此字段
+
+[参考阅读](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-Unmodified-Since)
+
+> Etag相关的处理比Last-Modified优先级高
+> 412状态码通常发生在写操作时,如上传或修改文件时,发现服务器上对应资源已经被更新了,所以不可继续写操作
+
+[HTTP缓存机制及原理](https://www.cnblogs.com/chenqf/p/6386163.html)
 
 # 虚拟主机
 
@@ -302,3 +321,5 @@ HTTP/1.1:
 [Cookie&Session](https://my.oschina.net/xianggao/blog/395675?fromerr=GC9KVenE)
 [图解 HTTP：Web开发相关的一些核心基础概念](https://blog.csdn.net/justloveyou_/article/details/72803200)
 [1](https://www.cnblogs.com/heluan/p/8620312.html)
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
