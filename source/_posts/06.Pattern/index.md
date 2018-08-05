@@ -6,23 +6,9 @@ tags:
 ---
 <!-- TOC -->
 
-- [[面向对象设计原则](Principle.md)](#面向对象设计原则principlemd)
 - [Pattern](#pattern)
-- [参考:](#参考)
 
 <!-- /TOC -->
-
-# [面向对象设计原则](Principle.md)
-
-|设计原则|定义|使用频率|
-|:---|:---|:---|
-|单一职责原则 (Single Responsibility Principle, SRP)|一个类只负责一个功能领域中的相应职责|★★★★☆|
-|开闭原则 (Open-Closed Principle, OCP)|软件实体应对扩展开放,而对修改关闭|★★★★★|
-|里氏代换原则 (Liskov Substitution Principle, LSP)|所有引用基类对象的地方能够透明地使用其子类的对象|★★★★★|
-|依赖倒转原则 (Dependence Inversion Principle, DIP)|要针对接口编程,而不是针对实现编程|★★★★★|
-|接口隔离原则 (Interface Segregation Principle, ISP)|使用多个专门的接口,而不使用单一的总接口|★★☆☆☆|
-|合成复用原则 (Composite Reuse Principle, CRP)|尽量使用对象组合,而不是继承来达到复用的目的|★★★★☆|
-|迪米特法则 (Law of Demeter, LoD)|一个软件实体应当尽可能少地与其他实体发生相互作用|★★★☆☆|
 
 # Pattern
 
@@ -64,8 +50,3 @@ tags:
 |                        | [模板方法模式(Template Method)](模板方法模式.md)     | 4        | 6        |
 |                        | [访问者模式(Visitor)](访问者模式.md)                 | 8        | 2        |
 
-
-
-# 参考:
-
-[1](https://gof.quanke.name)
