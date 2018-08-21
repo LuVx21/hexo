@@ -17,7 +17,7 @@ tags:
 | long    | 8byte(64)  | 0L    |                                               |
 | float   | 4byte(32)  | 0.0f  | 单精度,8位有效数字,数量级38                   |
 | double  | 8byte(64)  | 0.0d  | 双精度,17位有效数字,数量级308                 |
-| char    | 2byte(16)  |       | 单一的Unicode字符,范围:\u0000~\uffff(0~65535) |
+| char    | 2byte(16)  |       | 单一的Unicode字符,范围:\u0000~\uffff(0~65535),能存储一个汉字 |
 | boolean | 1位        | false |                                               |
 
 > BigInteger 支持任意精度的整数
