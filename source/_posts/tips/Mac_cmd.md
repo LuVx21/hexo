@@ -15,29 +15,33 @@ tags:
 
 # Mac命令
 
+```bash
 -- 显示隐藏文件
 defaults write com.apple.finder AppleShowAllFiles -bool true
 -- 不显示隐藏文件
 defaults write com.apple.finder AppleShowAllFiles -bool false
+```
 
-使用chflags命令隐藏文件或文件夹
+**隐藏文件或文件夹**
 
-1. chflags hidden ~/Desktop/macx
-
-
+```bash
+chflags hidden ~/Desktop/macx
 hidden-nohidden
+```
+
+**创建有密码保护的压缩文件**
 
 
-创建有密码保护的压缩文件
+```bash
+zip -e protected.zip ~/Desktop/macx.txt
+```
 
+**在Finder标题栏显示完整路径**
 
-1. zip -e protected.zip ~/Desktop/macx.txt
-
-4.在Finder标题栏显示完整路径
-在“终端”中输入下面的命令：
+```bash
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
 killall Finder
-
+```
 
 ## Brew
 
@@ -74,3 +78,4 @@ brew install tree
 
 tree -L 1 -d:显示当前目录下一级目录
 
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
