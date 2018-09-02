@@ -1,5 +1,5 @@
 ---
-title: B/B+树
+title: 数据结构:B/B+树
 date:
 tags:
 - MySQL
