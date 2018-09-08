@@ -3,8 +3,19 @@ title: Java基础:数据类型
 tags:
 - Java
 ---
-[TOC]
+<!-- TOC -->
 
+- [基本类型](#基本类型)
+- [to String](#to-string)
+    - [方法1:Object.toString()](#方法1objecttostring)
+    - [方法2:(String)object](#方法2stringobject)
+    - [方法3:String.valueOf(object)](#方法3stringvalueofobject)
+- [to Num](#to-num)
+- [to Array](#to-array)
+- [to Date](#to-date)
+- [进制](#进制)
+
+<!-- /TOC -->
 # 基本类型
 
 8种=4整型+2浮点型+1字符型+1布尔型
@@ -22,6 +33,38 @@ tags:
 
 > BigInteger 支持任意精度的整数
 > BigDecimal 支持任何精度的浮点数
+
+**强/弱类型**
+
+```shell
+# 弱类型:代表性语言为JavaScript
+> "1"+2
+'12'
+
+# 弱类型:代表性语言为Python
+>>> "1"+2
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: cannot concatenate 'str' and 'int' objects
+```
+
+**动态/静态类型**
+
+```shell
+# 动态类型:代表性语言为Python,JavaScript
+>>> a = 1
+>>> type(a)
+<type 'int'>
+>>> a = "a"
+>>> type(a)
+<type 'str'>
+
+# 静态类型:代表性语言为Java
+int a = 1;
+a = "a";
+Error:(7, 13) java: 不兼容的类型: java.lang.String无法转换为int
+```
+> 以上强/弱/动态/静态类型的示例仅为参考, 用于理解术语的概念
 
 # to String
 
