@@ -140,8 +140,8 @@ public void initMap() {
 }
 
 public String getRandomString() {
-    int start = Integer.parseInt("0000", 16);
-    int end = Integer.parseInt("00ff", 16);
+    int start = 0x0000;
+    int end = 0x00ff;
     Random random = new Random();
     char[] chars = new char[10];
     for (int i = 0; i < 10; i++) {
