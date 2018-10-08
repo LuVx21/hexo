@@ -8,19 +8,71 @@ tags:
 <!-- TOC -->
 
 - [Mac命令](#mac命令)
+    - [dock](#dock)
+    - [Mission Control](#mission-control)
+    - [Launchpad](#launchpad)
     - [Brew](#brew)
     - [tree](#tree)
+- [配置](#配置)
+    - [Mission Control](#mission-control-1)
 
 <!-- /TOC -->
 
 # Mac命令
 
+隐藏文件
 ```bash
--- 显示隐藏文件
+# 显示
 defaults write com.apple.finder AppleShowAllFiles -bool true
--- 不显示隐藏文件
+# 不显示
 defaults write com.apple.finder AppleShowAllFiles -bool false
 ```
+
+## dock
+
+Dock 隐藏显示
+```shell
+# 时间设为最短,秒
+defaults write com.apple.dock autohide-delay -int 0
+# 恢复
+defaults delete com.apple.Dock autohide-delay
+```
+
+Dock透明度
+```shell
+# 透明
+defaults write com.apple.dock hide-mirror -bool true
+# 非透明
+defaults write com.apple.dock hide-mirror -bool false
+```
+
+## Mission Control
+
+
+## Launchpad
+
+```shell
+defaults write com.apple.dock springboard-rows -int 6 # 每列数量
+defaults write com.apple.dock springboard-columns -int 8 # 每行数量
+killall Dock
+```
+
+恢复
+```shell
+defaults write com.apple.dock springboard-rows Default
+defaults write com.apple.dock springboard-columns Default
+killall Dock
+```
+
+defaults write com.apple.dock springboard-show-duration -int 0
+defaults write com.apple.dock springboard-hide-duration -int 0
+killall Dock
+
+defaults delete com.apple.dock springboard-show-duration
+defaults delete com.apple.dock springboard-hide-duration
+killall Dock
+
+rm ~/Library/Application\ Support/Beyond\ Compare/registry.dat
 
 **隐藏文件或文件夹**
 
@@ -49,11 +101,11 @@ brew install tree
 
 
 ## tree
-中文解释：tree
-功能说明：以树状图列出目录的内容。
-语　　法：tree [-aACdDfFgilnNpqstux][-I <范本样式>][-P <范本样式>][目录...]
-补充说明：执行tree指令，它会列出指定目录下的所有文件，包括子目录里的文件。
-参　　数：
+中文解释: tree
+功能说明: 以树状图列出目录的内容。
+语　　法: tree [-aACdDfFgilnNpqstux][-I <范本样式>][-P <范本样式>][目录...]
+补充说明: 执行tree指令，它会列出指定目录下的所有文件，包括子目录里的文件。
+参　　数: 
   -a   显示所有文件和目录。
   -A   使用ASNI绘图字符显示树状图而非以ASCII字符组合。
   -C   在文件和目录清单加上色彩，便于区分各种类型。
@@ -77,5 +129,43 @@ brew install tree
 
 
 tree -L 1 -d:显示当前目录下一级目录
+
+
+
+# 配置
+
+vscode命令启动:
+
+`alias vs='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'`
+
+java安装路径:
+
+`/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home`
+
+## Mission Control
+
+```shell
+# 系统默认的为0.2到0.25。数字越大，越慢。如果想要取消动画效果，改成0dock的动画效果设置：
+defaults write com.apple.dock expose-animation-duration -int 0
+# defaults write com.apple.dock expose-animation-duration -float 0.1
+killall Dock
+defaults delete com.apple.dock expose-animation-duration
+killall Dock
+```
+
+defaults write com.apple.dock autohide-time-modifier -float 0.12
+killall Dock
+
+同样的道理。
+如果想要改回系统默认的设置：
+
+defaults delete com.apple.dock expose-animation-duration
+killall Dock
+
+
+
+delete
+rm ~/Library/Application\ Support/Beyond\ Compare/registry.dat
+
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
