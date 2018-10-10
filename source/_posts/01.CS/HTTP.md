@@ -87,7 +87,7 @@ HTTP/1.1 200 OK
 Location: http://luvx.xyz
 Content-Type: text/html; charset=utf-8
 Content-Length: 19847
-Content-Encoding：gzip
+Content-Encoding: gzip
 Server: Microsoft-IIS/7.5
 Cache-Control: private, max-age=30
 Expires: Mon, 25 May 2016 03:20:33 GMT
@@ -99,7 +99,7 @@ Connection: keep-alive
 响应体
 ```
 > 首行内容:协议及其版本 + 状态码 + 原因短语
-> Connection: keep-alive和Http协议的无状态:HTTP是一个无状态的面向连接的协议,无状态不代表HTTP不能保持TCP连接,更不能代表HTTP使用的是UDP协议（无连接）
+> Connection: keep-alive和Http协议的无状态:HTTP是一个无状态的面向连接的协议,无状态不代表HTTP不能保持TCP连接,更不能代表HTTP使用的是UDP协议(无连接)
 > HTTP/1.1起,默认都开启了Keep-Alive,保持连接特性,从而维持长连接(建立一次连接,能进行多次HTTP通信)
 
 响应码:
@@ -262,7 +262,7 @@ HTTP/1.1 使用虚拟主机技术,使得一台服务器拥有多个域名,并且
 
 # HTTPS
 
-Https是身披SSL(Secure Socket Layer)外壳的Http,运行于SSL上,SSL运行于TCP之上,是添加了加密和认证机制的HTTP,具有了加密（防窃听）、认证（防伪装）和完整性保护（防篡改）特性.
+Https是身披SSL(Secure Socket Layer)外壳的Http,运行于SSL上,SSL运行于TCP之上,是添加了加密和认证机制的HTTP,具有了加密(防窃听), 认证(防伪装)和完整性保护(防篡改)特性.
 SSL:Secure Socket Layer
 TSL:Transport Layer Security,其前身是SSL
 
@@ -270,16 +270,16 @@ HTTPS协议的工作流程:
 HTTPS在传输数据之前需要客户端(浏览器)与服务端(网站)之间进行一次握手,在握手过程中将确立双方加密传输数据的密码信息.
 TLS/SSL协议不仅仅是一套加密传输的协议,TLS/SSL中使用了非对称加密,对称加密以及HASH算法.
 
-握手过程的简单描述如下：
+握手过程的简单描述如下:
 
 1. 浏览器将自己支持的一套加密规则发送给网站.
 2. 网站从中选出一组加密算法与HASH算法,并将自己的身份信息以证书的形式发回给浏览器.证书里面包含了网站地址,加密公钥,以及证书的颁发机构等信息.
-3. 获得网站证书之后浏览器要做以下工作：
+3. 获得网站证书之后浏览器要做以下工作:
     1. 验证证书的合法性(颁发证书的机构是否合法,证书中包含的网站地址是否与正在访问的地址一致等),如果证书受信任,则浏览器栏里面会显示一个小锁头,否则会给出证书不受信的提示.
     2. 如果证书受信任,或者是用户接受了不受信的证书,浏览器会生成一串随机数的密码,并用证书中提供的公钥加密.
     3. 使用约定好的HASH计算握手消息,并使用生成的随机数对消息进行加密,最后将之前生成的所有信息发送给网站.
 
-4. 网站接收浏览器发来的数据之后要做以下的操作：
+4. 网站接收浏览器发来的数据之后要做以下的操作:
     1. 使用自己的私钥将信息解密取出密码,使用密码解密浏览器发来的握手消息,并验证HASH是否与浏览器发来的一致.
     2. 使用密码加密一段握手消息,发送给浏览器.
 
@@ -290,15 +290,16 @@ TLS/SSL协议不仅仅是一套加密传输的协议,TLS/SSL中使用了非对�
 由于浏览器生成的密码是整个数据加密的关键,因此在传输的时候使用了非对称加密算法对其加密.
 
 二者之间存在如下不同:
-端口不同:Http与Http使用不同的连接方式,用的端口也不一样,前者是80,后者是443;
-资源消耗:和HTTP通信相比,Https通信会由于加减密处理消耗更多的CPU和内存资源;
-开销:Https通信需要证书,而证书一般需要向认证机构购买;
-Https的加密机制是一种共享密钥加密和公开密钥加密并用的混合加密机制.
+* 端口不同:Http与Http使用不同的连接方式,用的端口也不一样,前者是80,后者是443;
+* 资源消耗:和HTTP通信相比,Https通信会由于加减密处理消耗更多的CPU和内存资源;
+* 开销:Https通信需要证书,而证书一般需要向认证机构购买;
+
+> Https的加密机制是一种共享密钥加密和公开密钥加密并用的混合加密机制.
 
 # Web安全
 
-* 跨站脚本攻击Cross-Site Scripting, XSS）,将代码注入到用户浏览的网页上，使用户记载并执行.
-* 跨站请求伪造（Cross-site request forgery，CSRF）攻击者通过一些技术手段欺骗用户的浏览器去访问一个自己曾经认证过的网站并执行一些操作
+* 跨站脚本攻击Cross-Site Scripting, XSS),将代码注入到用户浏览的网页上，使用户记载并执行.
+* 跨站请求伪造(Cross-site request forgery，CSRF)攻击者通过一些技术手段欺骗用户的浏览器去访问一个自己曾经认证过的网站并执行一些操作
     * 检查 Referer 字段
     * 添加校验 Token
 * SQL注入
@@ -329,11 +330,8 @@ HTTP/1.1:
 1.1:
 
 * 默认支持长连接
-
 * 支持只发送header信息(不带任何body信息),如果服务器认为客户端有权限请求服务器,则返回100,否则返回401.客户端如果接受到100,才开始把请求body发送到服务器.
-
 * 支持传送内容的一部分,即只请求需要的部分,不请求的可能是已经有了.
-
 * HTTP1.0是没有host域的,HTTP1.1才支持这个参数.
 
 2.0:
@@ -345,7 +343,7 @@ HTTP/1.1:
 # 参考
 
 [Cookie&Session](https://my.oschina.net/xianggao/blog/395675?fromerr=GC9KVenE)
-[图解 HTTP：Web开发相关的一些核心基础概念](https://blog.csdn.net/justloveyou_/article/details/72803200)
+[图解 HTTP: Web开发相关的一些核心基础概念](https://blog.csdn.net/justloveyou_/article/details/72803200)
 [1](https://www.cnblogs.com/heluan/p/8620312.html)
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
