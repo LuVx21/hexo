@@ -105,7 +105,7 @@ brew install tree
 功能说明: 以树状图列出目录的内容。
 语　　法: tree [-aACdDfFgilnNpqstux][-I <范本样式>][-P <范本样式>][目录...]
 补充说明: 执行tree指令，它会列出指定目录下的所有文件，包括子目录里的文件。
-参　　数: 
+参　　数:
   -a   显示所有文件和目录。
   -A   使用ASNI绘图字符显示树状图而非以ASCII字符组合。
   -C   在文件和目录清单加上色彩，便于区分各种类型。
@@ -167,5 +167,11 @@ killall Dock
 delete
 rm ~/Library/Application\ Support/Beyond\ Compare/registry.dat
 
+
+
+允许任何来源的应用:
+```shell
+sudo spctl --master-disable
+```
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
