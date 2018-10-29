@@ -10,8 +10,8 @@ tags:
 - [工作流程](#工作流程)
 - [Request](#request)
     - [请求方式](#请求方式)
-- [Response](#response)
     - [Get与POST的区别](#get与post的区别)
+- [Response](#response)
 - [Cookie&Session](#cookiesession)
     - [Cookie](#cookie)
     - [Session](#session)
@@ -84,17 +84,21 @@ Cookie:
 
 ## 请求方式
 
-* PUT: 修改文件,无验证机制,有安全问题
-* DELETE: 删除文件
-* POST: 传输实体,用于提交或更改资源
-* GET: 获取资源
-* HEAD: 获取报文首部
-* PATCH: 部分修改资源
-* OPTIONS: 查询支持的方法
-* CONNECT: 要求使用隧道协议连接代理,要求在与代理服务器通信时建立隧道,使用 SSL和 TLS协议把通信内容加密后经网络隧道传输.
-* TRACE: 追踪路径
+RESTful
 
-**GET和POST区别**
+| 方式    | 操作                                                         | 幂等 | 安全 |
+| :------ | :----------------------------------------------------------- | :--- | :--- |
+| PUT     | 修改文件,无验证机制,有安全问题                               | ○ | ✘ |
+| DELETE  | 删除文件                                                     |○     | ✘ |
+| POST    | 传输实体,用于提交或更改资源                                  | ✘   | ✘ |
+| GET     | 获取资源                                                     | ○ | ○ |
+| HEAD    | 获取报文首部                                                 |      |      |
+| PATCH   | 部分修改资源                                                 |      |      |
+| OPTIONS | 查询支持的方法                                               |      |      |
+| CONNECT | 要求使用隧道协议连接代理,要求在与代理服务器通信时建立隧道,使用 SSL和 TLS协议把通信内容加密后经网络隧道传输. |      |      |
+| TRACE   | 追踪路径                                                     |      |      |
+
+## Get与POST的区别
 
 本质上就是TCP链接, 是传递数据的方式, 因HTTP的规定和浏览器/服务器的限制, 使用过程中有所不同.
 
@@ -104,12 +108,14 @@ Cookie:
 | 参数 | 参数包含在URL,有长度限制(浏览器限制)且不安全,请求体为空 | URL无长度限制,请求体传递参数,安全 |
 | 2    | 浏览器回退时是无害的                                    | 浏览器回退时再次提交请求          |
 | 3    | 会被浏览器主动cache                                     | 除非手动设置才会cache             |
-| 5    | 只接受ASCII字符                                         | 无限制                            |
+| 5    | 只接受ASCII字符                                         | 支持标准字符集                       |
 | 6    | 产生一个TCP数据包                                       | 产生两个TCP数据包                 |
 
 > GET: 浏览器会把http header和data一并发送出去
 >
 > POST: 浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+> GET请求中的数据,非英文或数字会被重新编码,这是为了避免歧义,如空格被编码为`+`,类似于中文等则被BASE64加密.
+> 数据本身含有`&`,`=`会被编码为`%26`,`%3D`以和key=value中的符合区分开
 
 [GET和POST两种基本请求方法的区别](https://www.cnblogs.com/logsharing/p/8448446.html)
 
@@ -156,23 +162,12 @@ Connection: keep-alive
     * 403 forbidden,表示对请求资源的访问被服务器拒绝
     * 404 not found,表示在服务器上没有找到请求的资源
     * 412 Precondition Failed,前置条件失败
-    * 416 Requested Range Not Satisfiable,范围请求是请求的范围越界时返回
+    * 416 Requested Range Not Satisfiable,范围请求时请求的范围越界时返回
 * 5××:服务器端错误,服务器不能处理合法请求
     * 500 internal sever error,表示服务器端在执行请求时发生了错误
     * 503 service unavailable,表明服务器暂时处于超负载或正在停机维护,无法处理请求
 
 [更多](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)
-
-## Get与POST的区别
-
-* 功能:GET一般用来从服务器上获取资源,不会改变服务器上的资源,POST一般用来更新服务器上的资源
-* REST服务:GET总是得到同样的内容,POST每次请求对资源的改变并不一定是相同的
-* 请求参数形式:GET请求数据放在HTTP请求头上,以`?`分割URL和数据,以`&`连接数据,只支持ASCII字符;POST将数据放在HTTP请求报文的请求体中,支持标准字符集
-* 安全性:POST更加安全,POST不安全(PUT,DELETE同样)
-* 请求大小:GET请求受限于url的长度,POST则无限制
-
-> GET请求中的数据,非英文或数字会被重新编码,这是为了避免歧义,如空格被编码为`+`,类似于中文等则被BASE64加密.
-> 数据本身含有`&`,`=`会被编码为`%26`,`%3D`以和key=value中的符合区分开
 
 # Cookie&Session
 
