@@ -1,9 +1,9 @@
 ---
-title: Java Fileter
+title: Java Filter
 date: 2017-10-29
 tags:
 - Java
-- Fileter
+- Filter
 - Web
 ---
 <!-- TOC -->
@@ -17,7 +17,7 @@ tags:
 # 关于
 
 过滤请求和响应
-作用:	自动登录,统一编码,过滤关键字等作用
+作用:    自动登录,统一编码,过滤关键字等作用
 
 > Filter是一个接口
 
@@ -52,14 +52,14 @@ url-pattern配置
 web.xml中的配置
 ```xml
 <filter>
-	<filter-name>AutoLoginFilter</filter-name>
-	<filter-class>org.luvx.filter.AutoLoginFilter</filter-class>
+    <filter-name>AutoLoginFilter</filter-name>
+    <filter-class>org.luvx.filter.AutoLoginFilter</filter-class>
 </filter>
 <filter-mapping>
-	<filter-name>AutoLoginFilter</filter-name>
-	<url-pattern>/*</url-pattern>
-	<dispatcher>FORWARD</dispatcher>
-	<dispatcher>REQUEST</dispatcher>
+    <filter-name>AutoLoginFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
 </filter-mapping>
 ```
 
@@ -71,13 +71,13 @@ web.xml中的配置
 # 案例1:自动登录
 
 ```sql
-		create database day16;
-		use day16;
-		create table user(
-			id int primary key auto_increment,
-			username varchar(20),
-			password varchar(20)
-		);
+create database day16;
+use day16;
+create table user(
+    id int primary key auto_increment,
+    username varchar(20),
+    password varchar(20)
+);
 ```
 画面上有'记住用户名'和'自动登录'两个多选框
 
@@ -93,58 +93,58 @@ LoginServlet.Java
 
 ```Java
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//0.设置编码
-		request.setCharacterEncoding("utf-8");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //0.设置编码
+        request.setCharacterEncoding("utf-8");
 
-		//1.获取用户名和密码
-		String username=request.getParameter("username");
-		String password=request.getParameter("password");
+        //1.获取用户名和密码
+        String username=request.getParameter("username");
+        String password=request.getParameter("password");
 
-		//2.调用service'
-		User user = null;
-		try {
-			user = new UserService().login(username,password);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        //2.调用service'
+        User user = null;
+        try {
+            user = new UserService().login(username,password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-		//3.判断user是否为空
-		if(user == null){
-			request.setAttribute("msg", "用户名和密码不匹配");
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
-			return;
-		}else{
-			request.getSession().setAttribute("user", user);
-			//判断是否勾选了自动登录  若勾选了需要将用户名和密码放入cookie中, 写回浏览器
-			if("ok".equals(request.getParameter("autoLogin"))){
-				//创建cookie 注意中文
-				Cookie c=new Cookie("autologin", username+"-"+password);
-				c.setMaxAge(3600);
-				c.setPath(request.getContextPath()+"/");
+        //3.判断user是否为空
+        if(user == null){
+            request.setAttribute("msg", "用户名和密码不匹配");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
+        }else{
+            request.getSession().setAttribute("user", user);
+            //判断是否勾选了自动登录  若勾选了需要将用户名和密码放入cookie中, 写回浏览器
+            if("ok".equals(request.getParameter("autoLogin"))){
+                //创建cookie 注意中文
+                Cookie c=new Cookie("autologin", username+"-"+password);
+                c.setMaxAge(3600);
+                c.setPath(request.getContextPath()+"/");
 
-				response.addCookie(c);
-			}
+                response.addCookie(c);
+            }
 
-			//判断是否勾选了记住用户名 若勾选了需要将用户名放入cookie中 写回浏览器
-			if("ok".equals(request.getParameter("saveName"))){
-				//创建cookie
-				Cookie c=new Cookie("savename", URLEncoder.encode(username, "utf-8"));
-				c.setMaxAge(3600);
-				c.setPath(request.getContextPath()+"/");
+            //判断是否勾选了记住用户名 若勾选了需要将用户名放入cookie中 写回浏览器
+            if("ok".equals(request.getParameter("saveName"))){
+                //创建cookie
+                Cookie c=new Cookie("savename", URLEncoder.encode(username, "utf-8"));
+                c.setMaxAge(3600);
+                c.setPath(request.getContextPath()+"/");
 
-				response.addCookie(c);
-			}
-			//页面重定向
-			response.sendRedirect(request.getContextPath()+"/success.jsp");
-		}
-	}
+                response.addCookie(c);
+            }
+            //页面重定向
+            response.sendRedirect(request.getContextPath()+"/success.jsp");
+        }
+    }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }
 
 ```
@@ -158,57 +158,56 @@ AutoLoginFilter.Java
 5. 当user不为空的时候将user放入session中
 
 ```Java
-public class AutoLoginFilter implements Filter{
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
-			throws IOException, ServletException {
-		//1.强转
-		HttpServletRequest request =(HttpServletRequest) req;
-		HttpServletResponse response =(HttpServletResponse) resp;
+public class AutoLoginFilter implements Filter {
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+            throws IOException, ServletException {
+        //1.强转
+        HttpServletRequest request =(HttpServletRequest) req;
+        HttpServletResponse response =(HttpServletResponse) resp;
 
-		//2.完成自动登录
-		//2.1 判断session中有无登录登录用户 没有的话继续自动登录
-		User user = (User) request.getSession().getAttribute("user");
-		if(user == null){
-			//没有用户  需要自动登录
-			//2.2 判断访问的资源是否和登录注册相关,若相关则不需要自动登录
-			String path = request.getRequestURI();
-			if(!path.contains("/login")){
+        //2.完成自动登录
+        //2.1 判断session中有无登录登录用户 没有的话继续自动登录
+        User user = (User) request.getSession().getAttribute("user");
+        if(user == null){
+            //没有用户  需要自动登录
+            //2.2 判断访问的资源是否和登录注册相关,若相关则不需要自动登录
+            String path = request.getRequestURI();
+            if(!path.contains("/login")){
 
-				//2.3获取指定的cookie
-				Cookie c = CookUtils.getCookieByName("autologin", request.getCookies());
-				//判断cookie是否为空
-				//若不为空 获取值(username和passowrd) 调用serivce完成登录  判断user是否为空 不为空 放入session
-				if(c != null){
-					String username=c.getValue().split("-")[0];
-					String password=c.getValue().split("-")[1];
+                //2.3获取指定的cookie
+                Cookie c = CookUtils.getCookieByName("autologin", request.getCookies());
+                //判断cookie是否为空
+                //若不为空 获取值(username和passowrd) 调用serivce完成登录  判断user是否为空 不为空 放入session
+                if(c != null){
+                    String username=c.getValue().split("-")[0];
+                    String password=c.getValue().split("-")[1];
 
-					//调用serivce完成登录
-					try {
-						user = new UserService().login(username, password);
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+                    //调用serivce完成登录
+                    try {
+                        user = new UserService().login(username, password);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
 
-					if(user!=null){
-						//将user放入session中
-						request.getSession().setAttribute("user", user);
-					}
-				}
-			}
-		}
-		//3.放行
-		chain.doFilter(request, response);
-	}
+                    if(user!=null){
+                        //将user放入session中
+                        request.getSession().setAttribute("user", user);
+                    }
+                }
+            }
+        }
+        //3.放行
+        chain.doFilter(request, response);
+    }
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
 
-	@Override
-	public void destroy() {
-	}
-
+    @Override
+    public void destroy() {
+    }
 }
 ```
 
@@ -216,8 +215,8 @@ public class AutoLoginFilter implements Filter{
 # 案例2:统一字符编码
 
 分析:
-	filter 配置路径/* 过滤器的第一个位置
-	在filter中重写getParameter(加强:只对request.getParameter()进行加强)
+    filter 配置路径/* 过滤器的第一个位置
+    在filter中重写getParameter(加强:只对request.getParameter()进行加强)
 
 方法加强的方式:
 
@@ -234,11 +233,6 @@ public class AutoLoginFilter implements Filter{
 
 ```Java
 public class EncodingFilter1 implements Filter {
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
-
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
             throws IOException, ServletException {
@@ -248,12 +242,10 @@ public class EncodingFilter1 implements Filter {
 
         //创建代理对象
         HttpServletRequest requestProxy = (HttpServletRequest) Proxy.newProxyInstance(HttpServletRequest.class.getClassLoader(), request.getClass().getInterfaces(), new InvocationHandler() {
-
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 if ("getParameter".equals(method.getName())) {
                     String m = request.getMethod();
-
                     if ("get".equalsIgnoreCase(m)) {
                         String s = (String) method.invoke(request, args);//相当于  request.getParameter(args);
                         return new String(s.getBytes("iso8859-1"), "utf-8");
@@ -271,8 +263,11 @@ public class EncodingFilter1 implements Filter {
     }
 
     @Override
-    public void destroy() {
+    public void init(FilterConfig filterConfig) throws ServletException {
     }
 
+    @Override
+    public void destroy() {
+    }
 }
 ```

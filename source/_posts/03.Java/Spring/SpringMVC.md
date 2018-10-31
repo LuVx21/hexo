@@ -68,31 +68,71 @@ tags:
 
 图片内容引用自[springMVC执行流程及原理](https://blog.csdn.net/liangzi_lucky/article/details/52459378)
 
-1. 所有的请求都提交给DispatcherServlet
-2. DispatcherServlet查询HandlerMapping, 找到处理请求的Controller
-3. DispatcherServlet将请求提交到目标Controller
-4. Controller进行业务处理, 返回一个ModelAndView
-5. Dispathcher查询ViewResolver视图解析器, 找到ModelAndView对象指定的视图对象
-6. 视图对象进行渲染并返回给客户端
-
-1. 用户向服务器发送请求, 请求被SpringMVC的前端控制器DispatcherServlet截获.
-2. DispatcherServlet对请求的URL（统一资源定位符）进行解析, 得到URI(请求资源标识符), 然后根据该URI, 调用HandlerMapping获得该Handler配置的所有相关的对象, 包括Handler对象以及Handler对象对应的拦截器, 这些对象都会被封装到一个HandlerExecutionChain对象当中返回.
-3. DispatcherServlet根据获得的Handler, 选择一个合适的HandlerAdapter. HandlerAdapter的设计符合面向对象中的单一职责原则, 代码结构清晰, 便于维护, 最为重要的是, 代码的可复制性高.HandlerAdapter会被用于处理多种Handler, 调用Handler实际处理请求的方法.
-4. 
-
-提取请求中的模型数据, 开始执行Handler(Controller). 在填充Handler的入参过程中, 根据配置spring将帮助做一些额外的工作
-消息转换: 将请求的消息, 如json, xml等数据转换成一个对象, 将对象转换为指定的响应信息.
-数据转换: 对请求消息进行数据转换, 如String转换成Integer. Double等.
-数据格式化: 对请求的消息进行数据格式化, 如将字符串转换为格式化数字或格式化日期等.
-数据验证: 验证数据的有效性如长度, 格式等, 验证结果存储到BindingResult或Error中.
-
-5. Handler执行完成后, 向DispatcherServlet返回一个ModelAndView对象, ModelAndView对象中应该包含视图名或视图模型.
-6. 根据返回的ModelAndView对象, 选择一个合适的ViewResolver(视图解析器)返回给DispatcherServlet.
-7. ViewResolver结合Model和View来渲染视图.
-8. 将视图渲染结果返回给客户端.
+|   No   |    说明                                     |
+| :--- | :----------------------------------------------------------- |
+| 1    | 用户向服务器发送请求, 请求被SpringMVC的前端控制器DispatcherServlet截获. |
+| 2    | DispatcherServlet对请求的URL(统一资源定位符)进行解析, 得到URI(请求资源标识符), 然后根据该URI, 调用HandlerMapping获得该Handler配置的所有相关的对象, 包括Handler对象以及Handler对象对应的拦截器, 这些对象都会被封装到一个HandlerExecutionChain对象当中返回.<br/>`protected HandlerExecutionChain getHandler(HttpServletRequest request)` |
+| 3    | DispatcherServlet根据获得的Handler, 选择一个合适的HandlerAdapter.HandlerAdapter会被用于处理多种Handler, 调用Handler实际处理请求的方法. |
+| 4    | 提取请求中的模型数据, 开始执行Handler(Controller). 在填充Handler的入参过程中, 根据配置spring将帮助做一些额外的工作<br/>消息转换: 将请求的消息, 如json, xml等数据转换成一个对象, 将对象转换为指定的响应信息.<br/>数据转换: 对请求消息进行数据转换, 如String转换成Integer. Double等.<br/>数据格式化: 对请求的消息进行数据格式化, 如将字符串转换为格式化数字或格式化日期等.<br/>数据验证: 验证数据的有效性如长度, 格式等, 验证结果存储到BindingResult或Error中. |
+| 5    | Handler执行完成后, 向DispatcherServlet返回一个ModelAndView对象, ModelAndView对象中应该包含视图名或视图模型.<br/>`ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler)` |
+| 6    | 根据返回的ModelAndView对象, 选择一个合适的ViewResolver(视图解析器)返回给DispatcherServlet.其中存在多个ViewResolver时, 按照其order属性的值遍历(小的先遍历到),不设定order则按照配置顺序遍历.<br/>`protected void render(ModelAndView mv, HttpServletRequest request, HttpServletResponse response)` |
+| 7    | ViewResolver结合Model和View来渲染视图.<br/>`View resolveViewName(String viewName, Locale locale)`<br/>`void render(@Nullable Map<String, ?> model, HttpServletRequest request, HttpServletResponse response)` |
+| 8    | 将视图渲染结果返回给客户端.                                  |
 
 以上8个步骤, DispatcherServlet. HandlerMapping. HandlerAdapter和ViewResolver等对象协同工作, 完成SpringMVC请求—>响应的整个工作流程, 这些对象完成的工作对于开发者来说都是不可见的, 开发者并不需要关心这些对象是如何工作的, 开发者, 只需要在Handler(Controller)当中完成对请求的业务处理.
 
+# 访问静态资源
 
+web.xml
+
+```xml
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.jpg</url-pattern>
+</servlet-mapping>
+```
+
+或者(spring3.0.4后)
+```xml
+<mvc:resources mapping="/images/**" location="/images/" />
+```
+该配置只能访问webapp下的静态资源, 如果资源位于`webapp/WEB-INF`下则会访问失败.
+
+webapp/WEB-INF: WEB-INF是Java的WEB应用的安全目录。所谓安全就是客户端无法访问，只有服务端可以访问的目录。
+若想访问需要修改配置为:
+```xml
+<mvc:resources mapping="/images/**" location="/WEB-INF/images/" />
+```
+
+再或者:
+WebMvcAutoConfiguration
+WebMvcConfigurer
+WebMvcConfigurerAdapter(5.0开始废弃)
+WebMvcConfigurationSupport
+
+# Q&A
+
+
+
+**获取请求体**
+
+application/x- www-form-urlencoded是Post请求默认的请求体内容类型
+request.getInputStream()
+request.getReader()
+
+```Java
+// InputStream in = request.getInputStream();  
+// InputStreamReader isr = new InputStreamReader(in);  
+// BufferedReader reader = new BufferedReader(isr);
+BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF8"));
+StringBuffer buff = new StringBuffer();
+String line = "";
+while ((line = reader.readLine()) != null) {
+    buff.append(line);
+}
+String SignRequestString = buff.toString();
+```
+
+multipart/form-data或application/json
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

@@ -7,7 +7,7 @@ tags:
 <!-- TOC -->
 
 - [生命周期](#生命周期)
-- [forward & redirect](#forward--redirect)
+- [forward & forward](#forward--forward)
 - [JSP](#jsp)
 - [域对象](#域对象)
 - [引入页面](#引入页面)
@@ -25,29 +25,20 @@ public void service(ServletRequest request,ServletResponse response)
 public void destroy()
 ```
 
-# forward & redirect
+# forward & forward
 
+||forward|forward|
+|:---|:---|:---|
+||||
+|数据共享|转发页面和转发到的页面可以共享request里面的数据.只能在同一个Web应用程序内的资源之间转发请求.|不能共享数据.并且不仅可以重定向到当前应用程序的其他资源,还可以重定向到同一个站点上的其他应用程序中的资源, 甚至是使用绝对URL重定向到其他站点的资源.|
+||服务器内部的一种操作|服务器通知客户端,让客户端重新发起请求|
+|使用场景|用于用户登陆的时候,根据角色转发到相应的模块.|用户注销登陆时返回主页面和跳转到其它的网站等.|
+|效率|高|低|
 forward是服务器内部请求资源,服务器直接访问目标地址的URL,把那个URL的响应内容读取过来,然后把这些内容再发给浏览器,浏览器根本不知道服务器发送的内容是从哪儿来的,所以它的地址栏中还是原来的地址.
 
 redirect就是服务端根据逻辑,发送一个状态码,告诉浏览器重新去请求那个地址,一般来说浏览器会用刚才请求的所有参数重新请求,所以session,request参数都可以获取.
 
 > forward也有缺点,就是forward的页面的路径如果是相对路径就会有些问题了
-
-数据共享
-forward:转发页面和转发到的页面可以共享request里面的数据.
-只能在同一个Web应用程序内的资源之间转发请求.
-
-重定向则不能共享数据.
-并且不仅可以重定向到当前应用程序的其他资源,还可以重定向到同一个站点上的其他应用程序中的资源, 甚至是使用绝对URL重定向到其他站点的资源.
-
-forward是服务器内部的一种操作. redirect是服务器通知客户端,让客户端重新发起请求.
-
-3.从运用地方来说
-forward:一般用于用户登陆的时候,根据角色转发到相应的模块.
-redirect:一般用于用户注销登陆时返回主页面和跳转到其它的网站等.
-4.从效率来说
-forward:高.
-redirect:低
 
 (1) 带request参数的跳转
 request.setAttribute("param", "value");
@@ -57,8 +48,12 @@ String Value = request.getAttribute("param")==null?:(String)request.getAttribute
 (2) 不带request参数的跳转
 response.sendredirect("test.jsp");
 
-servlet的转发方式有两种: response.sendRedirect(response.encodeURL(相对路径或绝对路径)); request.getRequestDispatcher(相对路径).forward();
-jsp是servlet的扩展,除可用上面两种之外,还可以用标签:<jsp:forward page="相对路径" />
+servlet的转发方式有两种: 
+
+response.sendRedirect(response.encodeURL(相对路径或绝对路径)); 
+request.getRequestDispatcher(相对路径).forward();
+
+jsp是servlet的扩展,除可用上面两种之外,还可以用标签:`<jsp:forward page="相对路径" />`
 
 # JSP
 
@@ -113,6 +108,4 @@ import=”java.sql.*”%>
 
 # JSP & Servlet
 
-
-
-
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
