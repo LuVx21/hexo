@@ -98,6 +98,7 @@ killall Finder
 ## Brew
 
 brew install tree
+brew cask install android-file-transfer
 
 
 ## tree
