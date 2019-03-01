@@ -40,6 +40,33 @@ server_id=1021
 character-set-server=utf8
 ```
 
+监听设置:
+```conf
+canal.instance.filter.regex=.*\\..*
+canal.instance.filter.black.regex=
+```
+> `.*\\..*`: 监听所有库的所有表
+> `test\..*`: test库的所有表
+> `test\.test`: test库内的test表
+
+
+在配置文件里设置,如conf\example\instance.properties里有2个配置选项
+canal.instance.filter.regex = .\.. 这个是白名单,
+如test\..*只监听test数据库,
+test\.test监控test库里的test表,多个的话用逗号隔开, 但是注意这个配置是无效的,必须在客户端subscribe方法里配置,因为会覆盖
+canal.instance.filter.black.regex = 这个是黑名单,
+排除库表,配置同上,这个配置有效
+
+具体配置示例参照源码目录里filter部分,canal.instance.defaultDatabaseName = 这个配置项也是无效的,配不配没有关系
+
+# canal_mysql_nosql_sync
+
+
+https://github.com/liukelin/canal_mysql_nosql_sync
+
+
+
+
 # 参考
 
 0. [Canal Kafka RocketMQ QuickStart](https://github.com/alibaba/canal/wiki/Canal-Kafka-RocketMQ-QuickStart)
