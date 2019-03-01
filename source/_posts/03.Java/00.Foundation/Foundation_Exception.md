@@ -24,7 +24,7 @@ Java程序运行过程中,如果出现异常就会生成一个异常对象,封�
 
 异常主要被分为两类:
 
-* 运行时异常:继承自`java.lang. RuntimeException`,这种异常出现很频繁,对其处理往往会对程序的可读性和性能有很大影响.
+* 运行时异常:继承自`java.lang.RuntimeException`,这种异常出现很频繁,对其处理往往会对程序的可读性和性能有很大影响.
 * 非运行时异常:直接继承自`java.lang.Exception`,也被称为检查异常,发生于编译时期
 
 ![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/exception.png)
@@ -81,6 +81,12 @@ finally语句块的代码无论是否出现异常都会执行,
 | ----------------- | ---------------------- |
 | getMessage()      | 获取有关异常的信息     |
 | printStackTrace() | 输出异常发生时堆栈信息 |
+
+
+RuntimeException异常和检查型之间的区别就是:
+是否强制要求调用者必须处理此异常, 
+如果强制要求调用者必须进行处理, 那么就使用检查型, 否则就选择非检查型(RuntimeException).
+一般来讲, 如果没有特殊的要求, 建议使用RuntimeException异常.
 
 
 
