@@ -157,38 +157,45 @@ Proxy.newProxyInstance(被代理对象.getClass().getClassLoader(), 被代理对
 3. 对需要加强的方法进行加强
 4. 对不需要加强的方法调用原来的方法
 
+# 注解
 
-////////////////////////////////////////////////
-注解:
-	注释:给程序员看的
-	注解:给jvm看的
 
-	java中三个注解:
-		@Override:声明该方法是从父类上继承过来的
-		@SuppressWarnings:抑制警告
-		@Deprecated:声明该方法不赞成使用
+常见注解:
 
-	自定义注解:
-		注解属性
-			类型:
-				基本类型
-				string
-				class
-				annotation
-				enum
-				以上类型的一维数组
-			若有属性, 使用的时候必须有值
+@Override: 声明该方法是从父类上继承过来的
+@SuppressWarnings: 抑制警告
+@Deprecated: 声明该方法不赞成使用
 
-		元注解
-			@Retention:声明注解保留到那个阶段
-				SOURCE:
-				CLASS:
-				RUNTIME:
-			@Target:声明注解作用在那个部分
-				TYPE:
-				METHOD:
-				FILED:
-	注解的格式:
-		@interface 注解名{
 
-		}
+1. @Target: 声明注解作用在那个部分, SOURCE, CLASS, RUNTIME
+2. @Retention: 声明注解保留到那个阶段, TYPE, METHOD, FILED
+3. @Documented:
+4. @Inherited:
+
+
+注解的格式:
+
+```Java
+public @interface MyAnnotation {
+    String value() default "";
+}
+```
+
+自定义注解, 默认继承了`java.lang.annotation.Annotation`接口
+
+注解属性
+
+类型:
+	基本类型: int,float,boolean,byte,double,char,long,short
+	string
+	class
+	annotation
+	enum
+	以上类型的一维数组
+
+若有属性, 使用的时候必须有值
+
+
+public或默认(default)
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

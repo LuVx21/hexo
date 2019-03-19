@@ -1,14 +1,13 @@
+---
+title: 
+date: 
+tags:
+- 
+---
 
 
-
-
-
-MyBatis控制台输出sql语句
-
-```shell
-mybatis.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-```
-
+mvn package -P prod
+mvn spring-boot:run -Dspring.profiles.active=dev
 
 # 注解
 
@@ -39,8 +38,34 @@ public class Ren {
 }
 ```
 
+## @Bean
+
 ## @PostConstruct
 
+
+## @Configuration
+
+classpath:/config
+
+
+## @ConfigurationProperties
+
+## @RequestParam
+
+## @PathVariable
+
+## @RequestBody
+
+## @Profile
+
+
+# Tips
+
+MyBatis控制台输出sql语句
+
+```conf
+mybatis.configuration.log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+```
 
 
 

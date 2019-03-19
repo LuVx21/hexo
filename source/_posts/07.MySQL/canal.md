@@ -18,8 +18,6 @@ conf/canal.properties
 ```
 
 
-
-
 数据库配置:
 
 ```ini
