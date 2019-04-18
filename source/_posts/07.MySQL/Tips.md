@@ -180,84 +180,35 @@ as
     select * from admin
 )
 ```
-# 定位数据
+# 表设计
+
+**字段设置default为`Null`好，还是`''`好**
+
+《高性能mysql》中是这么说的：
+
+尽量避免NULL
+
+通常情况下最好指定列为 NOT NULL，除非真的需要存储 NULL 值；mysql表定义时如果没有指定列为NOT NULL，默认都是允许NULL的；
+
+如果查询中包含可为NULL的列，对mysql来说更难优化。因为可为NULL的列，使得索引、索引统计、值比较，都更复杂；
+
+可为NULL的列会使用更多的存储空间，在MYSQL里也需要特殊处理。
+
+当可为NULL的列被索引时，每个索引记录需要一个额外的字节，在MyISAM里甚至还可能导致固定大小的索引（例如只有一个整数列的索引）变成可变大小的索引；
+
+通常，把可为NULL的列改为NOT NULL带来的性能提升比较小，所以调优时没有必要首先修改这种情况，除非确定这会导致问题；
+
+但是如果计划在列上建索引，就应该尽量避免设计成可为NULL的列。当然也有例外，比如InnoDB使用单独的bit存储NULL的值，对稀疏数据有很好的空间效率。这一点不适用于MyISAM。
+（稀疏数据：是指很多值都是NULL，少数值是非NULL）
+
+# 自动记录数据插入修改时间
 
 ```sql
--- 既没有主键也没有唯一性索引的表
-select
-    table_schema,
-    table_name
-from
-    information_schema.tables
-where
-    (table_schema, table_name) not in (
-        select distinct table_schema, table_name
-        from information_schema.table_constraints
-        where constraint_type in ('primary key', 'unique')
-    )
-    and table_schema not in ('sys', 'mysql', 'information_schema', 'performance_schema')
-```
-# 查询后更新自身
-
-TODO
-
-```sql
-update user_renxie2 R0
-set result =
-(SELECT (user_name = password) as result
-FROM `user_renxie2` R1
-where R0.id1 = R1.id1);
-----------------------------------
-update user_renxie2
-set result = R1.result
-from user_renxie2 R0
-inner join (
-select * from (
-SELECT id1 as id1,(user_name = password) as result FROM `user_renxie2`
-) a
-) R1 on R0.id1 = R1.id1;
----------------------------------
-update user_renxie2 R0 inner join (select * from (SELECT id1, (user_name = password) as result FROM `user_renxie2`) a) R1 on R1.id1 = R0.id1
-using(result)
-set R0.result = R1.result;
+`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ```
 
-可用:
-```sql
-update user_renxie2 R1,
-(
-	select * from (
-		SELECT id1 as id1,(user_name = password) as result FROM `user_renxie2`
-	)t
-)R2
-set R1.result = R2.result
-where R1.id1 = R2.id1
-;
-```
 
-# 比较表是否相同
-
-```sql
-select id,title
-from (
-    select id, title from t1
-    union all
-    select id,title from t2
-) tbl
-group by id, title
-having count(*) = 1
-order by id;
-```
-或
-```sql
-select * from (select
-(CONCAT(R1.db_name, R1.table_name, R1.pk_field, R1.pk_value)
-=
-CONCAT(R2.db_name, R2.table_name, R2.pk_field, R2.pk_value))as a
-from
-user R1 inner join user_1 R2 on R1.db_name = R2.db_name
-)t
-where t.a <> 1
-```
+TiDB是PingCAP公司推出的开源分布式关系型数据库，结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限的水平扩展，具备强一致性和高可用性。TiDB 的目标是为 OLTP (Online Transactional Processing) 和 OLAP (Online Analytical Processing) 场景提供一站式的解决方案。
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

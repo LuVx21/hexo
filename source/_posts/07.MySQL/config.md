@@ -1,9 +1,109 @@
+## 安装
 
+### Windows
 
+安装版本的直接可视化安装配置即可
 
+zip版本([5.6.42下载](https://cdn.mysql.com//Downloads/MySQL-5.6/mysql-5.6.42-winx64.zip))
+
+`my.ini`
+```conf
+[mysql]
+default-character-set=utf8
+[client]
+port = 3306
+[mysqld]
+server_id=1020
+port = 3306
+basedir="D:\\ren\\mysql56\\"
+datadir="D:\\ren\\mysql56\\data\\"
+character-set-server=utf8
+max_allowed_packet = 32M
+secure_file_priv=''
+lower_case_tables_name = 1
+```
+
+### Linux
+
+最简单的方式
+```bash
+yum install mysql
+yum install mysql mysql-server
+```
+
+自行下载安装方式
+```
+```
+
+## 用户
+```sql
+create user 'luvx'@'localhost' identified by 'luvx';
+drop user 'luvx'@'luvx';
+```
+
+## 密码
+
+```sql
+set password for 'luvx'@'localhost' = password('luvx');
+-- 重置当前用户密码可缩写
+set password = password("newpassword");
+```
+
+5.6.6版本后增加了弱密码的检验机制
+
+```sql
+-- 查看密码策略
+select @@validate_password_policy;
+show variables like 'validate_password%';
++--------------------------------------+--------+
+| Variable_name                        | Value  |
++--------------------------------------+--------+
+| validate_password_check_user_name    | OFF    |
+| validate_password_dictionary_file    |        |
+| validate_password_length             | 8      |
+| validate_password_mixed_case_count   | 1      |
+| validate_password_number_count       | 1      |
+| validate_password_policy             | MEDIUM |
+| validate_password_special_char_count | 1      |
++--------------------------------------+--------+
+-- 设置
+set global validate_password_policy=0;
+set global validate_password_length=4;
+set global validate_password_number_count=0;
+set global validate_password_special_char_count=0;
+set global validate_password_mixed_case_count=0;
+-- 密码
+set password for 'root'@'localhost' = password('1121');
+update mysql.user set password = password('1121') where user = 'root' and host = 'localhost';
+```
+* validate_password_length: 密码最小长度(数字+特殊字符+字母*2)
+* validate_password_number_count: 数字最小个数
+* validate_password_special_char_count: 特殊字符的最小个数
+* validate_password_mixed_case_count: 密码中大写和小写字母最小个数
+* validate_password_policy: 密码强度检测级别, `0/LOW, 1/MEDIUM, 2/STRONG`
+
+## 权限
+```sql
+-- 将表boot.user的所有权限授予luvx在所有机器上以1121密码登录
+grant all privileges on boot.user to 'luvx'@'%' identified by '1121' ;
+flush privileges;
+-- 查看授权语句
+show grants for 'luvx';
+-- 撤销权限
+revoke all privilege on boot.user from 'luvx'@'%';
+```
+> all: 具体什么权限
+> boot.user: 针对那个库表的权限, 可以为`*.*`, `boot.*`
+> %: 客户端所在机器, 可为具体ip,`localhost`或`%`
+> 被授权的用户没有授权的权限, 如果有此需要可将添加`with grant option`到授权语句中
+> 授权过程也可以通过修改`mysql.user`表实现
+
+## 自动提交
+
+```sql
 show variables like 'autocommit';
 set autocommit='OFF';
-
+```
 
 ## Binlog
 
@@ -13,6 +113,8 @@ log-bin=mysql-bin
 binlog-format=ROW
 server_id=20001
 # log_slave_updates=1 # 监测从库时开启
+# binlog中显示sql语句
+binlog-rows-query-log-events=true
 ```
 
 ```sql
@@ -35,23 +137,50 @@ default-time-zone = '+08:00'
 
 ## 区分大小写
 
+虽然极其不推荐, 但由于OS的特性, 在Linux上, 表名是不分区大小写的.
+
 ```sql
 show variables like "%lower_case%";
++------------------------+-------+
+| Variable_name          | Value |
++------------------------+-------+
+| lower_case_file_system | OFF   |
+| lower_case_table_names | 0     |
++------------------------+-------+
 ```
 
 ```conf
 lower_case_tables_name = 1
 ```
-> 1: 不区分大小写, 表名`user`和`USER`不可以同时存在
+> 1: 不区分大小写, 表名`user`和`USER`不可以同时存在, 以小写形式存在
 > 0: 区分大小写, 表名`user`和`USER`可以同时存在
-类似的有变量`lower_case_file_system`表示文件系统是否区分大小写: OFF表示区分大小写, ON表示不区分
+类似的有只读变量`lower_case_file_system`表示文件系统是否区分大小写: OFF表示区分大小写, ON表示不区分
 
-
-# 权限
+# 超时
 
 ```sql
-grant select on *.* to tdata IDENTIFIED by 'toxrtdata';
+mysql> show global variables like 'wait_timeout';
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| wait_timeout  | 28800 |
++---------------+-------+
+```
+https://my.oschina.net/xsh1208/blog/493443
+
+# mysql 执行时间
+```sql
+show variables like "%pro%";
+set profiling = 1;
+-- 执行sql后执行
+show profiles for query 1;
 ```
 
+# 时区
+
+```sql
+show variables like '%time_zone%';
+set global time_zone='+8:00';
+```
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
