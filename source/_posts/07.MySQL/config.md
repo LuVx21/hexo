@@ -23,6 +23,20 @@ secure_file_priv=''
 lower_case_tables_name = 1
 ```
 
+```bash
+# 启动
+.\bin\mysqld.exe --defaults-file="my.ini"
+# 安装成服务
+mysqld.exe install <service_name>
+# 删除服务
+mysqld remove <service_name>
+# 启动服务
+net start <service_name>
+```
+
+> `mysqld --initialize`
+> xx.er
+
 ### Linux
 
 最简单的方式

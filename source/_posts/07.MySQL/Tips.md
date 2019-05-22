@@ -211,4 +211,39 @@ as
 
 TiDB是PingCAP公司推出的开源分布式关系型数据库，结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限的水平扩展，具备强一致性和高可用性。TiDB 的目标是为 OLTP (Online Transactional Processing) 和 OLAP (Online Analytical Processing) 场景提供一站式的解决方案。
 
+# 库名,表名长度限制
+
+| 数据库类型 | 库名 | 表名                       | 字段名    |
+| :--------- | :--- | :------------------------- | :-------- |
+| MySQL      | 64   | 64个字符                   | 64个字符  |
+| SQLSERVER  |      | 128个字符，临时表116个字符 | 128个字符 |
+| Oracle     |      | 30个字符                   | 30个字符  |
+
+# 导出数据
+
+```sql
+select *
+into outfile 'd:\\ren\\odps\\bin\\user.log'
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\n'
+from user
+;
+```
+
+# 忽略插入
+
+# 插入更新
+
+```sql
+insert into user(user_id, user_name)
+values(1, 'foobar')
+on duplicate key update
+user_name = values(user_name);
+```
+
+TokuDB 适用于数据写多读少，而且数据量比较大
+支持在线加减字段，在线创建索引，锁表时间很短
+
+
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
