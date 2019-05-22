@@ -22,7 +22,7 @@ tags:
 | protected | √    | √    | √    | ×      | √          |
 | public    | √    | √    | √    | √      | ×          |
 
-> 可见简单地总计为:private是为类本身存在的, default是为包存在的, protected为继承体制存在
+> 可见简单地总结为:private是为类本身存在的, default是为包存在的, protected为继承体制存在
 > 在看到protected修饰的方法时, 首先就要考虑重写的可行性
 
 **private修饰的方法可以通过反射访问, 那么private的意义是什么**

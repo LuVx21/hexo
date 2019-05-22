@@ -91,6 +91,8 @@ classpath:/config
 @Qualifier	先声明后使用，相当于多个实现起多个不同的名字，注入时候告诉我你要注入哪个
 
 
+## @ResponseBody
+
 # Tips
 
 MyBatis控制台输出sql语句
