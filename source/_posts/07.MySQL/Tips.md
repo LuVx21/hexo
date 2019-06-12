@@ -113,6 +113,33 @@ zerofill
 * timestamp可表示范围:1970-01-01 00:00:00~2038-01-09 03:14:07, datetime支持的范围更宽1000-01-01 00:00:00 ~ 9999-12-31 23:59:59
 * 索引速度不同. timestamp更轻量, 索引相对datetime更快
 
+## 日期操作
+```sql
+select curdate()
+select current_date - 1
+select current_time
+select current_timestamp()
+select str_to_date('2019-05-28 01:01:01','%y-%m-%d %h:%i:%s') >= current_date - 1
+date(create_time) >= date_sub(curdate(), interval 7 day)
+#查询本季度数据
+select * from 表名 where quarter(时间字段名 )=quarter(now ());
+#查询上季度数据
+select * from 表名 where quarter(时间字段名 )=quarter(date_sub(now (),interval 1 quarter));
+#查询本年数据
+select * from 表名 where  year(时间字段名 )=year(now());
+#查询上年数据
+select * from 表名 where year (时间字段名 )=year (date_sub (now (),interval 1 year ));
+#查询前这周的数据
+select * from 表名 where  yearweek(date_sub (时间字段名 ,'%y-%m-%d')) = yearweek(now ());
+#查询上周的数据
+select * from 表名 where  yearweek(date_sub (时间字段名 ,'%y-%m-%d')) = yearweek(now ())-1;
+#查询当前月份的数据
+select * from 表名 where  date_sub (时间字段名 ,'%y-%m')=date_sub (now (),'%y-%m')
+#查询距离当前现在6个月的数据
+select * from 表名 where 时间字段名 between date_sub (now (),interval 6 month) andnow ();
+#查询上个月的数据
+select * from 表名 where  date_sub (时间字段名 ,'%y-%m')=date_sub (date_sub(curdate(), interval 1 month),'%y-%m')
+```
 # 修改MySQL端口
 
 Mac:

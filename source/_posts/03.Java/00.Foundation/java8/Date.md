@@ -25,6 +25,12 @@ yyyy-MM-dd
 表示没有时区的日期时间, LocalDateTime是不可变并且线程安全的
 
 
+```Java
+// 零时的毫秒值
+LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+LocalDateTime.now().with(LocalTime.MIN).toInstant(ZoneOffset.of("+8")).toEpochMilli();
+```
+
 ## Clock
 
 用于访问当前时刻、日期、时间，用到时区
