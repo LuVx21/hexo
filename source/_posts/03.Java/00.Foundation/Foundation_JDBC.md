@@ -63,6 +63,16 @@ rs.close();//以打开的顺序的相反顺序进行关闭
 stmt.close();
 conn.close();
 ```
+> ```Java
+> static {
+> 	try {
+> 		/// Class.forName("com.mysql.jdbc.Driver");
+> 		Class.forName("com.mysql.cj.jdbc.Driver");
+> 	} catch (Exception e) {
+> 		e.printStackTrace();
+> 	}
+> }
+> ```
 
 # 常用接口或类详解
 
