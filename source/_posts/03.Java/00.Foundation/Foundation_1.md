@@ -4,12 +4,15 @@ date: 2017-10-29
 tags:
 - Java
 ---
+<details>
+<summary>点击展开目录</summary>
 <!-- TOC -->
 
 - [00](#00)
 - [重写和重载](#重写和重载)
 
 <!-- /TOC -->
+</details>
 
 # 00
 
@@ -55,7 +58,7 @@ hashcode是一个本地方法, 通过生成`.h`文件获得c代码的信息最�
 
 **int、char、long各占多少字节数**
 
-分别是4, 2, 8个字节(byte), 每个字节对应8位(bit)
+分别是4, 2, 8个字节(byte)
 Java采用unicode编码, 使用2个字节表示一个字符
 
 ![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/type_trans.jpg)
@@ -75,9 +78,9 @@ int是Java基本类型, integer是int类型对应的包装类(对象类型),
 
 **final, finally, finalize的区别**
 
-  - final:声明类, 变量, 方法等, 使其不可被继承, 不可被修改, 不可被重写
-  - finally:异常处理操作中, 遇到异常后必须要处理的操作可放置在finally代码块中
-  - finalize:垃圾回收时使用, 通常不需要开发者主动显示调用
+- final: 声明类, 变量, 方法等, 使其不可被继承, 不可被修改, 不可被重写
+- finally: 异常处理操作中, 遇到异常后必须要处理的操作可放置在finally代码块中
+- finalize: 垃圾回收时使用, 通常不需要开发者主动显示调用
 
 **string 转换成 integer的方式及原理**
 

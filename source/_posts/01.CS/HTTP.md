@@ -118,7 +118,7 @@ RESTful
 
 > GET: 浏览器会把http header和data一并发送出去
 >
-> POST: 浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+> POST: 浏览器先发送header, 服务器响应100 continue, 浏览器再发送data, 服务器响应200 ok（返回数据）。
 > GET请求中的数据,非英文或数字会被重新编码,这是为了避免歧义,如空格被编码为`+`,类似于中文等则被BASE64加密.
 > 数据本身含有`&`,`=`会被编码为`%26`,`%3D`以和key=value中的符号区分开
 
@@ -355,6 +355,11 @@ HTTP/1.1:
 # HTTP/1.1和HTTP/2.0区别
 
 * 二进制分帧层
+    * frame 帧：http/2通信的最小单位, 单个帧包含帧首部, 其中标注了当前帧所属的stream
+    * message 消息：由若干个frame组合而成, 例如请求, 响应
+    * connection 连接：与http/1 相同, 指的都是对应的tcp连接
+    * stream 流, 已建立的连接上的双向字节流。
+    * 数据流以消息的形式发送, 而消息由一个或多个帧组成, 帧可以在数据流上乱序发送, 然后再根据每个帧首部的流标识符重新组装。二进制分帧是HTTP/2的基石, 其他优化都是在这一基础上来实现的。
 * 服务端推送
 * 首部压缩
 
@@ -362,20 +367,28 @@ HTTP/1.1:
 
 1.0:
 
-* 使用keep-alive参数来告知服务器端要建立一个长连接
+* 使用`keep-alive`参数来告知服务器端要建立一个长连接
 
 1.1:
 
-* 默认支持长连接
+* 默认支持长连接, 减少三次握手开销
 * 支持只发送header信息(不带任何body信息),如果服务器认为客户端有权限请求服务器,则返回100,否则返回401.客户端如果接受到100,才开始把请求body发送到服务器.
 * 支持传送内容的一部分,即只请求需要的部分,不请求的可能是已经有了.
+    * 请求时配置Range参数, 指定第一个字节的位置和最后一个字节的位置
 * HTTP1.0是没有host域的,HTTP1.1才支持这个参数.
+* 缓存控制策略, 如`if-unmodified-since`,`if-match`等
+* 同一域名在同一时间的请求数量是有限制的
+* 同一时间只能允许一个请求经过
 
 2.0:
 
-* 多路复用,同一个连接并发处理多个请求
+* 多路复用,客户端和服务端只需要一个连接, 同一个连接并发处理多个请求
 * 支持header数据的压缩
 * 服务器推送
+* 流量控制: 在应用层引入了flow control，从而对每一个stream都做了不同的限流,确保同一连接上的多个流之间不会造成破坏性的干扰
+* 流优先级: 每个请求都可以带一个31bit的优先值，0表示最高优先级， 数值越大优先级越低, 服务端在处理不同的流时采取不同的策略
+
+> 多路复用: 在同一个域名下, 开启一个TCP的connection, 每个请求以stream的方式传输, 每个stream有唯一标识, connection一旦建立, 后续的请求都可以复用这个connection并且可以同时发送, server端可以根据stream的唯一标识来相应对应的请求
 
 # HTTP/3
 
@@ -387,8 +400,9 @@ TLS 1.3+UDP, 仅支持加密
 
 # 参考
 
-[Cookie&Session](https://my.oschina.net/xianggao/blog/395675?fromerr=GC9KVenE)
-[图解 HTTP: Web开发相关的一些核心基础概念](https://blog.csdn.net/justloveyou_/article/details/72803200)
-[1](https://www.cnblogs.com/heluan/p/8620312.html)
+1. [关于HTTP /1.1 与 /2.0版本的常见差异和特性](https://juejin.im/post/5ba68c17f265da0a9e530d70)
+2. [Cookie&Session](https://my.oschina.net/xianggao/blog/395675?fromerr=GC9KVenE)
+3. [图解 HTTP: Web开发相关的一些核心基础概念](https://blog.csdn.net/justloveyou_/article/details/72803200)
+4. [HTTP1.0、HTTP1.1 和 HTTP2.0 的区别](https://www.cnblogs.com/heluan/p/8620312.html)
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
