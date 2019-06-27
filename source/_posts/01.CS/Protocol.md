@@ -34,7 +34,7 @@ tags:
 
 ![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/01.CS/img/PDU封装实例.png)
 
-![img](/Users/renxie/OneDrive/Code/doc/source/_posts/99.img/Center.png)
+![](https://dev.tencent.com/u/LuVx21/p/img/git/raw/master/Center.png)
 
 # OSI七层结构
 
