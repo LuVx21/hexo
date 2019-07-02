@@ -381,21 +381,6 @@ class BeanMapper implements RowMapper<Account>{
 * static int ISOLATION_REPEATABLE_READ
 * static int ISOLATION_SERIALIZABLE
 
-事务的传播行为常量(不用设置, 使用默认值):
-
-* 先解释什么是事务的传播行为:解决的是业务层之间的方法调用！！
-
-* PROPAGATION_REQUIRED(默认值)	-- A中有事务, 使用A中的事务.如果没有, B就会开启一个新的事务, 将A包含进来.(保证A, B在同一个事务中), 默认值！！
-* PROPAGATION_SUPPORTS			-- A中有事务, 使用A中的事务.如果A中没有事务.那么B也不使用事务.
-* PROPAGATION_MANDATORY			-- A中有事务, 使用A中的事务.如果A没有事务.抛出异常.
-
-* PROPAGATION_REQUIRES_NEW(记)-- A中有事务, 将A中的事务挂起.B创建一个新的事务.(保证A, B没有在一个事务中)
-* PROPAGATION_NOT_SUPPORTED		-- A中有事务, 将A中的事务挂起.
-* PROPAGATION_NEVER 			-- A中有事务, 抛出异常.
-
-* PROPAGATION_NESTED(记)		-- 嵌套事务.当A执行之后, 就会在这个位置设置一个保存点.如果B没有问题.执行通过.如果B出现异常, 运行客户根据需求回滚(选择回滚到保存点或者是最初始状态)
-
-
 ## 事务管理案例准备
 
 1. 步骤一:创建WEB工程, 引入需要的jar包

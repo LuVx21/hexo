@@ -1,4 +1,42 @@
 
+<details>
+<summary>点击展开目录</summary>
+<!-- TOC -->
+
+- [配置使用](#配置使用)
+- [设置请求头](#设置请求头)
+
+<!-- /TOC -->
+</details>
+
+## 配置使用
+
+```Java
+@Configuration
+public class RestTemplateConfig {
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder
+                .setReadTimeout(30 * 1000)
+                .build();
+    }
+}
+```
+
+```Java
+@Configuration
+public class RestTemplateConfig {
+    @Bean
+    public RestTemplate restTemplate() {
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+        factory.setReadTimeout(30 * 1000);
+
+        return new RestTemplate(factory);
+    }
+}
+```
+
+## 设置请求头
 
 ```Java
 HttpHeaders headers = new HttpHeaders();
@@ -32,3 +70,6 @@ headers.setAccept(Lists.newArrayList(MediaType.APPLICATION_JSON));
 HttpEntity<String> entity = new HttpEntity<String>(requestJson, headers);
 ResponseEntity<String> resp = restTemplate.postForEntity(url,entity,String.class);
 ```
+
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
