@@ -6,14 +6,43 @@ tags:
 - Filter
 - Web
 ---
+<details>
+<summary>点击展开目录</summary>
 <!-- TOC -->
 
 - [关于](#关于)
 - [Filter](#filter)
 - [案例1:自动登录](#案例1自动登录)
 - [案例2:统一字符编码](#案例2统一字符编码)
+    - [参考](#参考)
 
 <!-- /TOC -->
+</details>
+
+```Java
+@Slf4j
+public class FirstFilter implements Filter {
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        log.info("[{}]执行{}方法：Before！", this.getClass().getSimpleName(), "doFilter");
+        //执行下一个filter
+        filterChain.doFilter(servletRequest, servletResponse);
+        log.info("[{}]执行{}方法：After！", this.getClass().getSimpleName(), "doFilter");
+    }
+}
+@Configuration
+public class FilterConfig {
+    @Bean
+    public FilterRegistrationBean firstFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new FirstFilter());
+        //可不设置，默认过滤路径即为：/*
+        registrationBean.addUrlPatterns("/*");
+        registrationBean.setOrder(1);
+        return registrationBean;
+    }
+}
+```
+
 # 关于
 
 过滤请求和响应
@@ -270,3 +299,11 @@ public class EncodingFilter1 implements Filter {
     }
 }
 ```
+
+
+## 参考
+
+[](https://my.oschina.net/centychen/blog/3018007)
+
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
