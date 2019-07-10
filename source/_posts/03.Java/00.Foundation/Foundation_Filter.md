@@ -12,6 +12,7 @@ tags:
 
 - [关于](#关于)
 - [Filter](#filter)
+    - [使用](#使用)
 - [案例1:自动登录](#案例1自动登录)
 - [案例2:统一字符编码](#案例2统一字符编码)
     - [参考](#参考)
@@ -19,36 +20,10 @@ tags:
 <!-- /TOC -->
 </details>
 
-```Java
-@Slf4j
-public class FirstFilter implements Filter {
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        log.info("[{}]执行{}方法：Before！", this.getClass().getSimpleName(), "doFilter");
-        //执行下一个filter
-        filterChain.doFilter(servletRequest, servletResponse);
-        log.info("[{}]执行{}方法：After！", this.getClass().getSimpleName(), "doFilter");
-    }
-}
-@Configuration
-public class FilterConfig {
-    @Bean
-    public FilterRegistrationBean firstFilter() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new FirstFilter());
-        //可不设置，默认过滤路径即为：/*
-        registrationBean.addUrlPatterns("/*");
-        registrationBean.setOrder(1);
-        return registrationBean;
-    }
-}
-```
-
 # 关于
 
 过滤请求和响应
 作用:    自动登录,统一编码,过滤关键字等作用
-
-> Filter是一个接口
 
 # Filter
 
@@ -75,6 +50,42 @@ url-pattern配置
 * 完全匹配: 必须以`/` 开始,例: /a/b
 * 目录匹配: 必须以`/` 开始 以`*`结束,例:/a/b/*
 * 后缀名匹配: 以`*.`开始 以字符结束,例: *.jsp  *.do  *.action
+
+## 使用
+
+
+```Java
+public class Filter1 implements Filter {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        System.out.println(getClass().getSimpleName() + ":过滤到请求:" + request);
+        chain.doFilter(request, response);
+    }
+}
+@WebFilter(urlPatterns = "/*", filterName = "filter2")
+public class Filter2 implements Filter {
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        System.out.println(getClass().getSimpleName() + ":过滤到请求:" + request);
+        chain.doFilter(request, response);
+    }
+}
+@Configuration
+@ServletComponentScan("org.luvx.er.filter")
+public class FilterConfig {
+    @Bean
+    public FilterRegistrationBean firstFilter() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new Filter1());
+        registrationBean.addUrlPatterns("/*");
+        registrationBean.setName("filter1");
+        registrationBean.setOrder(1);
+        return registrationBean;
+    }
+}
+```
+`Filter1`使用配置类进行配置, `Filter2`使用注解进行配置,同时需要添加扫描
 
 ★一个资源有可能被多个过滤器匹配成功, 多个过滤器的执行顺序是按照web.xml中filter-mapping的顺序执行的
 
