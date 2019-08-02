@@ -3,12 +3,8 @@ title: 位运算
 tags:
 - Java
 ---
-
-# 位运算(bitwise operation)
-
-@(Java)
-
-> [TOC]
+<details>
+<summary>点击展开目录</summary>
 <!-- TOC -->
 
 - [位运算(bitwise operation)](#位运算bitwise-operation)
@@ -17,11 +13,16 @@ tags:
     - [1.移位运算符:](#1移位运算符)
     - [2.逻辑运算符:](#2逻辑运算符)
     - [3.优先级:](#3优先级)
-    - [4.加密](#4加密)
-    - [5.不增加新的变量来交换a b两个变量的值](#5不增加新的变量来交换a-b两个变量的值)
+- [性质](#性质)
+    - [交换两个变量的值](#交换两个变量的值)
+    - [进制的转换](#进制的转换)
+    - [取余](#取余)
 
 <!-- /TOC -->
+</details>
 
+
+# 位运算(bitwise operation)
 ## Q
 
 ```java
@@ -199,3 +200,12 @@ class turn10_16{
 ```
 
 *2/2运算、取绝对值运算, 取相反数运算等等, 直接对内存进行移位或者反码, 快了不少.
+
+## 取余
+
+对2的n次幂的取余操作可用位运算实现, 如`a % b`
+
+使用位运算可以`a ^ b`, `a & ~8`, `a & (b - 1)`
+
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

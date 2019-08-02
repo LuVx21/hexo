@@ -8,13 +8,16 @@ tags:
 <summary>点击展开目录</summary>
 <!-- TOC -->
 
-- [00](#00)
+- [关键字](#关键字)
+- [方法](#方法)
+- [数据类型](#数据类型)
+- [类](#类)
 - [重写和重载](#重写和重载)
 
 <!-- /TOC -->
 </details>
 
-# 00
+## 关键字
 
 **修饰符**
 
@@ -31,6 +34,8 @@ tags:
 **private修饰的方法可以通过反射访问, 那么private的意义是什么**
 
 不是为了绝对安全所设计, 约束常规使用.
+
+## 方法
 
 **`==`和`equals`和`hashCode`的区别**
 
@@ -56,21 +61,40 @@ hashcode是一个本地方法, 通过生成`.h`文件获得c代码的信息最�
 [源码:hashcode](http://hg.openjdk.java.net/jdk8/jdk8/hotspot/file/f2110083203d/src/share/vm/runtime/synchronizer.cpp#l555)的`get_next_hash`函数
 不能认为hash的结果就是对象的内存地址, 只能认为与其有关系.
 
+## 数据类型
+
+**a = a + b 与 a += b 的区别**
+
+1. 执行效率
+    * 前者的效率是低于后者的, 后者会在那块内存上直接更改, 实际上编译器会进行优化成为后者, 实际使用无区别
+2. 类型转换
+    * 如a和b类型不同, 前者编译会出错的,除非进一步强转,而后者不会,内部存在强制类型转换(例:`a+=b` -> `a = (int)((float)a + b)` )
+
+![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/type_trans.jpg)
+
+当将一个数值范围小的类型(低精度)赋给一个数值范围大(高精度)的数值型变量, jvm在编译过程中会将此数值的类型自动提升,
+如两个short类型数据a, b直接相加, 之后要强转为short,
+而是用`+=`则会把后面的数值自动强制转换为前面的类型, 然后在那块内存上直接修改数值.
+值得注意的是, 如果a,b被`final`修饰, 前种加法则不用强转, 而是被直接将计算的值赋给结果变量
+
+另外, Java编译器会在编译期或者运行期
+将`byte`和`short`类型的数据带符号扩展为相应的int类型数据,
+将`boolean`和`char`类型数据零位扩展为相应的int类型数据.
+
+大多数对于上述类型数据的操作, 实际上都是使用相应的 int 类型作为运算类型.
+
 **int、char、long各占多少字节数**
 
 分别是4, 2, 8个字节(byte)
 Java采用unicode编码, 使用2个字节表示一个字符
-
-![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/type_trans.jpg)
-
-当将一个数值范围小的类型赋给一个数值范围大的数值型变量, jvm在编译过程中会将此数值的类型自动提升,
-如两个short类型数据相加, 之后要强转为short.而是用`+=`则会把后面的数值自动强制转换为前面的类型, 然后在那块内存上直接修改数值
 
 **int与integer的区别**
 
 int是Java基本类型, integer是int类型对应的包装类(对象类型),
 基于OO编程思想, 设计出包装类, 方便处理对象类型和基本的转换等操作, 如String和基本类型的转换, 集合中存储包装类型
 类似于intValue()来转换为基本类型, 反过来有自动拆装箱机制转换为包装类型
+
+## 类
 
 **String、StringBuffer、StringBuilder区别**
 
@@ -149,7 +173,7 @@ List实现了java.lang.Iterable接口, foreach语法最终被编译器转为了�
 对引用对象修改时, 可能改变引用的指向(如传递的是包装类对象, 使用new等), 也可能修改原对象的值(如修改属性)
 [阅读](http://www.importnew.com/29023.html)
 
-# 重写和重载
+## 重写和重载
 
 Overriding:重写, 指重新设计从父类继承来的方法的逻辑
 Overloaded:重载, 指多个方法的方法名相同, 但参数的类型或数量说返回值类型不同
@@ -161,9 +185,5 @@ Overloaded:重载, 指多个方法的方法名相同, 但参数的类型或数�
 
 编译运行:执行器前先编译成机器语言, 在由运行环境执行, 效率较高.
 类似Java等是编译执行
-
-**a = a + b 与 a += b 的区别**
-
-
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
