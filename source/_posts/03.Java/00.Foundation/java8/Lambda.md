@@ -4,10 +4,111 @@ date:
 tags:
 - Lambda
 ---
+<details>
+<summary>点击展开目录</summary>
+<!-- TOC -->
+
+- [函数式接口](#函数式接口)
+    - [消费型](#消费型)
+    - [供给型](#供给型)
+    - [函数型](#函数型)
+    - [断言型](#断言型)
+    - [其他](#其他)
+    - [自定义](#自定义)
+- [Lambda](#lambda)
+    - [基础语法](#基础语法)
+    - [变量访问](#变量访问)
+    - [静态引用](#静态引用)
+- [jdk自带的函数式接口](#jdk自带的函数式接口)
+- [jdk中的lambda](#jdk中的lambda)
+
+<!-- /TOC -->
+</details>
 
 ## 函数式接口
 
-有且仅有一个抽象方法的接口, 通常使用`@FunctionalInterface`修饰, 不修饰也没关系,
+4大核心函数式接口
+
+| 接口             | 方法                | 说明       |
+| :--------------- | :------------------ | :--------- |
+| `Consumer<T>`    | `void accept(T t)`  | 消费型接口 |
+| `Supplier<T>`    | `T get()`           | 供给型接口 |
+| `Function<T, R>` | `R apply(T t)`      | 函数型接口 |
+| `Predicate<T>`   | `boolean test(T t)` | 断言型接口 |
+
+### 消费型
+
+| 接口                   | 方法                             |
+| :--------------------- | :------------------------------- |
+| `BiConsumer<T, U>`     | `void accept(T t, U u)`          |
+| `IntConsumer`          | `void accept(int value)`         |
+| `LongConsumer`         | `void accept(long value)`        |
+| `DoubleConsumer`       | `void accept(double value)`      |
+| `ObjIntConsumer<T>`    | `void accept(T t, int value)`    |
+| `ObjLongConsumer<T>`   | `void accept(T t, long value)`   |
+| `ObjDoubleConsumer<T>` | `void accept(T t, double value)` |
+
+### 供给型
+
+| 接口              | 方法                     |
+| :---------------- | :----------------------- |
+| `BooleanSupplier` | `boolean getAsBoolean()` |
+| `IntSupplier`     | `int getAsInt()`         |
+| `LongSupplier`    | `long getAsLong()`       |
+| `DoubleSupplier`  | `double getAsDouble()`   |
+
+### 函数型
+
+| 接口                         | 方法                                 |
+| :--------------------------- | :----------------------------------- |
+| `BiFunction<T, U, R>`        | `R apply(T t, U u)`                  |
+| `ToIntBiFunction<T, U>`      | `int applyAsInt(T t, U u)`           |
+| `ToLongBiFunction<T, U>`     | `long applyAsLong(T t, U u)`         |
+| `ToDoubleBiFunction<T, U>`   | `double applyAsDouble(T t, U u)`     |
+| ---------------------------- | ------------------------------------ |
+| `IntFunction<R>`             | `R apply(int value)`                 |
+| `LongFunction<R>`            | `R apply(long value)`                |
+| `DoubleFunction<R>`          | `R apply(double value)`              |
+| ---------------------------- | ------------------------------------ |
+| `ToIntFunction<T>`           | `int applyAsInt(T value)`            |
+| `LongToIntFunction`          | `int applyAsInt(long value)`         |
+| `DoubleToIntFunction`        | `int applyAsInt(double value)`       |
+| ---------------------------- | ------------------------------------ |
+| `ToLongFunction<T>`          | `long applyAsLong(T value)`          |
+| `IntToLongFunction`          | `long applyAsLong(int value)`        |
+| `DoubleToLongFunction`       | `long applyAsLong(double value)`     |
+| ---------------------------- | ------------------------------------ |
+| `ToDoubleFunction<T>`        | `double applyAsDouble(T value)`      |
+| `IntToDoubleFunction`        | `double applyAsDouble(int value)`    |
+| `LongToDoubleFunction`       | `double applyAsDouble(long value)`   |
+
+
+### 断言型
+
+| 接口                | 方法                         |
+| :------------------ | :--------------------------- |
+| `BiPredicate<T, U>` | `boolean test(T t, U u)`     |
+| `IntPredicate`      | `boolean test(int value)`    |
+| `LongPredicate`     | `boolean test(long value)`   |
+| `DoublePredicate`   | `boolean test(double value)` |
+
+### 其他
+
+| 接口                   | 方法                                              |
+| :--------------------- | :------------------------------------------------ |
+| `BinaryOperator<T>`    | 继承自`BiFunction<T,T,T>`                         |
+| `IntBinaryOperator`    | `int applyAsInt(int left, int right)`             |
+| `LongBinaryOperator`   | `long applyAsLong(long left, long right)`         |
+| `DoubleBinaryOperator` | `double applyAsDouble(double left, double right)` |
+| `UnaryOperator<T>`     | 继承自`Function<T, T>`                            |
+| `IntUnaryOperator`     | `int applyAsInt(int operand)`                     |
+| `LongUnaryOperator`    | `long applyAsLong(long operand)`                  |
+| `DoubleUnaryOperator`  | `double applyAsDouble(double operand)`            |
+
+### 自定义
+
+有且仅有一个抽象方法的接口, 通常使用`@FunctionalInterface`修饰, 不修饰也没关系,该注解仅起到标识的作用
+
 保证接口中有且仅有一个抽象方法, 可以有任意个默认方法(default)
 
 ```Java
@@ -33,7 +134,7 @@ System.out.println(formula.plusOne(100) + " " + formula.plusSelf(100));
 
 ### 基础语法
 
-![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/lambda.jpg)
+![](https://dev.tencent.com/u/LuVx21/p/img/git/raw/master/lambda.jpg)
 > 单个参数`()`也可省略
 
 ### 变量访问
