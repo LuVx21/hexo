@@ -61,6 +61,22 @@ URL的格式:
 > 应用层使用了HTTP协议进行超文本传输,对于服务器后台处理应该有telnet远程调用协议响应用户,DNS协议获取网络地址,即IP地址;
 > 另外必然用到了传输层的TCP和网络层的IP协议;网络层ARP协议获取物理地址;ICMP协议控制信息的传递.
 
+**扫码登录过程发生了什么**
+
+以网页版微信为例, wx.qq.com
+
+1. 浏览器端会生成一个二维码, 使用二维码解析软件可获取内容类似`https://login.weixin.qq.com/l/oe12PbMPBg==`, 包含一个uuid
+2. 之后通过长连接或轮询的方式等待app扫描, 检查此id是否和某个微信账户进行了绑定, 如果一直未扫描, 则会发起请求, 等待25s后响应`window.code=408;`
+3. app扫描后, 会响应一个`window.code=201;`, 之后利用获取到的id+app端的`access_token`发送到服务端
+4. 未点击确认前, 浏览器已获取到登录者的一些信息(如昵称, 头像等)
+5. 点击确认后, 根据id和`token`生成浏览器端使用的`access_token`, 并与id绑定, 响应浏览器的登录请求, 返回`window.code=200;`
+
+> 生成二维码时的请求
+> `https://login.wx.qq.com/jslogin?appid=wx782c26e4c19acffb&redirect_uri=https%3A%2F%2Fwx.qq.com%2Fcgi-bin%2Fmmwebwx-bin%2Fwebwxnewloginpage&fun=new&lang=zh_CN&_=1567518701737`
+> 响应为: `window.QRLogin.code = 200; window.QRLogin.uuid = "oe12PbMPBg==";`
+> 并以此生成二维码, 可以看出其中不包含任何和用户有关的信息, 谁都可以扫这个二维码
+> 类似扫码操作中, 二维码的状态大致有5种: created, scanned, confirmed, refused, expired
+
 # Request
 
 由 `首行+请求头+空行+请求体` 组成, 例子如下:
@@ -385,8 +401,8 @@ HTTP/1.1:
 * 多路复用,客户端和服务端只需要一个连接, 同一个连接并发处理多个请求
 * 支持header数据的压缩
 * 服务器推送
-* 流量控制: 在应用层引入了flow control，从而对每一个stream都做了不同的限流,确保同一连接上的多个流之间不会造成破坏性的干扰
-* 流优先级: 每个请求都可以带一个31bit的优先值，0表示最高优先级， 数值越大优先级越低, 服务端在处理不同的流时采取不同的策略
+* 流量控制: 在应用层引入了flow control, 从而对每一个stream都做了不同的限流,确保同一连接上的多个流之间不会造成破坏性的干扰
+* 流优先级: 每个请求都可以带一个31bit的优先值, 0表示最高优先级,  数值越大优先级越低, 服务端在处理不同的流时采取不同的策略
 
 > 多路复用: 在同一个域名下, 开启一个TCP的connection, 每个请求以stream的方式传输, 每个stream有唯一标识, connection一旦建立, 后续的请求都可以复用这个connection并且可以同时发送, server端可以根据stream的唯一标识来相应对应的请求
 
