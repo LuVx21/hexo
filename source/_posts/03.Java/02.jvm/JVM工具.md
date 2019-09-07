@@ -34,11 +34,11 @@ JVM参数:
 | :------------------ | :----------------------------------------------------------- |
 | -Xmx                | 最大堆内存                                                   |
 | -Xms                | 最小堆内存, 通常设置成跟最大堆内存一样,减少GC                |
-| -Xmn                | 设置年轻代大小,官方推荐设置为堆的`3/8`                       |
+| -Xmn                | 设置新生代大小,官方推荐设置为堆的`3/8`                       |
 | -Xss                | 指定线程的最大栈空间, 此参数决定了java函数调用的深度, 值越大调用深度越深, 若值太小则容易出栈溢出错误(StackOverflowError) |
 | -XX:PermSize        | 指定方法区(永久区)的初始值,默认是物理内存的1/64, 在Java8永久区移除, 代之的是元数据区, 由-XX:MetaspaceSize指定 |
 | -XX:MaxPermSize     | 指定方法区的最大值, 默认是物理内存的1/4, 在java8中由-XX:MaxMetaspaceSize指定元数据区的大小 |
-| -XX:NewRatio=n      | 年老代与年轻代的比值,-XX:NewRatio=2, 表示年老代与年轻代的比值为2:1 |
+| -XX:NewRatio=n      | 年老代与新生代的比值,-XX:NewRatio=2, 表示年老代与新生代的比值为2:1 |
 | -XX:SurvivorRatio=n | Eden区与一个Survivor区的大小比值,-XX:SurvivorRatio=8表示Eden区与两个Survivor区的大小比值是8:1:1,因为Survivor区有两个(from, to) |
 
 ### jstat
