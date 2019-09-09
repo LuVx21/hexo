@@ -4,6 +4,8 @@ date:
 tags:
 - MySQL
 ---
+<details>
+<summary>点击展开目录</summary>
 <!-- TOC -->
 
 - [B](#b)
@@ -11,9 +13,17 @@ tags:
 - [参考](#参考)
 
 <!-- /TOC -->
+</details>
+
+减少平衡二叉树的高度, 使用多路搜索树
+
 # B
 
 # B+
+
+所有的数据都存储在叶子节点上
+
+innodb
 
 # 参考
 
