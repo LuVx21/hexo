@@ -1,20 +1,22 @@
 ---
-title: 分布式缓存
+title: 分布式概念
 date: 
 tags:
-- Web
+- 分布式
 ---
+<details>
+<summary>点击展开目录</summary>
 <!-- TOC -->
 
 - [分布式系统](#分布式系统)
 - [缓存一致性协议](#缓存一致性协议)
-    - [哈希一致性算法](#哈希一致性算法)
-- [分布式Session](#分布式session)
-- [分布式锁](#分布式锁)
+- [哈希一致性算法](#哈希一致性算法)
+- [幂等性](#幂等性)
 
 <!-- /TOC -->
+</details>
 
-# 分布式系统
+## 分布式系统
 
 分布式系统中删除,增加所带来的影响及解决方案
 
@@ -46,32 +48,34 @@ BASE理论
 * Soft state（软状态）
 * Eventually consistent（最终一致性）
 
-# 缓存一致性协议
+## 缓存一致性协议
 
 
 ## 哈希一致性算法
 
 对key进行哈希运算,从而确定键值对存储在哪个缓存服务器
 
-# 分布式Session
-
-Session一致性解决方案:
-
-* 客户端存储Session,不常用
-* 同步
-* 保证请求分配到同一服务器
-* 后端统一存储,推荐存在缓存中
-
-```xml
-<context:annotation-config/>
-<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
-<bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"/>
-```
-
-https://blog.csdn.net/wojiaolinaaa/article/details/62424642
-
 https://blog.csdn.net/xlgen157387/article/details/57406162
 
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+## 幂等性
 
+公式表示为: `F(F(x))=F(x)`
+
+常见幂等:
+* select查询天然幂等
+* web的GET请求
+* 特殊场景下的条件update, 条件delete删除
+
+产生幂等问题的场景:
+* 重复提交表单
+* 重复发起请求
+
+解决方案:
+1. 前端控制可能产生幂等问题的操作, 避免重复操作
+2. Post/Redirect/Get模式, 如提交表单后直接跳转至提交成功页面, 不提供重复提交的机会
+3. session和表单中各自放入一个标识, 后端检查这两个标识, 满足设置的规则表示首次提交, 否则不处理
+4. 操作数据库的场景下, 可借助悲观锁和乐观锁
+5. redis分布式锁
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
