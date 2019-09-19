@@ -23,9 +23,13 @@ tags:
 - [虚拟主机](#虚拟主机)
 - [HTTPS](#https)
 - [Web安全](#web安全)
-- [HTTP/1.0和HTTP/1.1区别](#http10和http11区别)
-- [HTTP/1.1和HTTP/2.0区别](#http11和http20区别)
-- [HTTP/3](#http3)
+- [HTTP发展](#http发展)
+    - [HTTP/1](#http1)
+    - [HTTP/2](#http2)
+    - [HTTP/1.0和HTTP/1.1区别](#http10和http11区别)
+    - [HTTP/1.1和HTTP/2.0区别](#http11和http20区别)
+    - [HTTP/3](#http3)
+- [QA](#qa)
 - [参考](#参考)
 
 <!-- /TOC -->
@@ -225,7 +229,8 @@ Cookie的产生就是为了解决无状态的不便
 
 这也是常用的自动登录功能的实现原理
 
-![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/01.CS/img/Cookie.png)
+![](https://dev.tencent.com/u/LuVx21/p/img/git/raw/master/Cookie.png)
+
 Cookie机制采用的是在客户端保持状态,即信息的保存在客户端.
 
 名字,值,过期时间,路径和域
@@ -358,29 +363,9 @@ TLS/SSL协议不仅仅是一套加密传输的协议,TLS/SSL中使用了非对�
 * SQL注入
 * 拒绝服务攻击(denial-of-service attack, DoS)
 
-# HTTP/1.0和HTTP/1.1区别
+# HTTP发展
 
-HTTP/1.1:
-* 默认是持久连接
-* 支持管线化处理
-* 支持虚拟主机
-* 新增状态码 100
-* 支持分块传输编码
-* 新增缓存处理指令 max-age
-
-# HTTP/1.1和HTTP/2.0区别
-
-* 二进制分帧层
-    * frame 帧：http/2通信的最小单位, 单个帧包含帧首部, 其中标注了当前帧所属的stream
-    * message 消息：由若干个frame组合而成, 例如请求, 响应
-    * connection 连接：与http/1 相同, 指的都是对应的tcp连接
-    * stream 流, 已建立的连接上的双向字节流。
-    * 数据流以消息的形式发送, 而消息由一个或多个帧组成, 帧可以在数据流上乱序发送, 然后再根据每个帧首部的流标识符重新组装。二进制分帧是HTTP/2的基石, 其他优化都是在这一基础上来实现的。
-* 服务端推送
-* 首部压缩
-
-***HTTP1.0 HTTP 1.1 HTTP 2.0***
-
+## HTTP/1
 1.0:
 
 * 使用`keep-alive`参数来告知服务器端要建立一个长连接
@@ -396,6 +381,7 @@ HTTP/1.1:
 * 同一域名在同一时间的请求数量是有限制的
 * 同一时间只能允许一个请求经过
 
+## HTTP/2
 2.0:
 
 * 多路复用,客户端和服务端只需要一个连接, 同一个连接并发处理多个请求
@@ -406,13 +392,43 @@ HTTP/1.1:
 
 > 多路复用: 在同一个域名下, 开启一个TCP的connection, 每个请求以stream的方式传输, 每个stream有唯一标识, connection一旦建立, 后续的请求都可以复用这个connection并且可以同时发送, server端可以根据stream的唯一标识来相应对应的请求
 
-# HTTP/3
+## HTTP/1.0和HTTP/1.1区别
+
+HTTP/1.1:
+* 默认是持久连接
+* 支持管线化处理
+* 支持虚拟主机
+* 新增状态码 100
+* 支持分块传输编码
+* 新增缓存处理指令 max-age
+
+## HTTP/1.1和HTTP/2.0区别
+
+* 二进制分帧层
+    * frame 帧：http/2通信的最小单位, 单个帧包含帧首部, 其中标注了当前帧所属的stream
+    * message 消息：由若干个frame组合而成, 例如请求, 响应
+    * connection 连接：与http/1 相同, 指的都是对应的tcp连接
+    * stream 流, 已建立的连接上的双向字节流。
+    * 数据流以消息的形式发送, 而消息由一个或多个帧组成, 帧可以在数据流上乱序发送, 然后再根据每个帧首部的流标识符重新组装。二进制分帧是HTTP/2的基石, 其他优化都是在这一基础上来实现的。
+* 服务端推送
+* 首部压缩
+
+## HTTP/3
 
 http-over-quic
 TLS 1.3+UDP, 仅支持加密
 
 [HTTP/3详解](https://http3-explained.haxx.se/zh/)
 [HTTP 协议这些年都经历了啥？](https://www.cnbeta.com/articles/tech/835745.htm#comments)
+
+**实现UDP可靠传输**
+
+UDP是面向无连接,不可靠的, 若实现可靠传输, 首要的问题就是丢包和包的顺序.
+
+1. 给数据包编号, 接收方按包的顺序接受, 或自动调序.
+2. 接收方接到数据包后发送确认信息.接收方接收到不正确的包或包丢失, 要能够重发.
+
+# QA
 
 # 参考
 
