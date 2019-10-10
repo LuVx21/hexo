@@ -4,7 +4,8 @@ date:
 tags:
 - Java
 ---
-
+<details>
+<summary>点击展开目录</summary>
 <!-- TOC -->
 
 - [关于](#关于)
@@ -13,15 +14,17 @@ tags:
 - [Constructor](#constructor)
 - [Field](#field)
 - [Method](#method)
+- [原理](#原理)
 
 <!-- /TOC -->
+</details>
 
-# 关于
+## 关于
 
 根据面向对象的编程思想,万物都是对象,那么一个类也是一个对象.
 将一个类抽象成对象,就可以使用该类中的成员变量,构造方法,成员方法等的技术技术Java反射技术.
 
-# 获取类对象
+## 获取类对象
 
 获取类对象的方式:
 
@@ -32,7 +35,7 @@ tags:
 > 1中只适用于对象,2,3只适用于类
 > 开发中常用第三种,因为第三种是一个字符串,而不是一个具体的类名.可以配置在配置文件中
 
-# Class
+## Class
 
 通过反射去获取构造方法:
 
@@ -70,7 +73,7 @@ public Method[] getDeclaredMethods()
 public Method getMethod(String name,Class<?>... parameterTypes)
 ```
 
-# Constructor
+## Constructor
 
 ```Java
 // 值为true则指示反射的对象在使用时应该取消Java语言访问检查,可以用于访问私有属性
@@ -84,7 +87,7 @@ Constructor<?> con = c.getConstructor();
 Object obj = con.newInstance();
 ```
 
-# Field
+## Field
 
 ```Java
 // 等价于对象obj调用getter获得成员变量
@@ -94,7 +97,7 @@ public void set(Object obj,Object value)
 public void setAccessible(boolean flag)
 ```
 
-# Method
+## Method
 
 ```Java
 public void setAccessible(boolean flag)
@@ -135,5 +138,17 @@ class Name {
     }
 }
 ```
+
+## 原理
+
+**反射的作用与实现原理**
+
+基于Java中万物皆对象的观念, 一个类经过编译后生成的class文件加载进jvm, 都对应一个`java.lang.Class`对象, 包含了这个类的定义信息
+
+所有就能够获取到这个类的注解, 属性及方法等信息,
+
+既然涉及到class文件, 那就有必要了解其内容, 可阅读`jvm 字节码技术`相关内容, 此处推荐[字节码增强技术探索](https://tech.meituan.com/2019/09/05/java-bytecode-enhancement.html)
+
+通过阅读反射部分的源码, 可以发现很多`native`方法, 通过这些方法, 从jvm内存区域(方法区内存储类信息, 推测应是此处)获取到相关信息进行后续使用
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
