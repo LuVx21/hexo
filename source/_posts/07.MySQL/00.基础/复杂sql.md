@@ -1,3 +1,16 @@
+<details>
+<summary>点击展开目录</summary>
+<!-- TOC -->
+
+- [定位数据](#定位数据)
+- [查询后更新自身](#查询后更新自身)
+- [比较表是否相同](#比较表是否相同)
+    - [替换换行/回车符](#替换换行回车符)
+    - [delete where](#delete-where)
+
+<!-- /TOC -->
+</details>
+
 # 定位数据
 
 ```sql
@@ -78,7 +91,7 @@ user R1 inner join user_1 R2 on R1.db_name = R2.db_name
 where t.a <> 1
 ```
 
-
+## 替换换行/回车符
 
 ```sql
 -- 替换换行/回车符
@@ -87,7 +100,6 @@ update user set user_name = REPLACE(REPLACE(user_name, CHAR(10), ''), CHAR(13), 
 
 ## delete where
 
-delete from
 ```sql
 delete R1
 from t_dwh_check_result R1 
@@ -95,3 +107,5 @@ from t_dwh_check_result R1
     on R1.db_name = R2.db_name and R1.table_name = R2.table_name
 where R1.result <> 5
 ```
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
