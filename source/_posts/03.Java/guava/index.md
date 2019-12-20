@@ -4,17 +4,16 @@
 org.springframework.util.StopWatch
 com.google.common.base.Stopwatch
 
-
+```Java
 Multimap<String, String> map = HashMultimap.create();
 BiMap<String, String> dbShortNameMap = HashBiMap.create();
-
+```
 https://www.kancloud.cn/wizardforcel/java-opensource-doc/112614
 
-
-
-分割集合
-
+```Java
+// 分割集合
 Lists.partition(users, 50)
+```
 
 
 
