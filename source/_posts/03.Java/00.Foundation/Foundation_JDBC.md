@@ -33,7 +33,7 @@ tags:
 2. 获取与数据库的连接
 3. 创建代表SQL语句的对象
 4. 执行SQL语句
-5. 如果执行的是查询语句，要对结果进行处理
+5. 如果执行的是查询语句, 要对结果进行处理
 6. 释放占用的资源
 
 例:
@@ -49,7 +49,7 @@ Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java"
 Statement stmt = conn.createStatement();
 //4、执行SQL语句
 ResultSet rs = stmt.executeQuery("select id,name,password,email,birthday from users");
-//5、如果执行的是查询语句，要对结果进行处理
+//5、如果执行的是查询语句, 要对结果进行处理
 while(rs.next()){
 	System.out.println("--------------------");
 	System.out.println(rs.getObject("id"));
@@ -104,7 +104,7 @@ JDBC的URL＝协议名＋子协议名＋(据源).
 
 `ResulstSet rs = stmt.executeQuery(String sql)`:sql语句必须是(询语).
 `int num = stmt.executeUpdate(String sql)`:sql语句必须是dml(insert update delete)或者是没有返回结果集(DD).返回影响(的行).
-`boolean b = stmt.execute(String sql)`:执行任意的S(L语).如果执行的语句有结果集，返回true，否则返回f(ls).不代表(功与).
+`boolean b = stmt.execute(String sql)`:执行任意的S(L语).如果执行的语句有结果集, 返回true, 否则返回f(ls).不代表(功与).
 
 ```Java
 //用在sql语句不明确的时候
@@ -117,8 +117,8 @@ if(b){
 ## ResultSet
 
 ```Java
-boolean b = ResultSet.next();下移游标，返回有无结果记录
-boolean b = ResultSet.previous();上移游标，返回有无结果记录
+boolean b = ResultSet.next();下移游标, 返回有无结果记录
+boolean b = ResultSet.previous();上移游标, 返回有无结果记录
 boolean b = absolute(int row):定位(第几).第一行就是1
 void beforeFirst():游标移到第一行的前面
 void afterLast():游标移到最后一行的后面
@@ -133,6 +133,11 @@ void getObject(String fieldName):按照字段名(取数).
 2. 插入的数据值可以使用占位符替代(问号).
 3. 支持SQL语句预编译(数据库执行快)
 
+使用mysql的预编译对象PrepateStatement时, 一定需要
+设置`useServerPrepStmts=true`开启服务器预编译功能,
+设置`cachePrepStmts=true`开启客户端对预编译对象的缓存。
+
+链接：https://www.jianshu.com/p/d46f84aef4bc
 
 # 连接池
 
