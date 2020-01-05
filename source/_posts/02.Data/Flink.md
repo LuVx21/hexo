@@ -2,12 +2,26 @@
 <summary>点击展开目录</summary>
 <!-- TOC -->
 
+- [教程](#教程)
 - [配置](#配置)
 - [Data Sources](#data-sources)
 
 <!-- /TOC -->
 </details>
 
+
+## 教程
+
+[Apache Flink 钉钉群直播教程-基础篇](https://ververica.cn/developers/flink-training-course1/)
+
+[Apache Flink 钉钉群直播教程-进阶篇](https://ververica.cn/developers/flink-training-course2/)
+
+[Apache Flink 钉钉群直播教程-运维篇&实战篇](https://ververica.cn/developers/flink-training-course3/)
+
+[Apache Flink 钉钉群直播教程-源码篇](https://ververica.cn/developers/flink-training-course4/)
+
+
+https://github.com/ververica/sql-training
 
 ## 配置
 
