@@ -1,0 +1,92 @@
+<details>
+<summary>点击展开目录</summary>
+<!-- TOC -->
+
+- [生产者](#生产者)
+    - [内部实现](#内部实现)
+    - [可靠性保证](#可靠性保证)
+
+<!-- /TOC -->
+</details>
+
+## 生产者
+
+在一个broker中, 一个topic分为多个partition, 一个partition分为多个segment, 一个segment对应两个文件
+
+创建topic后, 默认在`/tmp/kafka-logs`目录下能看到相关内容
+
+其中, 分区对应名为类似`topicName-0`结构的目录, 其中的数字表示分区的id
+
+在此目录内部存在这名称类似于`00000000000000000000.index`和`00000000000000000000.log`的文件, 这两个文件就是一个segment的组成
+
+文件以当前 segment 的第一条消息的 offset 命名, 如上是分区起始的segment
+
+这2个文件采用了分片和索引机制, 而文件名起到索引的作用,其中`.index`文件存储大量的索引信息, 指出特定offset的消息的位置, `.log`文件存储大量的数据
+
+### 内部实现
+
+![](https://dev.tencent.com/u/LuVx21/p/img/git/raw/master/kafka/kafka_producer_flow.png)
+
+消息格式: 每个消息是一个ProducerRecord对象, 必须指定消息所属的Topic和消息值Value, 此外还可以指定消息所属的Partition以及消息的Key.
+
+1. 序列化ProducerRecord
+2. 如果ProducerRecord中指定了Partition, 则Partitioner不做任何事情; 否则, Partitioner根据消息的key得到一个Partition. 这是生产者就知道向哪个Topic下的哪个Partition发送这条消息.
+3. 消息被添加到相应的batch中, 独立的线程将这些batch发送到Broker上
+4. broker收到消息会返回一个响应. 如果消息成功写入Kafka, 则返回`RecordMetaData`对象, 该对象包含了Topic信息、Patition信息、消息在Partition中的Offset信息; 若失败, 返回一个错误
+
+Producer 发送消息采用的是异步发送的方式.
+
+在消息发送的过程中, 涉及到两个线程: `main`线程和`Sender`线程, 以及一个线程共享变量`RecordAccumulator`.
+
+`main`线程将消息发送给 `RecordAccumulator`, `Sender`线程不断从`RecordAccumulator`中拉取消息发送到 Kafka broker
+
+### 可靠性保证
+
+生产者发送数据到分区后, 分区会向生产者发送ack确认收到消息, 生产者收到确认再进行下一次的发送, 否则将会重发消息(当然实际也可以不等待ack)
+
+可靠性的保证依靠以下四点:
+
+1. ack应答机制
+
+`acks`的配置支持三种级别, 可以针对数据可靠性和吞吐量进行权衡:
+
+* `0`: 不等待broker的ack, broker收到消息未写入磁盘就发送ack, 如果leader故障, 此消息将会丢失
+* `1`: 等待broker的ack, 在leader落盘成功后发送ack, 如果follower同步成功前, leader故障, 此消息将会丢失
+* `-1`: 等待broker的ack, 在leader和所有follower全部落盘成功后发送ack, 如果leader故障, 导致ack未成功发送, 会导致重发造成消息重复
+
+2. ISR
+
+上述`acks=-1`时, 如果某个follower故障, 迟迟不能和leader同步消息, 那么leader则会等待下去不会发送ack
+
+为解决此问题, 提出了`ISR(in-sync replica set)`方案, 即维护一个和leader保持同步的follower的列表, 当ISR中的所有follower完成同步就发送ack
+
+如果某个follower长时间未和leader同步消息, 则将其从ISR中删除, 这个时间由`replica.lag.time.max.ms`参数配置
+
+leader故障后, 则从ISR中的选举新的leader
+
+3. LEO/HW
+
+LEO: Log End Offset, 每个副本最大的offset
+
+HW: High Watermark, 消费者能见到的最大的 offset, HW之前的消息才对消费者可见, 为ISR中最小的LEO
+
+HW到max(LEO)之间的消息还没有完全同步到所有副本中
+
+leader 和 follower 同步细节:
+
+follower故障:
+
+故障时会被踢出ISR, 待恢复后, 读取故障前的HW, 将大于HW的消息全部删除, 重新从leader开始同步
+
+等到该follower的LEO大于等于分区此时的HW后, 即该follower已经追上了所有副本中的最慢的后, 再加入ISR中
+
+leader故障:
+
+故障时会从ISR中选出一个leader, 为保证各副本间数据一致, 各个follower会将各自高于HW部分的消息删除掉, 然后从新leader同步消息
+
+**能否实现生产者有序生产**
+
+没有什么好的依靠Kafka实现方案, 只能在生产前进行排序, 如果消息内容来自网络, 会更加麻烦, 可以尝试采取Flink的窗口实现机制
+
+
+[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
