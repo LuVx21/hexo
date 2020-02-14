@@ -1,4 +1,19 @@
+<details>
+<summary>点击展开目录</summary>
+<!-- TOC -->
 
+    - [接口](#接口)
+- [Collectors](#collectors)
+- [Optional](#optional)
+
+<!-- /TOC -->
+</details>
+
+## 接口
+
+可以使用 `default` 声明非静态的默认方法(带有方法体)
+
+声明 `static` 方法不能搭配 `default` 使用, 同时需要实现方法
 
 # Collectors
 

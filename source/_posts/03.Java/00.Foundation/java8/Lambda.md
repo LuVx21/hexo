@@ -104,6 +104,9 @@ tags:
 | `IntUnaryOperator`     | `int applyAsInt(int operand)`                     |
 | `LongUnaryOperator`    | `long applyAsLong(long operand)`                  |
 | `DoubleUnaryOperator`  | `double applyAsDouble(double operand)`            |
+| `Collector<T, A, R>`   | 收集器,汇聚操作, 流式运算collect方法接受此类型参数|
+
+> 工具类Collectors
 
 ### 自定义
 
