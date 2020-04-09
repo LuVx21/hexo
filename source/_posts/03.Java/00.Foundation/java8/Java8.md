@@ -52,5 +52,30 @@ orElseGet
 > ifPresent???
 
 
+流式迭代中获取到索引/下标:
+
+```Java
+List<Sttring> list = new ArrayList<>();
+list.add("1");
+list.add("2");
+list.add("3");
+list.add("4");
+list.add("5");
+
+Stream.iterate(0, i -> i + 1)
+.limit(list.size())
+.forEach(i ->
+        {
+            Sytem.out.println(list.get(i));
+        }
+ );
+
+IntStream.range(0, lists.size())
+         .mapToObj(i -> handle(lists.get(i), i))
+         .collect(Collectors.toList());
+```
+
+https://www.cjavapy.com/article/260/
+
 http://www.importnew.com/10360.html
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+
