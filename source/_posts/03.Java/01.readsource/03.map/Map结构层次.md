@@ -1,0 +1,63 @@
+<details>
+<summary>点击展开目录</summary>
+<!-- TOC -->
+
+- [特征](#特征)
+- [汇总](#汇总)
+
+<!-- /TOC -->
+</details>
+
+
+抽象:
+
+Map
+NavigableMap
+SortedMap
+AbstractMap
+ConcurrentMap
+ConcurrentNavigableMap
+IdentityHashMap
+
+实现:
+
+HashTable
+HashMap
+LinkedHashMap
+WeakHashMap
+TreeMap
+EnumMap
+ConcurrentHashMap
+ConcurrentSkipListMap
+
+
+## 特征
+
+
+## 汇总
+
+- 本身是接口,不是collection的后代
+- key不可重复,某些map在相同key时可以选择是否用新值替换旧值
+
+* HashMap:Entry数组,以key的哈希码决定元素位置,所以,要保证key的哈希码不一致,如果碰到值不同但哈希码相同的key,会以单向链表扩展
+* LinkedHashMap:在HashMap的基础上,节点增加前后指针,形成逻辑上的有序
+* HashTable:线程安全的
+* TreeMap :自动排序map,根据key值自动排序.
+* Properties:HashTable的子类,从Property文件中加载数据,并提供方便的读写操作.
+* EnumMap:Key必须是枚举类型.
+* WeakHashMap:
+
+![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/java-collection.jpeg)
+
+
+| 特性     | HashMap                        | LinedHashMap   | HashTable                      | CocurrentHashMap               | TreeMap                                 |
+| :------- | :----------------------------- | :------------- | :----------------------------- | :----------------------------- | :-------------------------------------- |
+| 允许空   | K,V均可为空                    | K,V均可为空    | K,V均不可为空                  | K,V均不可为空                  | K不可,V可                               |
+| 允许重复 | ✘,可选是否替换                 | ✘,可选是否替换 | ✘                              | ✘                              | ✘,替换旧值                              |
+| 有序     | ✘                              | ○              | ✘                              | ✘                              | ○                                       |
+| 线程安全 | ✘                              | ✘              | ○                              | ○                              | ✘                                       |
+| 父类     | AbstractMap                    | HashMap        | Dictionary                     | AbstractMap                    | AbstractMap                             |
+| 接口     | Map<br/>Cloneable,Serializable | Map            | Map<br/>Cloneable,Serializable | ConcurrentMap<br/>Serializable | NavigableMap<br/>Cloneable,Serializable |
+| 其他     | 初始值16,翻倍扩容              |                | 初始值11,翻倍+1扩容            |                                |                                         |
+
+> map的重复通常是针对key而言,探究value重复与否没有太大的意义
