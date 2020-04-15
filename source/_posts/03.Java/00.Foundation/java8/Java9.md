@@ -57,6 +57,14 @@ Set<String> set = Collections.unmodifiableSet(new HashSet<String>() {
 Set<String> set = Set.of("a", "b", "c");
 ```
 
+Map:
+
+接口新增 `of()`和 `ofEntries()`方法, 提供快速创建 Map 的方式,
+
+创建结果为继承自`ImmutableCollections.AbstractImmutableMap`类的`MapN`类的对象, 可以看出这样创建的对象都是不可变的
+
+> 类似的还有 `ImmutableCollections.AbstractImmutableList`和`ImmutableCollections.AbstractImmutableSet`类
+
 ## Stream
 
 `java.util.stream.Stream`接口中增加了4个方法:
