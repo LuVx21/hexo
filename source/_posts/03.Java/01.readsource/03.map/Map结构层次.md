@@ -11,25 +11,24 @@
 
 抽象:
 
-Map
-NavigableMap
-SortedMap
-AbstractMap
-ConcurrentMap
-ConcurrentNavigableMap
-IdentityHashMap
+* `java.util.Map`
+* `java.util.NavigableMap`
+* `java.util.SortedMap`
+* `java.util.AbstractMap`
+* `java.util.IdentityHashMap`
+* `java.util.concurrent.ConcurrentMap`
+* `java.util.concurrent.ConcurrentNavigableMap`
 
 实现:
 
-HashTable
-HashMap
-LinkedHashMap
-WeakHashMap
-TreeMap
-EnumMap
-ConcurrentHashMap
-ConcurrentSkipListMap
-
+* `java.util.HashTable`
+* `java.util.HashMap`
+* `java.util.LinkedHashMap`
+* `java.util.WeakHashMap`
+* `java.util.TreeMap`
+* `java.util.EnumMap`
+* `java.util.concurrent.ConcurrentHashMap`
+* `java.util.concurrent.ConcurrentSkipListMap`
 
 ## 特征
 
