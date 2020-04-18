@@ -46,6 +46,8 @@ private final byte[] value;
 
 ## 集合
 
+针对 List, Set, Map 在接口层面上新增了静态`of()`方法, 可以方便地创建不可变集合
+
 ```Java
 Set<String> set = Collections.unmodifiableSet(new HashSet<String>() {
     {
@@ -57,9 +59,9 @@ Set<String> set = Collections.unmodifiableSet(new HashSet<String>() {
 Set<String> set = Set.of("a", "b", "c");
 ```
 
-Map:
+对于Map:
 
-接口新增 `of()`和 `ofEntries()`方法, 提供快速创建 Map 的方式,
+接口除了新增了 `of()`, 还新增了`ofEntries()`, `entry()`方法能快速创建 Map 对象
 
 创建结果为继承自`ImmutableCollections.AbstractImmutableMap`类的`MapN`类的对象, 可以看出这样创建的对象都是不可变的
 
