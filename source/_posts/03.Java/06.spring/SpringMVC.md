@@ -9,7 +9,7 @@ tags:
 <summary>点击展开目录</summary>
 <!-- TOC -->
 
-- [处理流程](#处理流程)
+- [组件](#组件)
 - [参数绑定(从请求中接收参数)](#参数绑定从请求中接收参数)
 - [常用注解](#常用注解)
 - [执行流程](#执行流程)
@@ -19,10 +19,8 @@ tags:
 <!-- /TOC -->
 </details>
 
-# 处理流程
 
-
-#
+# 组件
 
 核心组件:
 
@@ -77,22 +75,22 @@ tags:
 
 # 执行流程
 
-![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/SpringMVC_Flow.png)
+![](https://gitee.com/LuVx/img/raw/master/SpringMVC_Flow.png)
 
 图片内容引用自[springMVC执行流程及原理](https://blog.csdn.net/liangzi_lucky/article/details/52459378)
 
-|   No   |    说明                                     |
+| No   | 说明                                                         |
 | :--- | :----------------------------------------------------------- |
-| 1    | 用户向服务器发送请求, 请求被SpringMVC的前端控制器DispatcherServlet截获. |
-| 2    | DispatcherServlet对请求的URL(统一资源定位符)进行解析, 得到URI(请求资源标识符), 然后根据该URI, 调用HandlerMapping获得该Handler配置的所有相关的对象, 包括Handler对象以及Handler对象对应的拦截器, 这些对象都会被封装到一个HandlerExecutionChain对象当中返回.<br/>`protected HandlerExecutionChain getHandler(HttpServletRequest request)` |
-| 3    | DispatcherServlet根据获得的Handler, 选择一个合适的HandlerAdapter.HandlerAdapter会被用于处理多种Handler, 调用Handler实际处理请求的方法. |
-| 4    | 提取请求中的模型数据, 开始执行Handler(Controller). 在填充Handler的入参过程中, 根据配置spring将帮助做一些额外的工作<br/>消息转换: 将请求的消息, 如json, xml等数据转换成一个对象, 将对象转换为指定的响应信息.<br/>数据转换: 对请求消息进行数据转换, 如String转换成Integer. Double等.<br/>数据格式化: 对请求的消息进行数据格式化, 如将字符串转换为格式化数字或格式化日期等.<br/>数据验证: 验证数据的有效性如长度, 格式等, 验证结果存储到BindingResult或Error中. |
-| 5    | Handler执行完成后, 向DispatcherServlet返回一个ModelAndView对象, ModelAndView对象中应该包含视图名或视图模型.<br/>`ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler)` |
-| 6    | 根据返回的ModelAndView对象, 选择一个合适的ViewResolver(视图解析器)返回给DispatcherServlet.其中存在多个ViewResolver时, 按照其order属性的值遍历(小的先遍历到),不设定order则按照配置顺序遍历.<br/>`protected void render(ModelAndView mv, HttpServletRequest request, HttpServletResponse response)` |
-| 7    | ViewResolver结合Model和View来渲染视图.<br/>`View resolveViewName(String viewName, Locale locale)`<br/>`void render(@Nullable Map<String, ?> model, HttpServletRequest request, HttpServletResponse response)` |
+| 1    | 用户向服务器发送请求, 请求被SpringMVC的前端控制器`DispatcherServlet`截获. |
+| 2    | `DispatcherServlet`对请求的URL(统一资源定位符)进行解析, 得到URI(请求资源标识符), 然后根据该URI, 调用`HandlerMapping`获得该Handler配置的所有相关的对象, 包括`Handler对象`以及`Handler对象对应的拦截器`, 这些对象都会被封装到一个`HandlerExecutionChain`对象当中返回.使用的方法:<br/>`HandlerExecutionChain org.springframework.web.servlet.DispatcherServlet#getHandler` |
+| 3    | `DispatcherServlet`根据获得的Handler, 选择一个合适的`HandlerAdapter`被用于处理多种Handler, 调用Handler实际处理请求的方法(`Controller`的方法). |
+| 4    | 提取请求中的模型数据, 开始执行Handler(即Controller). 在填充Handler的入参过程中, 根据配置spring将帮助做一些额外的工作<br/>1. 消息转换: 将请求的消息, 如json, xml等数据转换成一个对象, 将对象转换为指定的响应信息.<br/>2. 数据转换: 对请求消息进行数据转换, 如String转换成Integer, Double等.<br/>3. 数据格式化: 对请求的消息进行数据格式化, 如将字符串转换为格式化数字或格式化日期等.<br/>4. 数据验证: 验证数据的有效性如长度, 格式等, 验证结果存储到`BindingResult`或`Error`中. |
+| 5    | Handler执行完成后, 向`DispatcherServlet`返回一个`ModelAndView`对象, 该对象中包含视图名或视图模型.使用的方法:<br/>`ModelAndView org.springframework.web.servlet.HandlerAdapter#handle` |
+| 6    | 根据返回的`ModelAndView`对象, 选择一个合适的`ViewResolver`(视图解析器)返回给`DispatcherServlet`.其中存在多个`ViewResolver`时, 按照其order属性的值遍历(小的先遍历到),不设定order则按照配置顺序遍历. |
+| 7    | `ViewResolver`结合Model和View来渲染视图.使用的方法:<br/>`View org.springframework.web.servlet.ViewResolver#resolveViewName`<br/>`void org.springframework.web.servlet.DispatcherServlet#render` |
 | 8    | 将视图渲染结果返回给客户端.                                  |
 
-以上8个步骤, DispatcherServlet. HandlerMapping. HandlerAdapter和ViewResolver等对象协同工作, 完成SpringMVC请求—>响应的整个工作流程, 这些对象完成的工作对于开发者来说都是不可见的, 开发者并不需要关心这些对象是如何工作的, 开发者, 只需要在Handler(Controller)当中完成对请求的业务处理.
+以上8个步骤, DispatcherServlet. HandlerMapping. HandlerAdapter和ViewResolver等对象协同工作, 完成SpringMVC请求—>响应的整个工作流程.
 
 # 访问静态资源
 
