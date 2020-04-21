@@ -10,21 +10,21 @@
 
 抽象层:
 
-* `./java.base/java/util/AbstractSet.java`
-* `./java.base/java/util/Set.java`
-* `./java.base/java/util/SortedSet.java`
-* `./java.base/java/util/NavigableSet.java`
+* `./java.base/java/util/AbstractSet`
+* `./java.base/java/util/Set`
+* `./java.base/java/util/SortedSet`
+* `./java.base/java/util/NavigableSet`
 
 实现:
 
-* `./java.base/java/util/HashSet.java`
-* `./java.base/java/util/LinkedHashSet.java`
-* `./java.base/java/util/TreeSet.java`
-* `./java.base/java/util/concurrent/ConcurrentSkipListSet.java`
-* `./java.base/java/util/concurrent/CopyOnWriteArraySet.java`
-* `./java.base/java/util/EnumSet.java`
-* `./java.base/java/util/JumboEnumSet.java`
-* `./java.base/java/util/RegularEnumSet.java`
+* `./java.base/java/util/HashSet`
+* `./java.base/java/util/LinkedHashSet`
+* `./java.base/java/util/TreeSet`
+* `./java.base/java/util/concurrent/ConcurrentSkipListSet`
+* `./java.base/java/util/concurrent/CopyOnWriteArraySet`
+* `./java.base/java/util/EnumSet`
+* `./java.base/java/util/JumboEnumSet`
+* `./java.base/java/util/RegularEnumSet`
 
 ## 特征
 

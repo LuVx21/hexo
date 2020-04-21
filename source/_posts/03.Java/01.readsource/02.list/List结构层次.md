@@ -10,17 +10,17 @@
 
 抽象层:
 
-* `./java.base/java/util/List.java`
-* `./java.base/java/util/AbstractList.java`
-* `./java.base/java/util/AbstractSequentialList.java`
+* `./java.base/java/util/AbstractList`
+* `./java.base/java/util/AbstractAbstractList`
+* `./java.base/java/util/AbstractSequentialAbstractList`
 
 实现
 
-* `./java.base/java/util/ArrayList.java`
-* `./java.base/java/util/LinkedList.java`
-* `./java.base/java/util/Vector.java`
-* `./java.base/java/util/Stack.java`
-* `./java.base/java/util/concurrent/CopyOnWriteArrayList.java`
+* `./java.base/java/util/ArrayAbstractList`
+* `./java.base/java/util/LinkedAbstractList`
+* `./java.base/java/util/VectorAbstractList`
+* `./java.base/java/util/StackAbstractList`
+* `./java.base/java/util/concurrent/CopyOnWriteArrayAbstractList`
 
 ## 特征
 

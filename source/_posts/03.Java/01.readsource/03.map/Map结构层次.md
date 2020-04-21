@@ -46,7 +46,7 @@
 * EnumMap:Key必须是枚举类型.
 * WeakHashMap:
 
-![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/java-collection.jpeg)
+![](https://gitee.com/LuVx/img/raw/master/java-collection.jpeg)
 
 
 | 特性     | HashMap                        | LinedHashMap   | HashTable                      | CocurrentHashMap               | TreeMap                                 |
