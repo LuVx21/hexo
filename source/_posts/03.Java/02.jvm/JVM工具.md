@@ -50,6 +50,73 @@ jstat -gcutil 665
 
 ### jstack
 
+```Java
+public class Demo {
+    private Object lock1 = new Object();
+    private Object lock2 = new Object();
+
+    public void deadLock() {
+        new Thread(() -> {
+            synchronized (lock1) {
+                try {
+                    Thread.sleep(1_000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (lock2) {
+                    System.out.println("持有lock1获取lock2");
+                }
+            }
+        }).start();
+        new Thread(() -> {
+            synchronized (lock2) {
+                try {
+                    Thread.sleep(1_000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (lock1) {
+                    System.out.println("持有lock2获取lock1");
+                }
+            }
+        }).start();
+    }
+}
+```
+
+执行 `jstack <pid>`
+
+```Java
+Found one Java-level deadlock:
+=============================
+"Thread-1":
+  waiting to lock monitor 0x000000001986fcb8 (object 0x0000000781feb3a8, a java.lang.Object),
+  which is held by "Thread-0"
+"Thread-0":
+  waiting to lock monitor 0x000000001986d428 (object 0x0000000781feb3b8, a java.lang.Object),
+  which is held by "Thread-1"
+
+Java stack information for the threads listed above:
+===================================================
+"Thread-1":
+	at org.luvx.request.a.Demo.lambda$deadLock$1(Demo.java:32)
+	- waiting to lock <0x0000000781feb3a8> (a java.lang.Object)
+	- locked <0x0000000781feb3b8> (a java.lang.Object)
+	at org.luvx.request.a.Demo$$Lambda$2/1512981843.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+"Thread-0":
+	at org.luvx.request.a.Demo.lambda$deadLock$0(Demo.java:20)
+	- waiting to lock <0x0000000781feb3b8> (a java.lang.Object)
+	- locked <0x0000000781feb3a8> (a java.lang.Object)
+	at org.luvx.request.a.Demo$$Lambda$1/1530388690.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:748)
+
+Found 1 deadlock.
+
+```
+
+可以看出线程0和1都等待获取对方持有的锁对象, 持有并等待造成死锁
+
 
 ### jmap
 
