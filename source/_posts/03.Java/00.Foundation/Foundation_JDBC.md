@@ -14,8 +14,9 @@ tags:
     - [Connection](#connection)
     - [Statement](#statement)
     - [ResultSet](#resultset)
-- [PreparedStatment](#preparedstatment)
+- [PreparedStatement](#preparedstatement)
 - [连接池](#连接池)
+    - [其他](#其他)
 
 <!-- /TOC -->
 
@@ -126,7 +127,7 @@ void getObject(int fieldIndex):按照字段的索(取数).第一个字段就是1
 void getObject(String fieldName):按照字段名(取数).
 ```
 
-# PreparedStatment
+# PreparedStatement
 
 优点:
 1. 防止SQL注入
@@ -153,6 +154,14 @@ void getObject(String fieldName):按照字段名(取数).
 * 分派连接对象给请求
 * 回收使用完毕的连接对象
 * 重新将连接放回连接池
+
+## 其他
+
+插入后返回主键
+
+`ResultSet rs = stmt.getGeneratedKeys();`
+
+
 
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
