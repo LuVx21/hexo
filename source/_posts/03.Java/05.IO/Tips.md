@@ -1,3 +1,15 @@
+<details>
+<summary>点击展开目录</summary>
+<!-- TOC -->
+
+- [文件上传方式](#文件上传方式)
+- [文件读写方式](#文件读写方式)
+
+<!-- /TOC -->
+</details>
+
+## 文件上传方式
+
 文件上传的实现方式:
 
 
@@ -42,3 +54,13 @@ public String fileUpload(MultipartFormDataInput input) {
     }
 }
 ```
+
+
+## 文件读写方式
+
+
+https://blog.csdn.net/Mingyueyixi/article/details/78034054
+
+java文件读写的工具类
+
+
