@@ -9,6 +9,7 @@
 - [String](#string)
 - [集合](#集合)
 - [Stream](#stream)
+- [其他](#其他)
 
 <!-- /TOC -->
 </details>
@@ -79,5 +80,22 @@ public static<T> Stream<T> ofNullable(T t)
 public static<T> Stream<T> iterate(T seed, Predicate<? super T> hasNext, UnaryOperator<T> next)
 ```
 
+`Collectors`类新增 2 个方法:
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+```Java
+public static <T, A, R> Collector<T, ?, R>
+filtering(Predicate<? super T> predicate, Collector<? super T, A, R> downstream)
+public static <T, U, A, R> Collector<T, ?, R>
+flatMapping(Function<? super T, ? extends Stream<? extends U>> mapper, Collector<? super U, A, R> downstream)
+```
+
+## 其他
+
+`Optional`类新增以下方法:
+
+```Java
+public void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)
+public Optional<T> or(Supplier<? extends Optional<? extends T>> supplier)
+public Stream<T> stream()
+```
+

@@ -40,6 +40,17 @@ switch (i) {
     default -> System.out.println("偶数:" + i);
 }
 ```
+
+```Java
+String s = switch (i) {
+    case 1, 3, 5, 7:
+        yield "奇数:" + i;
+    default:
+        yield "偶数:" + i;
+};
+```
+> 13时候作为预览特性加入, 14 成为正式语法
+
 ## Record Type
 
 类似Enum 类, 也是一种约束型的类定义方式

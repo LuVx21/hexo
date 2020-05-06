@@ -3,6 +3,7 @@
 <!-- TOC -->
 
 - [HTTP Client](#http-client)
+- [String](#string)
 
 <!-- /TOC -->
 </details>
@@ -44,4 +45,21 @@ public static void async() throws URISyntaxException {
             })
             .join();
 }
+```
+
+## String
+
+```Java
+// 是否为空白字符串
+public boolean isBlank()
+//去除首尾空格
+public String strip()
+//去除首部空格
+public String stripLeading()
+//去除尾部空格
+public String stripTrailing()
+// 重复字符串
+public String repeat(int count)
+// 返回由换行符分隔的字符串集合
+public Stream<String> lines()
 ```

@@ -31,10 +31,10 @@ tags:
 
 | 接口             | 方法                | 说明       |
 | :--------------- | :------------------ | :--------- |
-| `Consumer<T>`    | `void accept(T t)`  | 消费型接口 |
-| `Supplier<T>`    | `T get()`           | 供给型接口 |
-| `Function<T, R>` | `R apply(T t)`      | 函数型接口 |
-| `Predicate<T>`   | `boolean test(T t)` | 断言型接口 |
+| `java.util.function.Consumer<T>`    | `void accept(T t)`  | 消费型接口 |
+| `java.util.function.Supplier<T>`    | `T get()`           | 供给型接口 |
+| `java.util.function.Function<T, R>` | `R apply(T t)`      | 函数型接口 |
+| `java.util.function.Predicate<T>`   | `boolean test(T t)` | 断言型接口 |
 
 ### 消费型
 
@@ -137,7 +137,7 @@ System.out.println(formula.plusOne(100) + " " + formula.plusSelf(100));
 
 ### 基础语法
 
-![](https://dev.tencent.com/u/LuVx21/p/img/git/raw/master/lambda.jpg)
+![](https://gitee.com/LuVx/img/raw/master/lambda.jpg)
 > 单个参数`()`也可省略
 
 ### 变量访问

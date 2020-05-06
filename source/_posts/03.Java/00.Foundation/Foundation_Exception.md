@@ -27,7 +27,7 @@ Java程序运行过程中,如果出现异常就会生成一个异常对象,封�
 * 运行时异常:继承自`java.lang.RuntimeException`,这种异常出现很频繁,对其处理往往会对程序的可读性和性能有很大影响.
 * 非运行时异常:直接继承自`java.lang.Exception`,也被称为检查异常,发生于编译时期
 
-![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/exception.png)
+![](https://gitee.com/LuVx/img/raw/master/exception.png)
 
 **Exception:**
 
