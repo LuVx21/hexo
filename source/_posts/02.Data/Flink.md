@@ -40,7 +40,7 @@ web.upload.dir: /opt/flink/target/
 实现 `SourceFunction` 自定义非并行的 source
 实现 `ParallelSourceFunction` 接口或者扩展 `RichParallelSourceFunction` 自定义并行的 source
 
-![](https://dev.tencent.com/u/LuVx21/p/img/git/raw/master/flink_class_Function.png)
+![](https://gitee.com/LuVx/img/raw/master/flink_class_Function.png)
 
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

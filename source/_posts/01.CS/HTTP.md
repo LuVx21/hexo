@@ -228,7 +228,7 @@ Cookie的产生就是为了解决无状态的不便
 
 这也是常用的自动登录功能的实现原理
 
-![](https://dev.tencent.com/u/LuVx21/p/img/git/raw/master/Cookie.png)
+![](https://gitee.com/LuVx/img/raw/master/Cookie.png)
 
 Cookie机制采用的是在客户端保持状态,即信息的保存在客户端.
 
