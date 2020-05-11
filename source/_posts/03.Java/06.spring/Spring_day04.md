@@ -23,7 +23,7 @@ tag:
 
 # SSH整合
 
-![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/01-SSH回顾.bmp)
+![](https://gitee.com/LuVx/img/raw/master/01-SSH回顾.bmp)
 
 # SSH整合用依赖
 

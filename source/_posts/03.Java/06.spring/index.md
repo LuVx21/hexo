@@ -35,7 +35,7 @@ public class Ren implements Serializable {
 
 ## 结构
 
-![](https://dev.tencent.com/u/LuVx21/p/img/git/raw/master/spring-overview.png)
+![](https://gitee.com/LuVx/img/raw/master/spring-overview.png)
 
 自身组件:
 
