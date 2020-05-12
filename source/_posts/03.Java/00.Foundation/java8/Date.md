@@ -1,4 +1,20 @@
+<details>
+<summary>点击展开目录</summary>
+<!-- TOC -->
 
+- [ZoneId](#zoneid)
+- [Instant](#instant)
+- [LocalDate](#localdate)
+- [LocalTime](#localtime)
+- [LocalDateTime](#localdatetime)
+- [Clock](#clock)
+- [Period](#period)
+- [Duration](#duration)
+- [DateTimeFormatter](#datetimeformatter)
+- [新旧API的转换](#新旧api的转换)
+
+<!-- /TOC -->
+</details>
 
 ## ZoneId
 
@@ -50,7 +66,7 @@ java.time.Duration
 
 ChronoUnit
 
-# DateTimeFormatter
+## DateTimeFormatter
 
 ```Java
 // Date和Instant互相转换
@@ -83,6 +99,26 @@ long timestamp = LocalDate.now()
         .toInstant().toEpochMilli();
 ```
 
+## 新旧API的转换
 
+```Java
+// LocalDate -> Date
+Date date = Date.from(LocalDate.now().atStartOfDay(ZoneOffset.ofHours(8)).toInstant());
+// LocalDateTime -> Date
+Date date = Date.from(LocalDateTime.now().atZone(ZoneOffset.ofHours(8)).toInstant());
+// LocalDate -> 时间戳
+long timestamp = LocalDate.now().atStartOfDay(ZoneOffset.ofHours(8)).toInstant().toEpochMilli();
+// LocalDateTime -> 时间戳
+long timestamp = LocalDateTime.now().toInstant(ZoneOffset.ofHours(8)).toEpochMilli();
+```
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+```Java
+// Date -> LocalDate
+LocalDate localDate = new Date().toInstant().atZone(ZoneOffset.ofHours(8)).toLocalDate();
+// Date -> LocalDateTime
+LocalDateTime localDateTime = new Date().toInstant().atZone(ZoneOffset.ofHours(8)).toLocalDateTime();
+// 时间戳 -> LocalDate
+LocalDate localDate = Instant.ofEpochMilli(System.currentTimeMillis()).atZone(ZoneOffset.ofHours(8)).toLocalDate();
+// 时间戳 -> LocalDateTime
+LocalDateTime localDateTime = Instant.ofEpochMilli(System.currentTimeMillis()).atZone(ZoneOffset.ofHours(8)).toLocalDateTime();
+```
