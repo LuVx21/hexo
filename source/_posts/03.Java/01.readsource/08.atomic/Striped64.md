@@ -9,6 +9,7 @@
 - [Accumulator](#accumulator)
     - [使用场景](#使用场景-1)
     - [源码](#源码-1)
+- [其他](#其他)
 
 <!-- /TOC -->
 </details>
@@ -261,3 +262,31 @@ public long get() {
     return result;
 }
 ```
+
+## 其他
+
+**`ThreadLocalRandom`类的作用**
+
+`Striped64`的源码中多次使用到`ThreadLocalRandom` 类的 `PROBE` 变量, 并使用到了以下方法
+
+```Java
+public static ThreadLocalRandom current() {
+    if (UNSAFE.getInt(Thread.currentThread(), PROBE) == 0)
+        localInit();
+    return instance;
+}
+static final void localInit() {
+    int p = probeGenerator.addAndGet(PROBE_INCREMENT);
+    int probe = (p == 0) ? 1 : p; // skip 0
+    long seed = mix64(seeder.getAndAdd(SEEDER_INCREMENT));
+    Thread t = Thread.currentThread();
+    UNSAFE.putLong(t, SEED, seed);
+    UNSAFE.putInt(t, PROBE, probe);
+}
+```
+
+这个类是一个与当前线程隔离的随机数生成器, 通过为每个线程实例化一个随机数生成器, 来减少系统开销和对资源的争用
+
+在 Java7 中添加, 用以解决 `Random` 类在并发场景下的性能问题
+
+调用 `current()` 方法主要是为了初始化随机数生成器, 生成`PROBE` 变量的值, 从而确定 cell 的位置
