@@ -71,5 +71,9 @@ HttpEntity<String> entity = new HttpEntity<String>(requestJson, headers);
 ResponseEntity<String> resp = restTemplate.postForEntity(url,entity,String.class);
 ```
 
+5.0 以上，官方标注了更推荐使用非阻塞的响应式 HTTP 请求处理类 `org.springframework.web.reactive.client.WebClient` 来替代 RestTemplate
+
+可阅读[文章](https://juejin.im/post/5cd680eff265da037b612e28)
+
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
