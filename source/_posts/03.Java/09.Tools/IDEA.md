@@ -1,17 +1,16 @@
+<details>
+<summary>点击展开目录</summary>
+<!-- TOC -->
 
-代码提示忽略大小写
-code completion 
+- [插件](#插件)
+- [阅读](#阅读)
 
-
-
-# live template
-
-```
-private static final Logger logger = LoggerFactory.getLogger($CLASS$.class);
-```
+<!-- /TOC -->
+</details>
 
 
-# 插件
+
+## 插件
 
 * lombok
 * maven helper
@@ -21,4 +20,7 @@ private static final Logger logger = LoggerFactory.getLogger($CLASS$.class);
 * gsonformat
 * MyBatisCodeHelperPro
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+
+## 阅读
+
+1. [awesome-idea](https://github.com/Snailclimb/awesome-idea/)
