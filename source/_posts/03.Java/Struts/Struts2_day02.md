@@ -157,7 +157,7 @@ Struts中提供了两类数据封装的方式
 
 # 自定义拦截器
 
-![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/01-拦截器.bmp)
+![](https://gitee.com/LuVx/img/raw/master/01-拦截器.bmp)
 
 **编写拦截器**
 
