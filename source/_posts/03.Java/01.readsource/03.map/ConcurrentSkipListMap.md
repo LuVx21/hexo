@@ -12,30 +12,43 @@
 
 ConcurrentSkipListMap
 
+## skiplist
+
+是一种基于链式查找的数据结构, 节点上下左右都是链表结构, 其效率可以比拟二叉查找树
+
+其实现就是在链表的上层增加多层索引链表, 在查找时在索引层进行跳跃快速查找, 从而达到快速定位数据的效果
+
+最下面一层可以为 `数据层`, 其上的所有都是 `索引层`
+
 ## 特性
 
 1. k-v均不可为null
 2. 和 `ConcurrentHashMap`相比, 多用了存储空间, 但实现了有序数据存储
 3. 由于`数据节点层`(最后一层)和`索引层`(最后一层上的所有)组成
+4. 整个结构中横向纵向都是链表, 纵向向下最终指向数据节点
 
 ## 源码
 
 ```Java
-// 存储容器, 节点类
+// 索引层链式结构节点
 static class Index<K,V> {
     final Node<K,V> node;
     final Index<K,V> down;
     volatile Index<K,V> right;
 }
+// 索引层链式结构头节点
 static final class HeadIndex<K,V> extends Index<K,V> {
     final int level;
 }
+// 数据层链式结构节点
 static final class Node<K,V> {
     final K key;
     volatile Object value;
     volatile Node<K,V> next;
 }
 ```
+
+整个完整的连接结构, 由以上3中节点组成
 
 新增方法:
 
@@ -171,17 +184,17 @@ private V doGet(Object key) {
     outer: for (;;) {
         for (Node<K,V> b = findPredecessor(key, cmp), n = b.next;;) {
             Object v; int c;
-            if (n == null)
+            if (n == null)// 前驱节点没有后继, 所以没有找到key对应的节点
                 break outer;
-            Node<K,V> f = n.next;
+            Node<K,V> f = n.next; // b -> n -> f
             if (n != b.next)                // inconsistent read
-                break;
+                break;// 已被修改
             if ((v = n.value) == null) {    // n is deleted
-                n.helpDelete(b, f);
+                n.helpDelete(b, f);// 因为k-v都不允许为空, 为空则表示已删除
                 break;
             }
             if (b.value == null || v == n)  // b is deleted
-                break;
+                break;// 前驱节点已被删除
             if ((c = cpr(cmp, key, n.key)) == 0) {
                 @SuppressWarnings("unchecked") V vv = (V)v;
                 return vv;
@@ -218,18 +231,18 @@ final V doRemove(Object key, Object value) {
             if (b.value == null || v == n)      // b is deleted
                 break;
             if ((c = cpr(cmp, key, n.key)) < 0)
-                break outer;
-            if (c > 0) {
+                break outer;// key < n.key, key对应的节点不存在
+            if (c > 0) {// 向后继续查找key节点
                 b = n;
                 n = f;
                 continue;
-            }
-            if (value != null && !value.equals(v))
-                break outer;
-            if (!n.casValue(v, null))
+            }// 此时c=0
+            if (value != null && !value.equals(v))// 不为null且value不匹配不进行删除
+                break outer;// 删除时需要满足key,value都匹配
+            if (!n.casValue(v, null))// 在此处先将value设置成null, 基本相当于删除了
                 break;
             if (!n.appendMarker(f) || !b.casNext(n, f))
-                findNode(key);                  // retry via findNode
+                findNode(key);// 清理对应的链式关系
             else {
                 findPredecessor(key, cmp);      // clean index
                 if (head.right == null)
@@ -243,11 +256,33 @@ final V doRemove(Object key, Object value) {
 }
 ```
 
+基本和`doGet()`方法相似
+
 marker节点的存在保证节点一边删除一边插入数据是安全的
 
-## 线程安全的实现
+如 `a -> b -> c`
 
+线程1删除节点b, 另一个线程在b后面添加节点b1, 无marker节点时, 这个操作的结果可能会变成`a -> c <- b1 <- b`
 
+如果有mardker节点, 
+
+| No   | 线程1                                                 | 线程2                                     |
+| :--- | :---------------------------------------------------- | :---------------------------------------- |
+| 1    |                                                       | if b.value == null 判断b的value是否为null |
+| 2    | b.casValue(v, null)  `a -> b -> c`                    |                                           |
+| 3    | m = new Node(c); b.caseNext(c, m); `a -> b -> m -> c` |                                           |
+| 4    | a.casNext(b, b.next)    `a -> c`                      |                                           |
+| 5    |                                                       | Node b1 = new Node(); b.casNext(c, b1);   |
+
+4会将b和m一起删除, 5步骤的`b.casNext(c, b1)`发生的时机
+
+3之前, 则`b.casNext(c, b1)`成功, 之后设置m, 并将b和m一起删除
+
+3之后4之前, 则`b.casNext(c, b1)`失败, cas进行重试
+
+4之后, b和m一起被删除了, 因为b.next不是c了, 操作失败进行重试
+
+## QA
 
 
 ## 阅读
