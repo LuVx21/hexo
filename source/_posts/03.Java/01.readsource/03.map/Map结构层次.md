@@ -11,13 +11,12 @@
 
 抽象:
 
-* `java.util.Map`
-* `java.util.NavigableMap`
-* `java.util.SortedMap`
-* `java.util.AbstractMap`
-* `java.util.IdentityHashMap`
-* `java.util.concurrent.ConcurrentMap`
-* `java.util.concurrent.ConcurrentNavigableMap`
+1. `java.util.Map`
+2. `java.util.SortedMap`
+3. `java.util.NavigableMap`
+4. `java.util.AbstractMap`
+5. `java.util.concurrent.ConcurrentMap`
+6. `java.util.concurrent.ConcurrentNavigableMap`
 
 实现:
 
@@ -27,6 +26,7 @@
 * `java.util.WeakHashMap`
 * `java.util.TreeMap`
 * `java.util.EnumMap`
+* `java.util.IdentityHashMap`
 * `java.util.concurrent.ConcurrentHashMap`
 * `java.util.concurrent.ConcurrentSkipListMap`
 

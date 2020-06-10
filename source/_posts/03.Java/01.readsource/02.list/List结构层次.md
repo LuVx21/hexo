@@ -10,24 +10,23 @@
 
 抽象层:
 
-* `./java.base/java/util/AbstractList`
-* `./java.base/java/util/AbstractAbstractList`
-* `./java.base/java/util/AbstractSequentialAbstractList`
+1. `java.util.List`
+2. `java.util.AbstractList`
+3. `java.util.AbstractSequentialList`
 
 实现
 
-* `./java.base/java/util/ArrayAbstractList`
-* `./java.base/java/util/LinkedAbstractList`
-* `./java.base/java/util/VectorAbstractList`
-* `./java.base/java/util/StackAbstractList`
-* `./java.base/java/util/concurrent/CopyOnWriteArrayAbstractList`
+* `java.util.ArrayList`
+* `java.util.LinkedList`
+* `java.util.concurrent.CopyOnWriteArrayList`
+* 其他基于List实现的数据结构
 
 ## 特征
 
-* ArrayList :动态数组
-* LinkedList:双向链表
-* Vector:线程安全的动态数组
-* Stack:对象栈,Vector的子类,遵循先进后出的原则
+* ArrayList: 动态数组
+* LinkedList: 双向链表
+* Vector: 线程安全的动态数组
+* Stack: 对象栈,Vector的子类,遵循先进后出的原则
 
 ## 汇总
 

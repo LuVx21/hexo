@@ -10,21 +10,21 @@
 
 抽象层:
 
-* `./java.base/java/util/AbstractSet`
-* `./java.base/java/util/Set`
-* `./java.base/java/util/SortedSet`
-* `./java.base/java/util/NavigableSet`
+1. `java.util.Set`
+2. `java.util.SortedSet`
+3. `java.util.NavigableSet`
+4. `java.util.AbstractSet`
 
 实现:
 
-* `./java.base/java/util/HashSet`
-* `./java.base/java/util/LinkedHashSet`
-* `./java.base/java/util/TreeSet`
-* `./java.base/java/util/concurrent/ConcurrentSkipListSet`
-* `./java.base/java/util/concurrent/CopyOnWriteArraySet`
-* `./java.base/java/util/EnumSet`
-* `./java.base/java/util/JumboEnumSet`
-* `./java.base/java/util/RegularEnumSet`
+* `java.util.HashSet`
+* `java.util.LinkedHashSet`
+* `java.util.TreeSet`
+* `java.util.EnumSet`
+* `java.util.JumboEnumSet`
+* `java.util.RegularEnumSet`
+* `java.util.concurrent.ConcurrentSkipListSet`
+* `java.util.concurrent.CopyOnWriteArraySet`
 
 ## 特征
 
