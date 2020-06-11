@@ -17,3 +17,7 @@ export PATH=`echo $PATH | sed 's/:\/mnt\/[a-z]\/[^:]*//g'`
 C:\Users\Administrator\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs
 ```
 
+## 阅读
+
+* [wsl文档](https://docs.microsoft.com/zh-cn/windows/wsl/)
+* [WSL快速设置](https://mechanical-consciousness.com/2018/10/19/wsl-quick-setup-zh.html)
