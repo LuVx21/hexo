@@ -221,7 +221,6 @@ OK，准备好了告白IO流了咩？
     File parentDir = new File("F:\\aaa");
     String child = "bbb.txt";
     File file4 = new File(parentDir, child); --------相当于F:\\aaa\\bbb.txt
-    复制代码
 
 > File类的注意点：
 > 
@@ -268,7 +267,7 @@ File的常用方法主要分为获取功能、获取绝对路径和相对路径�
     目录绝对路径:d:\aaa
     目录构造路径:d:\aaa
     目录名称:aaa
-    目录长度:3236复制代码
+    目录长度:3236
 
 > 注意：`length()`，表示文件的长度。但是`File`对象表示目录，则返回值未指定。
 
@@ -294,7 +293,6 @@ File的常用方法主要分为获取功能、获取绝对路径和相对路径�
     输出结果：
     D:\bbb.java
     D:\java\bbb.java
-    复制代码
 
 ### 1.3.3判断功能的方法
 
@@ -320,7 +318,7 @@ File的常用方法主要分为获取功能、获取绝对路径和相对路径�
     d:\aaa\bbb.java 是否存在:true
     d:\aaa 是否存在:true
     d:\aaa 文件?:false
-    d:\aaa 目录?:true复制代码
+    d:\aaa 目录?:true
 
 ### 1.3.4 创建删除功能的方法
 
@@ -356,7 +354,6 @@ File的常用方法主要分为获取功能、获取绝对路径和相对路径�
             System.out.println(f4.delete());// false
         }
     }
-    复制代码
 
 > 注意：`delete`方法，如果此`File`表示目录，则目录必须为空才能删除。
 
@@ -384,7 +381,6 @@ File的常用方法主要分为获取功能、获取绝对路径和相对路径�
             }
         }
     }
-    复制代码
 
 **listFiles**在获取指定目录下的文件或者文件夹时必须满足下面两个条件
 1，**指定的目录必须存在**
@@ -423,7 +419,6 @@ File的常用方法主要分为获取功能、获取绝对路径和相对路径�
             }
         }
     }
-    复制代码
 
 如果对上面的代码有疑问，可以随时联系我，博主一直都在！
 
@@ -499,7 +494,6 @@ OutputStream与InputStream的继承关系
 **推荐第二种构造方法**【开发常用】：
 
     FileOutputStream outputStream = new FileOutputStream("abc.txt");
-    复制代码
 
 就以上面这句代码来讲，类似这样创建字节输出流对象都做了**三件事情**：
 1、调用系统功能去创建文件【输出流对象才会自动创建】
@@ -521,7 +515,6 @@ OutputStream与InputStream的继承关系
             FileOutputStream fos = new FileOutputStream("G:\\b.txt");
         }
     }
-    复制代码
 
 #### FileOutputStream写出字节数据
 
@@ -529,7 +522,7 @@ OutputStream与InputStream的继承关系
 
     public void write(int b)
     public void write(byte[] b)
-    public void write(byte[] b,int off,int len)  //从`off`索引开始，`len`个字节复制代码
+    public void write(byte[] b,int off,int len)  //从`off`索引开始，`len`个字节
 
 1. **写出字节**：`write(int b)` 方法，每次可以写出一个字节数据，代码如下：
 
@@ -546,7 +539,6 @@ OutputStream与InputStream的继承关系
     }
     输出结果：
     abc
-    复制代码
 
 > 1. 虽然参数为int类型四个字节，但是只会保留一个字节的信息写出。
 > 2. 流操作完毕后，必须释放系统资源，调用close方法，千万记得。
@@ -566,7 +558,6 @@ OutputStream与InputStream的继承关系
     }
     输出结果：
     麻麻我想吃烤山药
-    复制代码
 
 1. **写出指定长度字节数组**：`write(byte[] b, int off, int len)` ,每次写出从`off`索引开始，`len`个字节，代码如下：
 
@@ -583,7 +574,6 @@ OutputStream与InputStream的继承关系
     }
     输出结果：
     cd
-    复制代码
 
 #### FileOutputStream实现数据追加续写、换行
 
@@ -610,7 +600,6 @@ OutputStream与InputStream的继承关系
     }
     文件操作前：cd
     文件操作后：cdabcde
-    复制代码
 
 Windows系统里，换行符号是`\r\n` ,具体代码如下：
 
@@ -636,7 +625,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
     c
     d
     e
-    复制代码
 
 > - 回车符`\r`和换行符`\n` ：
 > 
@@ -674,7 +662,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
 同样的，推荐使用第二种构造方法：
 
      FileInputStream inputStream = new FileInputStream("a.txt");
-    复制代码
 
 当你创建一个流对象时，必须传入一个文件路径。该路径下，如果没有该文件,会抛出`FileNotFoundException` 。
 
@@ -690,7 +677,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
             FileInputStream fos = new FileInputStream("b.txt");
         }
     }
-    复制代码
 
 #### FileInputStream读取字节数据
 
@@ -722,7 +708,7 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
     c
     d
     e
-    -1复制代码
+    -1
 
 循环改进读取方式，代码使用演示：
 
@@ -744,7 +730,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
     c
     d
     e
-    复制代码
 
 1. **使用字节数组读取**：`read(byte[] b)`，每次读取b的长度个字节到数组中，返回读取到的有效字节个数，读取到末尾时，返回`-1` ，代码使用演示：
 
@@ -766,7 +751,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
     ab
     cd
     ed
-    复制代码
 
 由于`read.txt`文件中内容为`abcde`，而错误数据`d`，是由于最后一次读取时，只读取一个字节`e`，数组中，上次读取的数据没有被完全**替换**【注意是替换，看下图】，所以要通过`len` ，获取有效的字节
 
@@ -789,7 +773,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
     ab
     cd
     e
-    复制代码
 
 在开发中一般强烈推荐使用数组读取文件，代码如下：
 
@@ -822,7 +805,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
     
         }
     }
-    复制代码
 
 #### 字节流FileInputstream复制图片
 
@@ -851,7 +833,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
             fis.close();
         }
     }
-    复制代码
 
 **注**：**复制文本、图片、mp3、视频等的方式一样**。
 
@@ -884,7 +865,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
         }
     }
     运行结果：   ??￥??￠????±
-    复制代码
 
 具体现状分析
 
@@ -905,13 +885,12 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
         }
     }
     运行结果： 哥敢摸屎
-    复制代码
 
 这是为啥呢？没错解码的正是`String`，查看`new String()`的源码，`String`构造方法有解码功能，并且默认编码是`utf-8`，代码如下：
 
     this.value = StringCoding.decode(bytes, offset, length);
      
-     再点进decode，循序渐进发现，默认编码是UTF-8复制代码
+     再点进decode，循序渐进发现，默认编码是UTF-8
 
 尽管字节流也能有办法决绝乱码问题，但是还是比较麻烦，于是java就有了字符流，`字符为单位`读写数据，字符流`专门用于处理文本`文件。如果处理纯文本的数据优先考虑字符流，其他情况就只能用字节流了（图片、视频、等等`只文本`例外）。
 
@@ -950,7 +929,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
             FileReader fr = new FileReader("b.txt");
         }
     }
-    复制代码
 
 ### FileReader读取字符数据
 
@@ -968,7 +946,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
             fr.close();
         }
     }
-    复制代码
 
 至于读取的写法类似字节流的写法，只是读取单位不同罢了。
 
@@ -1009,7 +986,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
             FileWriter fw = new FileWriter("b.txt");
         }
     }
-    复制代码
 
 ### FileWriter写出数据
 
@@ -1027,7 +1003,6 @@ Windows系统里，换行符号是`\r\n` ,具体代码如下：
     }
     输出结果：
     abC
-    复制代码
 
 > 【注意】**关闭资源时,与FileOutputStream不同。 如果不关闭,数据只是保存到缓冲区，并未保存到文件。**
 
@@ -1053,7 +1028,6 @@ flush还是比较有趣的，童鞋们不自己运行一下还真不好体会，
        注意这里是没有使用close关闭流，开发中不能这样做，但是为了更好的体会flush的作用
         }
     }
-    复制代码
 
 运行效果是怎么样的呢？答案是b.txt文件中依旧是空的，是的并没有任何东西，为啥呢？熊dei啊，我在上面就用红色字体特别标注过了，就是这句话： 【注意】**关闭资源时,与FileOutputStream不同。 如果不关闭,数据只是保存到缓冲区，并未保存到文件。**这个时候反应过来了吧，可见实践例子的重要性，**编程就是这样，不去敲，永远学不会**！！！所以一定要去敲，博主没敲过10万行代码真的没有脸出去说自己是学java的。所以，大家一定要多思考，多敲啊！！！
 所以，我们在以上的代码中再添加下面三句代码，就完美了，b.txt文件就能复制到源文件的数据了！
@@ -1061,7 +1035,6 @@ flush还是比较有趣的，童鞋们不自己运行一下还真不好体会，
       fr.close();
       fw.flush();
       fw.close();
-    复制代码
 
 > `flush()`这个函数是清空的意思，用于清空缓冲区的数据流，进行流的操作时，数据先被读到内存中，然后再用数据写到文件中，那么当你数据读完时，我们如果这时调用`close()`方法关闭读写流，这时就可能造成数据丢失，为什么呢？因为，读入数据完成时不代表写入数据完成，一部分数据可能会留在缓存区中，这个时候`flush()`方法就格外重要了。
 
@@ -1084,7 +1057,6 @@ flush还是比较有趣的，童鞋们不自己运行一下还真不好体会，
             fw.close();
         }
     }
-    复制代码
 
 > 即便是flush方法写出了数据，操作的最后还是要调用close方法，释放系统资源。
 
@@ -1109,7 +1081,6 @@ flush还是比较有趣的，童鞋们不自己运行一下还真不好体会，
     输出结果:
     哥敢
     摸屎
-    复制代码
 
 ### FileReader和FileWriter类完成文本文件复制
 
@@ -1156,7 +1127,6 @@ flush还是比较有趣的，童鞋们不自己运行一下还真不好体会，
     }
     
     CopyFile
-    复制代码
 
 > **最后再次强调：
 > 字符流，只能操作文本文件，不能操作图片，视频等非文本文件。当我们单纯读或者写文本文件时  使用字符流 其他情况使用字节流**
@@ -1187,7 +1157,6 @@ flush还是比较有趣的，童鞋们不自己运行一下还真不好体会，
             }
         }
     }
-    复制代码
 
 如果对异常不是特别熟练的童鞋可以参考这篇文章[【java基础之异常】死了都要try，不淋漓尽致地catch我不痛快！](https://blog.csdn.net/qq_44543508/article/details/102211261)
 
@@ -1232,7 +1201,6 @@ flush还是比较有趣的，童鞋们不自己运行一下还真不好体会，
     
     ///构造方式二： 创建字节缓冲输出流
     BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("b.txt"));
-    复制代码
 
 ### 感受缓冲流的高效
 
@@ -1310,7 +1278,6 @@ public class BufferedDemo{
         }
     }
     缓冲流使用数组复制时间:521 毫秒  
-    复制代码
 
 ## 1.3 字符缓冲流
 
@@ -1477,7 +1444,6 @@ public class BufferedTest{
     
     解码:把看不懂的变成看得懂的
     byte[] -- String
-    复制代码
 
 - 
 **字符编码**`Character Encoding`: 就是一套自然语言的字符与二进制数之间的对应规则。
@@ -1535,7 +1501,6 @@ public class BufferedTest{
         }
     }
     输出结果：���
-    复制代码
 
 那么如何读取GBK编码的文件呢？ 这个时候就得讲讲转换流了！
 
@@ -1554,7 +1519,6 @@ public class BufferedTest{
 
     InputStreamReader isr = new InputStreamReader(new FileInputStream("in.txt"));
     InputStreamReader isr2 = new InputStreamReader(new FileInputStream("in.txt") , "GBK");
-    复制代码
 
 ### 使用转换流解决编码问题
 
@@ -1578,7 +1542,6 @@ public class BufferedTest{
             isr2.close();
         }
     }
-    复制代码
 
 ## 2.4 OutputStreamWriter类-----(字符流到字节流的桥梁)
 
@@ -1593,7 +1556,6 @@ public class BufferedTest{
 
     OutputStreamWriter isr = new OutputStreamWriter(new FileOutputStream("a.txt"));
     OutputStreamWriter isr2 = new OutputStreamWriter(new FileOutputStream("b.txt") , "GBK");
-    复制代码
 
 ### 指定编码构造代码
 
@@ -1616,27 +1578,16 @@ public class BufferedTest{
             osw2.close();
         }
     }
-    复制代码
 
 为了达到**最高效率**，可以考虑在 `BufferedReader` 内包装 `InputStreamReader`
     BufferedReader in = new BufferedReader(new InputStreamReader(System.in))；
-    复制代码
 
 # 3、序列化流【理解】
 
 > (1)可以把对象写入文本文件或者在网络中传输
-> (2)如何实现序列化呢?
-> 让被序列化的对象所属类实现序列化接口。
-> 该接口是一个标记接口。没有功能需要实现。
-> (3)注意问题：
-> 把数据写到文件后，在去修改类会产生一个问题。
-> 如何解决该问题呢?
-> 在类文件中，给出一个固定的序列化id值。
-> 而且，这样也可以解决黄色警告线问题
-> (4)面试题：
-> 什么时候序列化?
-> 如何实现序列化?
-> 什么是反序列化?
+> (2)如何实现序列化呢?让被序列化的对象所属类实现序列化接口。该接口是一个标记接口。没有功能需要实现。
+> (3)注意问题：把数据写到文件后，再去修改类会产生一个问题。如何解决该问题呢?在类文件中，给出一个固定的序列化id值。而且，这样也可以解决黄色警告线问题
+> (4)面试题：什么时候序列化?如何实现序列化?什么是反序列化?
 
 ## 3.1 何谓序列化
 
@@ -1656,7 +1607,6 @@ Java 提供了一种对象**序列化**的机制。用一个字节序列可以�
 
     FileOutputStream fileOut = new FileOutputStream("aa.txt");
     ObjectOutputStream out = new ObjectOutputStream(fileOut);
-    复制代码
 
 ### 序列化操作
 
@@ -1673,7 +1623,6 @@ Java 提供了一种对象**序列化**的机制。用一个字节序列可以�
           	System.out.println("Address  check : " + name + " -- " + address);
         }
     }
-    复制代码
 
 2.写出对象方法
 
@@ -1701,7 +1650,6 @@ Java 提供了一种对象**序列化**的机制。用一个字节序列可以�
     }
     输出结果：
     Serialized data is saved
-    复制代码
 
 ## 3.3 ObjectInputStream类
 
@@ -1745,7 +1693,6 @@ ObjectInputStream反序列化流，将之前使用ObjectOutputStream序列化的
             System.out.println("age: " + e.age); // 0
         }
     }
-    复制代码
 
 **对于JVM可以反序列化对象，它必须是能够找到class文件的类。如果找不到该类的class文件，则抛出一个 `ClassNotFoundException` 异常。**
 
@@ -1769,7 +1716,6 @@ ObjectInputStream反序列化流，将之前使用ObjectOutputStream序列化的
              System.out.println("Address  check : " + name + " -- " + address);
          }
     }
-    复制代码
 
 ## 3.4 序列化集合练习
 
@@ -1816,7 +1762,6 @@ ObjectInputStream反序列化流，将之前使用ObjectOutputStream序列化的
     		oos.close();
     	}
     }
-    复制代码
 
 # 4、打印流【掌握】
 
@@ -1830,10 +1775,10 @@ ObjectInputStream反序列化流，将之前使用ObjectOutputStream序列化的
 
 **打印流特点**：
 
-> A:只操作目的地,不操作数据源
-> B:可以操作任意类型的数据
-> C:如果启用了自动刷新，在调用println()方法的时候，能够换行并刷新
-> D:可以直接操作文件
+> * 只操作目的地,不操作数据源
+> * 可以操作任意类型的数据
+> * 如果启用了自动刷新，在调用println()方法的时候，能够换行并刷新
+> * 可以直接操作文件
 
 这个时候有同学就要问了，哪些流可以直接操作文件呢?答案很简单，**如果该流的构造方法能够同时接收File和String类型的参数，一般都是可以直接操作文件的**！
 
@@ -1858,7 +1803,6 @@ PrintStream是OutputStream的子类，PrintWriter是Writer的子类，两者处�
             ps.close();
         }
     }
-    复制代码
 
 ## 4.3 字符输出打印流PrintWriter复制文本文件
 
@@ -1882,24 +1826,23 @@ PrintStream是OutputStream的子类，PrintWriter是Writer的子类，两者处�
             pw.close();
         }
     }
-    复制代码
 
 # 5、Properties属性类
 
 我想各位对这个Properties类多多少少也接触过了，首先Properties类并不在IO包下，那为啥要和IO流一起讲呢？原因很简单因为properties类经常和io流的联合一起使用。
 
-> (1)是一个集合类，Hashtable的子类
-> (2)特有功能
-> A:public Object setProperty(String key,String value)
-> B:public String getProperty(String key)
-> C:public Set stringPropertyNames()
-> (3)和IO流结合的方法
-> 把键值对形式的文本文件内容加载到集合中
-> public void load(Reader reader)
-> public void load(InputStream inStream)
-> 把集合中的数据存储到文本文件中
-> public void store(Writer writer,String comments)
-> public void store(OutputStream out,String comments)
+> 1. 是一个集合类，Hashtable的子类
+> 2. 特有功能
+>     * public Object setProperty(String key,String value)
+>     * public String getProperty(String key)
+>     * public Set stringPropertyNames()
+> 3. 和IO流结合的方法
+>     1. 把键值对形式的文本文件内容加载到集合中
+>         * public void load(Reader reader)
+>         * public void load(InputStream inStream)
+>     2. 把集合中的数据存储到文本文件中
+>         * public void store(Writer writer,String comments)
+>         * public void store(OutputStream out,String comments)
 
 ## 5.1 Properties概述
 
@@ -1947,7 +1890,6 @@ PrintStream是OutputStream的子类，PrintWriter是Writer的子类，两者处�
     filename -- a.txt
     length -- 209385038
     location -- D:\a.txt
-    复制代码
 
 ### 与流相关的方法
 
@@ -1958,7 +1900,6 @@ PrintStream是OutputStream的子类，PrintWriter是Writer的子类，两者处�
     filename=Properties.txt
     length=123
     location=C:\Properties.txt
-    复制代码
 
 加载代码演示：
 
@@ -1979,7 +1920,6 @@ PrintStream是OutputStream的子类，PrintWriter是Writer的子类，两者处�
     filename -- Properties.txt
     length -- 123
     location -- C:\Properties.txt
-    复制代码
 
 > 文本中的数据，必须是键值对形式，可以使用空格、等号、冒号等符号分隔。
 
