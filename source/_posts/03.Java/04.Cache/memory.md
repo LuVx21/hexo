@@ -16,7 +16,7 @@ tags:
 
 # 内存模型
 
-![](https://raw.githubusercontent.com/LuVx21/doc/master/source/_posts/99.img/cpu_cache.png)
+![](https://gitee.com/LuVx/img/raw/master/cpu_cache.png)
 
 高速缓存:即Cache, 介于CPU与内存之间的高速存储器, 通常由SRAM(Static Ram, 静态存储器)构成,
 容量比内存小的多但是交换速度却比内存要快得多, 但不如CPU快.
@@ -64,4 +64,26 @@ Modified, Exclusive, Shared, Invalid的首字母缩写,同时也是缓存的4种
 
 可以看出只有缓存处于M或E的状态下,处理器才能进行写操作.
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+MESI大致的意思是：若干个CPU核心通过ringbus连到一起。每个核心都维护自己的Cache的状态。
+如果对于同一份内存数据在多个核里都有cache，则状态都为S（shared）。
+一旦有一核心改了这个数据（状态变成了M），其他核心就能瞬间通过ringbus感知到这个修改，从而把自己的cache状态变成I（Invalid），并且从标记为M的cache中读过来。
+同时，这个数据会被原子的写回到主存。最终，cache的状态又会变为S。
+
+作者：大宽宽
+链接：
+https://www.zhihu.com/question/65372648/answer/415311977
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+MESI是保持一致性的协议。它的方法是在CPU缓存中保存一个标记位，这个标记位有四种状态:
+* M: Modify，修改缓存，当前CPU的缓存已经被修改了，即与内存中数据已经不一致了；
+* E: Exclusive，独占缓存，当前CPU的缓存和内存中数据保持一致，而且其他处理器并没有可使用的缓存数据；这个状态跟modified很类似，只是该状态下，cache的数据已经同步到主存了，所以即使丢弃也无所谓。
+* S: Share，共享缓存，和内存保持一致的一份拷贝，多组缓存可以同时拥有针对同一内存地址的共享缓存段；
+* I: Invalid，失效缓存，这个说明CPU中的缓存已经不能使用了。
+
+CPU的读取遵循下面几点：
+* 如果缓存状态是I，那么就从内存中读取，否则就从缓存中直接读取。
+* 如果缓存处于M或E的CPU读取到其他CPU有读操作，就把自己的缓存写入到内存中，并将自己的状态设置为S。
+* 只有缓存状态是M或E的时候，CPU才可以修改缓存中的数据，修改后，缓存状态变为M。
+
+这样，每个CPU都遵循上面的方式则CPU的效率就提高上来了。
