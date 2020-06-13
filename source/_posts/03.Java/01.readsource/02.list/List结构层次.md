@@ -24,7 +24,7 @@
 ## 特征
 
 * ArrayList: 动态数组
-* LinkedList: 双向链表
+* LinkedList: 双向链表, 同时也实现了双向链表
 * Vector: 线程安全的动态数组
 * Stack: 对象栈,Vector的子类,遵循先进后出的原则
 
