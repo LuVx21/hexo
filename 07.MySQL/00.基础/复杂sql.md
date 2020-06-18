@@ -13,8 +13,8 @@
 
 # 定位数据
 
+找出既没有主键也没有唯一性索引的表
 ```sql
--- 既没有主键也没有唯一性索引的表
 select
     table_schema,
     table_name
