@@ -14,6 +14,18 @@
 
 布隆过滤器
 
+* 高效地插入和查询
+* 占用空间更少
+* 缺点是其返回的结果是概率性的，而不是确切的, 即最终判断的结果是: 一定不存在或者可能存在
+
+有hash函数个数k, 位数组长度m, 插入元素个数n, 误报率p这样4个因素
+
+符合业务的4因素的设置公式为:
+
+`m = -(n * lnp) / (ln2 * ln2)`
+
+`k = (m / n) * ln2`
+
 应用场景:
 1. 判断一个元素是否在一个大集合中
 2. 解决缓存穿透问题
@@ -23,6 +35,8 @@
 ## 流程
 
 ![](https://gitee.com/LuVx/img/raw/master/redis/redis_bloom_filter.png)
+
+x,y,z三个元素, 每个元素的经过了3个hash函数, 确定了位数组的三个位置
 
 1. 确定位数组
 2. 基于hash函数对元素进行计算得到hash值, 多个hash函数得到多个hash值
@@ -84,3 +98,6 @@ Redis有`setbit`和`getbit`命令, 且内存性能优秀, 是作为布隆过滤�
 * `bf.reserve`: 可以指定误报率和元素容量的过滤器, 可以指定扩展因子expansion用于指定子过滤器的大小, `BF.RESERVE {key} {error_rate} {capacity} [EXPANSION expansion]`
 
 > 命令中的key就是过滤器的名称
+
+## 阅读
+
