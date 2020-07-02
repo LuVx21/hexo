@@ -1,6 +1,6 @@
 ![license](https://img.shields.io/packagist/l/doctrine/orm.svg)
-[![stars](https://img.shields.io/github/stars/luvx21/hexo.svg?style=flat&label=Star)](https://github.com/luvx21/hexo/stargazers)
-[![forks](https://img.shields.io/github/forks/luvx21/hexo.svg?style=flat&label=Fork)](https://github.com/luvx21/hexo/fork)
+[![stars](https://img.shields.io/github/stars/luvx21/doc.svg?style=flat&label=Star)](https://github.com/luvx21/doc/stargazers)
+[![forks](https://img.shields.io/github/forks/luvx21/doc.svg?style=flat&label=Fork)](https://github.com/luvx21/doc/fork)
 
 本库记录了个人学习和工作中的总结, 涵盖所了解知识的常见知识点, 姑且算是一个核心知识库, 平时作为手册使用
 
