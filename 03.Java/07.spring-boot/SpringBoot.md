@@ -8,6 +8,7 @@
 - [注解](#注解)
     - [@Controller](#controller)
     - [@Value](#value)
+        - [array/list](#arraylist)
     - [@Bean](#bean)
     - [@PostConstruct](#postconstruct)
     - [@Configuration](#configuration)
@@ -89,6 +90,13 @@ public class Ren {
         System.out.println(description);
     }
 }
+```
+
+### array/list
+
+```Java
+@Value("#{'${approve.cclist}'.split(',')}")
+@Value("${approve.cclist}")
 ```
 
 ## @Bean
