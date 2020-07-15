@@ -96,7 +96,9 @@ public class Ren {
 
 ```Java
 @Value("#{'${approve.cclist}'.split(',')}")
-@Value("${approve.cclist}")
+private List<String> ccList;
+@Value("${approve.cclist:1,2,3}")
+private String[] ccList;
 ```
 
 ## @Bean
