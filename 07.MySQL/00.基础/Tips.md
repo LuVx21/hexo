@@ -12,15 +12,17 @@ tags:
 - [库名,表名长度限制](#库名表名长度限制)
 - [忽略插入](#忽略插入)
 - [插入更新](#插入更新)
-    - [记录操作](#记录操作)
-    - [执行文件](#执行文件)
-    - [导入导出数据](#导入导出数据)
-    - [阅读](#阅读)
+- [记录操作](#记录操作)
+- [执行文件](#执行文件)
+- [导入导出数据](#导入导出数据)
+- [查询添加序号](#查询添加序号)
+- [阅读](#阅读)
 
 <!-- /TOC -->
 </details>
 
-# 复制表
+## 复制表
+
 ```sql
 create table if not exists user_new (like user);
 create table if not exists user_new select * from user;
@@ -58,7 +60,7 @@ as
 )
 ```
 
-# 库名,表名长度限制
+## 库名,表名长度限制
 
 | 数据库类型 | 库名 | 表名                       | 字段名    |
 | :--------- | :--- | :------------------------- | :-------- |
@@ -66,7 +68,7 @@ as
 | SQLSERVER  |      | 128个字符，临时表116个字符 | 128个字符 |
 | Oracle     |      | 30个字符                   | 30个字符  |
 
-# 忽略插入
+## 忽略插入
 
 当主键或者唯一性约束冲突时, 不执行插入操作, 不抛出异常
 
@@ -75,7 +77,7 @@ insert ignore into user(user_id, user_name)
 values(1, 'foobar');
 ```
 
-# 插入更新
+## 插入更新
 
 当主键或者唯一性约束冲突时, 执行更新操作
 
@@ -130,6 +132,20 @@ lines terminated by '\r\n';
 > `show global variables like '%secure_file_priv%';`
 >
 > 修改文件`my.ini`: 添加`secure_file_priv=''`
+
+## 查询添加序号
+
+```sql
+select
+    ( @i := @i + 1 ) as `no`,
+    a.* 
+from
+    user a,
+    ( select @i := 0 ) b 
+order by
+    a.id
+limit 0, 10;
+```
 
 ## 阅读
 
