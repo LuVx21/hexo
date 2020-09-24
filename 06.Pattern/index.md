@@ -9,6 +9,7 @@ tags:
 <!-- TOC -->
 
 - [Pattern](#pattern)
+- [阅读](#阅读)
 
 <!-- /TOC -->
 </details>
@@ -35,18 +36,18 @@ tags:
 |                        | [抽象工厂模式(Abstract Factory)](./01.Creational/03.抽象工厂模式.md) | 8        | 10       |
 |                        | [原型模式(Prototype)](./01.Creational/05.原型模式.md)        | 6        | 6        |
 |                        | [建造者模式(Builder)](./01.Creational/06.建造者模式.md)      | 8        | 4        |
-| 结构型模式(Structural) | [适配器模式(Adapter)](./02.Structural/适配器模式.md)         | 4        | 8        |
-|                        | [桥接模式(Bridge)](./02.Structural/桥接模式.md)              | 6        | 6        |
-|                        | [组合模式(Composite)](./02.Structural/组合模式.md)           | 6        | 8        |
-|                        | [装饰模式(Decorator)](./02.Structural/装饰模式.md)           | 6        | 6        |
-|                        | [外观模式(Façade)](./02.Structural/外观模式.md)              | 2        | 10       |
-|                        | [享元模式(Flyweight)](./02.Structural/享元模式.md)           | 8        | 2        |
-|                        | [代理模式(Proxy)](./02.Structural/代理模式.md)               | 6        | 8        |
+| 结构型模式(Structural) | [适配器模式(Adapter)](./02.Structural/01.适配器模式.md)      | 4        | 8        |
+|                        | [桥接模式(Bridge)](./02.Structural/02.桥接模式.md)           | 6        | 6        |
+|                        | [组合模式(Composite)](./02.Structural/03.组合模式.md)        | 6        | 8        |
+|                        | [装饰模式(Decorator)](./02.Structural/04.装饰模式.md)        | 6        | 6        |
+|                        | [外观模式(Façade)](./02.Structural/05.外观模式.md)           | 2        | 10       |
+|                        | [享元模式(Flyweight)](./02.Structural/06.享元模式.md)        | 8        | 2        |
+|                        | [代理模式(Proxy)](./02.Structural/07.代理模式.md)            | 6        | 8        |
 | 行为型模式(Behavioral) | [迭代器模式(Iterator)](./03.Behavioral/01.迭代器模式.md)     | 6        | 10       |
 |                        | [观察者模式(Observer)](./03.Behavioral/02.观察者模式.md)     | 6        | 10       |
 |                        | [命令模式(Command)](./03.Behavioral/03.命令模式.md)          | 6        | 8        |
 |                        | [策略模式(Strategy)](./03.Behavioral/04.策略模式.md)         | 2        | 8        |
-|                        | [状态模式(State)](./03.Behavioral/05状态模式.md)             | 6        | 6        |
+|                        | [状态模式(State)](./03.Behavioral/05.状态模式.md)            | 6        | 6        |
 |                        | [模板方法模式(Template Method)](./03.Behavioral/06.模板方法模式.md) | 4        | 6        |
 |                        | [中介者模式(Mediator)](./03.Behavioral/07.中介者模式.md)     | 6        | 4        |
 |                        | [备忘录模式(Memento)](./03.Behavioral/08.备忘录模式.md)      | 4        | 4        |
@@ -54,4 +55,5 @@ tags:
 |                        | [解释器模式(Interpreter)](./03.Behavioral/10.解释器模式.md)  | 10       | 2        |
 |                        | [访问者模式(Visitor)](./03.Behavioral/11.访问者模式.md)      | 8        | 2        |
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+# 阅读
+
