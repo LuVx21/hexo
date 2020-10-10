@@ -31,15 +31,15 @@ private transient volatile Node tail;
 private volatile int state;
 ```
 
-tryAcquire
-tryRelease
-tryAcquireShared
-tryReleaseShared
-isHeldExclusively
+`tryAcquire, tryRelease`,
+`tryAcquireShared, tryReleaseShared`,
+`isHeldExclusively`
 
-子类必须实现的方法
+子类可能实现的方法
 
 # CLH同步队列
+
+名称来自jdk的相关源码的作者`Craig, Landin 和 Hagersten`
 
 AQS通过内置的FIFO双向同步队列来完成资源获取线程的排队工作, 头节点即是当前正在执行的节点,
 如果当前线程获取同步状态(锁)失败时, AQS则会将当前线程以及等待状态等信息构造成一个节点并将其加入同步队列, 并阻塞当前线程,
@@ -56,10 +56,12 @@ static final class Node {
     static final int CANCELLED =  1;
     /**
      * 后继节点的线程处于等待状态, 而当前节点的线程如果释放了同步状态或者被取消, 将会通知后继节点, 使后继节点的线程得以运行
+     * 表示当前节点的后继节点包含的线程需要运行
      */
     static final int SIGNAL    = -1;
     /**
      * 节点在等待队列中, 节点线程等待在Condition上, 当其他线程对Condition调用了signal()后, 改节点将会从等待队列中转移到同步队列中, 加入到同步状态的获取中
+     * 表示当前节点在等待 condition
      */
     static final int CONDITION = -2;
     /**
