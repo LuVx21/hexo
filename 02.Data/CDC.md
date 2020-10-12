@@ -11,7 +11,7 @@
 <!-- /TOC -->
 </details>
 
-Change data capture
+Change Data Capture
 
 ## Debezium
 
@@ -44,9 +44,31 @@ debezium/connect:1.2
 
 ## Maxwell
 
-https://github.com/zendesk/maxwell
+支持应用内嵌入, 依赖为:
 
-https://github.com/osheroff/mysql-binlog-connector-java
+```xml
+<dependency>
+    <groupId>com.zendesk</groupId>
+    <artifactId>maxwell</artifactId>
+    <version>1.27.1</version>
+</dependency>
+```
+
+[Github:maxwell](https://github.com/zendesk/maxwell)
+
+其内部解析binlog使用了开源库:
+
+```xml
+<dependency>
+    <groupId>com.zendesk</groupId>
+    <artifactId>mysql-binlog-connector-java</artifactId>
+    <version>0.23.2</version>
+</dependency>
+```
+
+[Github:mysql-binlog-connector-java](https://github.com/osheroff/mysql-binlog-connector-java)
+
+使用例:
 
 ```Java
 public class App {
@@ -77,8 +99,9 @@ public class App {
 
 ### canal_mysql_nosql_sync
 
-https://github.com/liukelin/canal_mysql_nosql_sync
+基于canal 的 mysql 与 redis/memcached/mongodb 的 nosql 数据实时同步方案
 
+[Github:canal_mysql_nosql_sync](https://github.com/liukelin/canal_mysql_nosql_sync)
 
 ## 参考
 
