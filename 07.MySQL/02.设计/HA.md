@@ -15,7 +15,7 @@
 
 MHA(Master High Availability)方案:
 
-![1693db24ee5c9267](https://gitee.com/LuVx/img/raw/master/1693db24ee5c9267.jpg)
+![1693db24ee5c9267](https://gitee.com/LuVx/img/raw/master/mysql/1693db24ee5c9267.jpg)
 
 MHA Manager会定时探测集群中的master节点, 当master出现故障时, 它可以自动将最新数据的slave提升为新的master, 然后将所有其他的slave重新指向新的master。整个故障转移过程对应用程序完全透明。
 

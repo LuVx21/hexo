@@ -162,17 +162,17 @@ ZooKeeper的`数据发布/订阅`典型应用应用场景
 3. 一旦zookeeper发现canal server A创建的节点消失后, 立即通知其他的canal server再次进行步骤1的操作, 重新选出一个canal server启动instance.
 4. canal client每次进行connect时, 会首先向zookeeper询问当前是谁启动了canal instance, 然后和其建立链接, 一旦链接不可用, 会重新尝试connect.
 
-![image-20191121161039727](https://gitee.com/LuVx/img/raw/master/image-20191121161039727.png)
+![image-20191121161039727](https://gitee.com/LuVx/img/raw/master/mysql/image-20191121161039727.png)
 
-![image-20191121161313617](https://gitee.com/LuVx/img/raw/master/image-20191121161313617.png)
+![image-20191121161313617](https://gitee.com/LuVx/img/raw/master/mysql/image-20191121161313617.png)
 
-![image-20191121161652510](https://gitee.com/LuVx/img/raw/master/image-20191121161652510.png)
+![image-20191121161652510](https://gitee.com/LuVx/img/raw/master/mysql/image-20191121161652510.png)
 
-![image-20191121161856840](https://gitee.com/LuVx/img/raw/master/image-20191121161856840.png)
+![image-20191121161856840](https://gitee.com/LuVx/img/raw/master/mysql/image-20191121161856840.png)
 
 故障转移:
 
-![image-20191122102256575](https://gitee.com/LuVx/img/raw/master/image-20191122102256575.png)
+![image-20191122102256575](https://gitee.com/LuVx/img/raw/master/mysql/image-20191122102256575.png)
 
 ### canal_mysql_nosql_sync
 
