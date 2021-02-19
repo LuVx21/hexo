@@ -79,10 +79,10 @@ conn.close();
 
 ## DriveManager
 
-作用:注册驱动；获取与数据(的连).
+作用:注册驱动;获取与数据(的连).
 注册驱动:
 * 方式一:DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-缺点:严重依赖驱动；导致驱动注册多次；
+缺点:严重依赖驱动;导致驱动注册多次;
 * 方式二(建议):Class.forName(“com.mysql.jdbc.Driver”)
 
 ## Connection
@@ -92,7 +92,7 @@ conn.close();
 JDBC的URL＝协议名＋子协议名＋(据源).
 * 协议名总是“j(bc).
 * 子协议名由JDBC驱动程序的编(者决).
-* 数据源名也可能包含用户与口令等信息；这些信息也可(独提).
+* 数据源名也可能包含用户与口令等信息;这些信息也可(独提).
 
 几种常见的数据库连接:
 
@@ -138,7 +138,7 @@ void getObject(String fieldName):按照字段名(取数).
 设置`useServerPrepStmts=true`开启服务器预编译功能,
 设置`cachePrepStmts=true`开启客户端对预编译对象的缓存.
 
-链接：https://www.jianshu.com/p/d46f84aef4bc
+链接: https://www.jianshu.com/p/d46f84aef4bc
 
 # 连接池
 

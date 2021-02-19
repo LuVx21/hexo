@@ -11,7 +11,7 @@ tags:
 <!-- /TOC -->
 
 ```sql
--- 声明游标；CURSOR cursor_name IS select_statement
+-- 声明游标;CURSOR cursor_name IS select_statement
 
 --For 循环游标
 --(1)定义游标
@@ -61,7 +61,7 @@ close c_job;
 end;
 ```
 ```sql
---1：任意执行一个update操作, 用隐式游标sql的属性%found,%notfound,%rowcount,%isopen观察update语句的执行情况.
+--1: 任意执行一个update操作, 用隐式游标sql的属性%found,%notfound,%rowcount,%isopen观察update语句的执行情况.
 begin
 update emp set ENAME='ALEARK' WHERE EMPNO=7469;
 if sql%isopen then
@@ -162,7 +162,7 @@ open csr_TestWhile;
 fetch csr_TestWhile into row_loc;
 --测试是否有数据, 并执行循环
 while csr_TestWhile%found loop
-dbms_output.put_line('部门地点：'||row_loc.LOC);
+dbms_output.put_line('部门地点: '||row_loc.LOC);
 --给下一行喂数据
 fetch csr_TestWhile into row_loc;
 end loop;
@@ -185,11 +185,11 @@ select * from emp where emp.depno=p_deptNo;
 r_emp emp%rowtype;
 begin
 for r_emp in c_dept(20) loop
-dbms_output.put_line('员工号：'||r_emp.EMPNO||'员工名：'||r_emp.ENAME||'工资：'||r_emp.SAL);
+dbms_output.put_line('员工号: '||r_emp.EMPNO||'员工名: '||r_emp.ENAME||'工资: '||r_emp.SAL);
 end loop;
 end;
 select * from emp
---5：向游标传递一个工种, 显示此工种的所有雇员的所有信息(使用参数游标)
+--5: 向游标传递一个工种, 显示此工种的所有雇员的所有信息(使用参数游标)
 declare
 cursor
 c_job(p_job nvarchar2)
@@ -203,7 +203,7 @@ end loop;
 end;
 SELECT * FROM EMP
 
---6：用更新游标来为雇员加佣金：(用if实现,创建一个与emp表一摸一样的emp1表, 对emp1表进行修改操作),并将更新前后的数据输出出来
+--6: 用更新游标来为雇员加佣金: (用if实现,创建一个与emp表一摸一样的emp1表, 对emp1表进行修改操作),并将更新前后的数据输出出来
 --http://zheng12tian.iteye.com/blog/815770
 create table emp1 as select * from emp;
 
@@ -242,7 +242,7 @@ saleInfo:=r_AddSal.SAL*1.1;
 UPDATE emp1 SET SAL=saleInfo WHERE CURRENT OF csr_AddSal;
 end loop;
 end;
---8：编写一个PL/SQL程序块, 对所有的salesman增加佣金(comm)500
+--8: 编写一个PL/SQL程序块, 对所有的salesman增加佣金(comm)500
 declare
 cursor
 csr_AddComm(p_job nvarchar2)
@@ -257,8 +257,8 @@ UPDATE EMP1 SET COMM=commInfo where CURRENT OF csr_AddComm;
 END LOOP;
 END;
 
---9：编写一个PL/SQL程序块, 以提升2个资格最老的职员为MANAGER(工作时间越长, 资格越老)
---(提示：可以定义一个变量作为计数器控制游标只提取两条数据；也可以在声明游标的时候把雇员中资格最老的两个人查出来放到游标中. )
+--9: 编写一个PL/SQL程序块, 以提升2个资格最老的职员为MANAGER(工作时间越长, 资格越老)
+--(提示: 可以定义一个变量作为计数器控制游标只提取两条数据;也可以在声明游标的时候把雇员中资格最老的两个人查出来放到游标中. )
 declare
 cursor crs_testComput
 is
@@ -270,7 +270,7 @@ begin
 open crs_testComput;
 FETCH crs_testComput INTO r_testComput;
 while top_two>0 loop
-dbms_output.put_line('员工姓名：'||r_testComput.ENAME||' 工作时间：'||r_testComput.HIREDATE);
+dbms_output.put_line('员工姓名: '||r_testComput.ENAME||' 工作时间: '||r_testComput.HIREDATE);
 --计速器减一
 top_two:=top_two-1;
 FETCH crs_testComput INTO r_testComput;
@@ -279,7 +279,7 @@ close crs_testComput;
 end;
 
 
---10：编写一个PL/SQL程序块, 对所有雇员按他们的基本薪水(sal)的20%为他们加薪, 
+--10: 编写一个PL/SQL程序块, 对所有雇员按他们的基本薪水(sal)的20%为他们加薪, 
 --如果增加的薪水大于300就取消加薪(对emp1表进行修改操作, 并将更新前后的数据输出出来)
 declare
 cursor
@@ -294,10 +294,10 @@ for r_UpdateSal in crs_UpadateSal loop
 salAdd:= r_UpdateSal.SAL*0.2;
 if salAdd>300 then
 salInfo:=r_UpdateSal.SAL;
-dbms_output.put_line(r_UpdateSal.ENAME||': 加薪失败. '||'薪水维持在：'||r_UpdateSal.SAL);
+dbms_output.put_line(r_UpdateSal.ENAME||': 加薪失败. '||'薪水维持在: '||r_UpdateSal.SAL);
 else
 salInfo:=r_UpdateSal.SAL+salAdd;
-dbms_output.put_line(r_UpdateSal.ENAME||': 加薪成功.'||'薪水变为：'||salInfo);
+dbms_output.put_line(r_UpdateSal.ENAME||': 加薪成功.'||'薪水变为: '||salInfo);
 end if;
 update emp1 set SAL=salInfo where current of crs_UpadateSal;
 end loop;
@@ -305,8 +305,8 @@ end;
 
 --11:将每位员工工作了多少年零多少月零多少天输出出来
 --近似
---CEIL(n)函数：取大于等于数值n的最小整数
---FLOOR(n)函数：取小于等于数值n的最大整数
+--CEIL(n)函数: 取大于等于数值n的最小整数
+--FLOOR(n)函数: 取小于等于数值n的最大整数
 --truc的用法 http://publish.it168.com/2005/1028/20051028034101.shtml
 declare
 cursor
@@ -357,7 +357,7 @@ end;
 
 --13:对每位员工的薪水进行判断, 如果该员工薪水高于其所在部门的平均薪水, 则将其薪水减50元, 输出更新前后的薪水, 员工姓名, 所在部门编号.
 --AVG([distinct|all] expr) over (analytic_clause)
----作用：
+---作用: 
 --按照analytic_clause中的规则求分组平均值.
 --分析函数语法:
 --FUNCTION_NAME(<argument>,<argument>...)

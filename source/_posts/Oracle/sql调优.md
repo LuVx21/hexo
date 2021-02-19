@@ -184,7 +184,7 @@ select * from user_tab1 where age = 20
     where是从后往前检索, 所以能过滤最多数据的条件应放到最后.
 03. SELECT子句中避免使用 `*`
 04. 尽量多使用COMMIT
-05. 计算记录条数时候, 第一快：count(索引列), 第二快：cout(*)
+05. 计算记录条数时候, 第一快: count(索引列), 第二快: cout(*)
 06. 用Where子句替换HAVING子句
 07. 通过内部函数提高SQL效率
 08. 使用表的别名(Alias)

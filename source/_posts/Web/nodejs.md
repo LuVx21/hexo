@@ -23,7 +23,7 @@ tags:
 * node底层是使用c++的编写的
 * node的中js引擎使用的chrome的v8引擎
 
-node的特点：
+node的特点: 
 
 1. 非阻塞, 异步的I/O
 2. 事件和回调函数
@@ -53,7 +53,7 @@ node的特点：
 
 - 模块的引用
     - 使用 require()函数来引入一个模块
-    - 例子：
+    - 例子: 
         var 变量 = require("模块的标识");
 
 - 模块的定义
@@ -62,12 +62,12 @@ node的特点：
         外部的模块无法访问
     - 导出变量和函数
         - 使用 exports
-            - 例子：
+            - 例子: 
                 exports.属性 = 属性值;
                 exports.方法 = 函数;
 
         - 使用module.exports
-            - 例子：
+            - 例子: 
                 module.exports.属性 = 属性值;
                 module.exports.方法 = 函数;
                 module.exports = {};

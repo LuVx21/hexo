@@ -68,7 +68,7 @@ index
 
 > [toc]
 
-MERGE命令,你能够在一个SQL语句中对一个表同时执行inserts和updates操作. MERGE命令从一个或多个数据源中选择行来updating或inserting到一个或多个表.在Oracle10g中MERGE有如下一些改进：
+MERGE命令,你能够在一个SQL语句中对一个表同时执行inserts和updates操作. MERGE命令从一个或多个数据源中选择行来updating或inserting到一个或多个表.在Oracle10g中MERGE有如下一些改进: 
 
 1. UPDATE或INSERT子句是可选的
 2. UPDATE和INSERT子句可以加WHERE子句
@@ -95,7 +95,7 @@ Insert into table.
 ```
 
 mergeinto语法不仅没有if exists语法啰嗦, 而且比if exists还要高效很多, 常用来在oracle之间同步数据库表
-优点：
+优点: 
 
 * 避免了分开更新
 * 提高性能并易于使用
@@ -148,7 +148,7 @@ SET ORACLE_SID=XE
 SET W_CONNECT=%ORACLE_USERID%/%ORACLE_PASSWARD%@%ORACLE_SID%
 
 if "%ORACLE_PASSWARD%"=="" (
-echo パスワードを入力してください：
+echo パスワードを入力してください: 
 echo off
 pause
 exit 2

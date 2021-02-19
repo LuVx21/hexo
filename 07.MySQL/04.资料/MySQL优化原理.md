@@ -470,6 +470,6 @@ MySQL处理`UNION`的策略是先创建临时表, 然后再把各个查询结果
 
 ### 参考资料
 
-* [1] 姜承尧 著；MySQL技术内幕-InnoDB存储引擎；机械工业出版社, 2013
-* [2] Baron Scbwartz 等著；宁海元 周振兴等译；高性能MySQL(第三版); 电子工业出版社,  2013
+* [1] 姜承尧 著;MySQL技术内幕-InnoDB存储引擎;机械工业出版社, 2013
+* [2] Baron Scbwartz 等著;宁海元 周振兴等译;高性能MySQL(第三版); 电子工业出版社,  2013
 * [3] [由B-/B+树看 MySQL索引结构](https://segmentfault.com/ttps://segmentfault.com/a/1190000004690721)

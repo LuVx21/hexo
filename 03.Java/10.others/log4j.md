@@ -44,7 +44,7 @@ log4j.appender.appenderName.layout = fully.qualified.name.of.layout.class
 
 ## 日志信息格式说明
 
--X号: X信息输出时左对齐；
+-X号: X信息输出时左对齐;
  %p: 输出日志信息优先级, 即DEBUG, INFO, WARN, ERROR, FATAL, 
  %d: 输出日志时间点的日期或时间, 默认格式为ISO8601, 也可以在其后指定格式, 比如:%d{yyy MMM dd HH:mm:ss, SSS}, 输出类似:2002年10月18日 22:10:28, 921
  %r: 输出自应用启动到输出该log信息耗费的毫秒数

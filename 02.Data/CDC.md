@@ -155,9 +155,9 @@ ZooKeeper的`数据发布/订阅`典型应用应用场景
 
 ![33](https://camo.githubusercontent.com/c8f1d98268a307821273e94e7eefcd29a26f9b78/687474703a2f2f646c2e69746579652e636f6d2f75706c6f61642f6174746163686d656e742f303038302f333330332f64333230326332362d653935342d333563302d613331392d3537363034313032633537642e6a7067)
 
-大致步骤：
+大致步骤: 
 
-1. canal server要启动某个canal instance时都先向zookeeper进行一次尝试启动判断 (实现：创建`EPHEMERAL`节点, 谁创建成功就允许谁启动)
+1. canal server要启动某个canal instance时都先向zookeeper进行一次尝试启动判断 (实现: 创建`EPHEMERAL`节点, 谁创建成功就允许谁启动)
 2. 创建zookeeper节点成功后, 对应的canal server就启动对应的canal instance, 没有创建成功的canal instance就会处于standby状态
 3. 一旦zookeeper发现canal server A创建的节点消失后, 立即通知其他的canal server再次进行步骤1的操作, 重新选出一个canal server启动instance.
 4. canal client每次进行connect时, 会首先向zookeeper询问当前是谁启动了canal instance, 然后和其建立链接, 一旦链接不可用, 会重新尝试connect.

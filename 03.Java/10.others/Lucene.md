@@ -19,8 +19,8 @@ tags:
 <!-- /TOC -->
 # 全文检索
 
-* 结构化数据：指具有固定格式或有限长度的数据,如数据库中的数据,元数据等.
-* 非结构化数据：指不定长或无固定格式的数据,如邮件,word文档等.
+* 结构化数据: 指具有固定格式或有限长度的数据,如数据库中的数据,元数据等.
+* 非结构化数据: 指不定长或无固定格式的数据,如邮件,word文档等.
 
 ## 检索
 
@@ -47,7 +47,7 @@ tags:
 
 |package|功能|
 |:---|:---|
-|org.apache.lucene.analysis|语言分析器, 分词器<br/>,Lucene提供的分析器实现类在：lucene-analyzers-common-4.10.3.jar|
+|org.apache.lucene.analysis|语言分析器, 分词器<br/>,Lucene提供的分析器实现类在: lucene-analyzers-common-4.10.3.jar|
 |org.apache.lucene.document|索引存储时的文档结构管理, 类似于关系型数据库的表结构|
 |org.apache.lucene.index|索引管理, 包括索引建立, 删除等|
 |org.apache.lucene.queryParser|查询分析器, 实现查询关键词间的运算, 如与, 或, 非等, 生成查询表达式, |
@@ -68,10 +68,10 @@ tags:
 # Lucene入门程序
 
 
-mysql5.1驱动包：mysql-connector-java-5.1.7-bin.jar
-lucene核心包：lucene-core-4.10.3.jar
-lucene分析器通用包：lucene-analyzers-common-4.10.3.jar
-lucene查询解析器包：lucene-queryparser-4.10.3.jar
+mysql5.1驱动包: mysql-connector-java-5.1.7-bin.jar
+lucene核心包: lucene-core-4.10.3.jar
+lucene分析器通用包: lucene-analyzers-common-4.10.3.jar
+lucene查询解析器包: lucene-queryparser-4.10.3.jar
 
 
 

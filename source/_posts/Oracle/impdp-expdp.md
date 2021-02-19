@@ -18,7 +18,7 @@ tags:
 
 1, exp和imp是客户端工具程序, 它们既可以在客户端使用, 也可以在服务端使用.
 2, expdp和impdp是服务端的工具程序, 他们只能在oracle服务端使用, 不能在客户端使用.
-3, imp只适用于exp导出的文件, 不适用于expdp导出文件；impdp只适用于expdp导出的文件, 而不适用于exp导出文件.
+3, imp只适用于exp导出的文件, 不适用于expdp导出文件;impdp只适用于expdp导出的文件, 而不适用于exp导出文件.
 4, 对于10g以上的服务器, 使用exp通常不能导出0行数据的空表, 而此时必须使用expdp导出.
 
 ## backup dir

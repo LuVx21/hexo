@@ -25,8 +25,8 @@ tags:
 ```sql
 type  type_recode  is record
 (
-    filed1 table.filed%type [not null] [：=expr1],
-    filedn table.filed%type [not null] [：=exprn]
+    filed1 table.filed%type [not null] [: =expr1],
+    filedn table.filed%type [not null] [: =exprn]
 );
 v_recode type_recode;
 ```
