@@ -50,10 +50,10 @@ tags:
 
 重写规范:
 
-* 重写equals时总要重写hashCode, 否则违反Object.hashCode的通用约定, 导致该类无法结合基于散列的集合一起正常使用, 如HashMap、HashSet和Hashtable等
+* 重写equals时总要重写hashCode, 否则违反Object.hashCode的通用约定, 导致该类无法结合基于散列的集合一起正常使用, 如HashMap, HashSet和Hashtable等
 * equals方法返回true, 则hashCode值也相同, 返回false, hashCode也是有可能相同, 当然, 尽可能不同能提高hash表的性能, 本质是减少了哈希碰撞的几率
 * 就用于比较对象场景来说, equals方法比hashcode方法更有可靠性
-* 重写equals方法时需要遵循通用约定: 自反性、对称性、传递性、一致性、非空性
+* 重写equals方法时需要遵循通用约定: 自反性, 对称性, 传递性, 一致性, 非空性
 * 重写时, 应先比较hashcode, 相同时再继续后续比较, 不同则可直接返回false
 * 应用于hash容器的对象, 必须重写这两个方法
 
@@ -97,7 +97,7 @@ hashcode是一个本地方法, 通过生成`.h`文件获得c代码的信息最�
 
 大多数对于上述类型数据的操作, 实际上都是使用相应的 int 类型作为运算类型.
 
-**int、char、long各占多少字节数**
+**int, char, long各占多少字节数**
 
 分别是4, 2, 8个字节(byte)
 Java采用unicode编码, 使用2个字节表示一个字符
@@ -110,7 +110,7 @@ int是Java基本类型, integer是int类型对应的包装类(对象类型),
 
 ## 类
 
-**String、StringBuffer、StringBuilder区别**
+**String, StringBuffer, StringBuilder区别**
 
 [参考](../03.Java/String.md)
 
@@ -196,7 +196,7 @@ List实现了java.lang.Iterable接口, foreach语法最终被编译器转为了�
 **创建对象的方式**
 
 * new关键字(实例创建表达式)
-* 反射机制(Class类的newInstance方法、使用Constructor类的newInstance方法)
+* 反射机制(Class类的newInstance方法, 使用Constructor类的newInstance方法)
 * 使用Clone方法, 过程中不调用任何构造函数
 * 使用反序列化等方式创建对象
 

@@ -85,7 +85,7 @@ when matched then
 when not matched then
     merge_insert_clause / merge_delete_clause;
 ```
-merge into是特有的功能，相当于在 MSSQL中的
+merge into是特有的功能, 相当于在 MSSQL中的
 
 ```
 if exists(...)
@@ -94,7 +94,7 @@ else
 Insert into table.
 ```
 
-mergeinto语法不仅没有if exists语法啰嗦，而且比if exists还要高效很多，常用来在oracle之间同步数据库表
+mergeinto语法不仅没有if exists语法啰嗦, 而且比if exists还要高效很多, 常用来在oracle之间同步数据库表
 优点：
 
 * 避免了分开更新
@@ -193,9 +193,9 @@ EOF
 
 变量i和v是否相等
 
-1. 当i和v都为null的时候，认为i和v相等.
-2. 当i和v中只有一个为null，肯定不相等.
-3. 当i和v都不为null的时候，就可以用‘=’号来判断它们是否相等.
+1. 当i和v都为null的时候, 认为i和v相等.
+2. 当i和v中只有一个为null, 肯定不相等.
+3. 当i和v都不为null的时候, 就可以用‘=’号来判断它们是否相等.
 
 ↓
 

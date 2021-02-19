@@ -40,19 +40,19 @@ tags:
 # Lucene
 
 * 开源全文检索引擎工具包.
-* 提供了完整的查询引擎和索引引擎，部分文本分析引擎.
+* 提供了完整的查询引擎和索引引擎, 部分文本分析引擎.
 * 在应用中实现全文检索的功能
 
 使用Lucene建立起来的全文检索系统,用于提供全文检索服务,提供包括但不限于建立索引,处理查询返回结果集,增加索引,优化索引结构等功能
 
 |package|功能|
 |:---|:---|
-|org.apache.lucene.analysis|语言分析器，分词器<br/>,Lucene提供的分析器实现类在：lucene-analyzers-common-4.10.3.jar|
-|org.apache.lucene.document|索引存储时的文档结构管理，类似于关系型数据库的表结构|
-|org.apache.lucene.index|索引管理，包括索引建立、删除等|
-|org.apache.lucene.queryParser|查询分析器，实现查询关键词间的运算，如与、或、非等, 生成查询表达式，|
-|org.apache.lucene.search|检索管理，根据查询条件，检索得到结果|
-|org.apache.lucene.store|数据存储管理，包括一些I/O操作|
+|org.apache.lucene.analysis|语言分析器, 分词器<br/>,Lucene提供的分析器实现类在：lucene-analyzers-common-4.10.3.jar|
+|org.apache.lucene.document|索引存储时的文档结构管理, 类似于关系型数据库的表结构|
+|org.apache.lucene.index|索引管理, 包括索引建立, 删除等|
+|org.apache.lucene.queryParser|查询分析器, 实现查询关键词间的运算, 如与, 或, 非等, 生成查询表达式, |
+|org.apache.lucene.search|检索管理, 根据查询条件, 检索得到结果|
+|org.apache.lucene.store|数据存储管理, 包括一些I/O操作|
 |org.apache.lucene.util|公用类|
 
 # 全文检索流程
@@ -83,7 +83,7 @@ lucene查询解析器包：lucene-queryparser-4.10.3.jar
 		分词
 		创建索引
 4)	使用Luke查看索引
-用于查询、修改lucene的索引文件
+用于查询, 修改lucene的索引文件
 java  -jar lukeall-4.10.3.jar
 
 5)	搜索程序

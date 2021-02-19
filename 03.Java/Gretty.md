@@ -15,7 +15,7 @@ tags:
 ```
 apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 gretty {
-  // jetty7/8/9，tomcat7/8
+  // jetty7/8/9, tomcat7/8
   servletContainer = 'tomcat8'
 }
 ```

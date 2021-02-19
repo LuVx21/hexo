@@ -1,1 +1,1 @@
-Spring5即将放弃掉Guava Cache作为缓存机制，而改用Caffeine作为新的本地Cache的组件. 
+Spring5即将放弃掉Guava Cache作为缓存机制, 而改用Caffeine作为新的本地Cache的组件. 

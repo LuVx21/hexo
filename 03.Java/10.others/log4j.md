@@ -40,7 +40,7 @@ log4j.appender.appenderName.layout = fully.qualified.name.of.layout.class
 1. org.apache.log4j.HTMLLayout(以HTML表格形式布局), 
 2. org.apache.log4j.PatternLayout(可以灵活地指定布局模式), 
 3. org.apache.log4j.SimpleLayout(包含日志信息的级别和信息字符串), 
-4. org.apache.log4j.TTCCLayout(包含日志产生的时间、线程、类别等等信息)
+4. org.apache.log4j.TTCCLayout(包含日志产生的时间, 线程, 类别等等信息)
 
 ## 日志信息格式说明
 
@@ -50,7 +50,7 @@ log4j.appender.appenderName.layout = fully.qualified.name.of.layout.class
  %r: 输出自应用启动到输出该log信息耗费的毫秒数
  %c: 输出日志信息所属的类目, 通常就是所在类的全名
  %t: 输出产生该日志事件的线程名
- %l: 输出日志事件的发生位置, 相当于%C.%M(%F:%L)的组合, 包括类目名、发生的线程, 以及在代码中的行数.举例:Testlog4.main (TestLog4.java:10)
+ %l: 输出日志事件的发生位置, 相当于%C.%M(%F:%L)的组合, 包括类目名, 发生的线程, 以及在代码中的行数.举例:Testlog4.main (TestLog4.java:10)
  %x: 输出和当前线程相关联的NDC(嵌套诊断环境), 尤其用到像java servlets这样的多客户多线程的应用中.
  %%: 输出一个"%"字符
  %F: 输出日志消息产生时所在的文件名称
@@ -58,7 +58,7 @@ log4j.appender.appenderName.layout = fully.qualified.name.of.layout.class
  %m: 输出代码中指定的消息, 产生的日志具体信息
  %n: 输出一个回车换行符, Windows平台为"/r/n", Unix平台为"/n"输出日志信息换行
 
-**可以在%与模式字符之间加上修饰符来控制其最小宽度、最大宽度、和文本的对齐方式.**
+**可以在%与模式字符之间加上修饰符来控制其最小宽度, 最大宽度, 和文本的对齐方式.**
 如:
  1)   %20c:指定输出category的名称, 最小的宽度是20, 如果category的名称小于20的话, 默认的情况下右对齐.
  2)   %-20c:指定输出category的名称, 最小的宽度是20, 如果category的名称小于20的话, "-"号指定左对齐.

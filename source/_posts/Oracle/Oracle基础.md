@@ -41,10 +41,10 @@ array varry_name := varry_name('1','2','3'); -- 初始化赋值
 
 # Table
 
-记录表（或索引表）数据类型,可以处理多行记录.关键字INDEX BY表示创建一个主键索引，以便引用记录表变量中的特定行
+记录表（或索引表）数据类型,可以处理多行记录.关键字INDEX BY表示创建一个主键索引, 以便引用记录表变量中的特定行
 **binary_integer**
-其作用是,加了”index bybinary_integer”后，numbers类型的下标就是自增长，numbers类型在插入元素时，不需要初始化，不需要每次extend增加一个空间.
-而如果没有这句话“indexby binary_integer”，那就得要显示对初始化，且每插入一个元素到numbers类型的table中时，都需要先extend
+其作用是,加了”index bybinary_integer”后, numbers类型的下标就是自增长, numbers类型在插入元素时, 不需要初始化, 不需要每次extend增加一个空间.
+而如果没有这句话“indexby binary_integer”, 那就得要显示对初始化, 且每插入一个元素到numbers类型的table中时, 都需要先extend
 
 ```sql
 type table_name is table of element_type [not null]
@@ -58,13 +58,13 @@ v_name table_name := table_name('1','2','3'); -- 初始化赋值
 
 # bulk collect(批量聚合类型)
 
-通过bulk collect减少loop处理的开销，使用Bulk Collect提高Oracle查询效率
+通过bulk collect减少loop处理的开销, 使用Bulk Collect提高Oracle查询效率
 
-可以让我们在PL/SQL中能使用批查询，批查询在某些情况下能显著提高查询效率.
+可以让我们在PL/SQL中能使用批查询, 批查询在某些情况下能显著提高查询效率.
 采用bulk collect可以将查询结果一次性地加载到collections中.
 而不是通过cursor一条一条地处理.
 可以在select into,fetch into,returning into语句使用bulk collect.
-注意在使用bulk collect时，所有的into变量都必须是collections
+注意在使用bulk collect时, 所有的into变量都必须是collections
 
 ```sql
 set serveroutput on

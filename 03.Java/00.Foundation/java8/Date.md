@@ -48,7 +48,7 @@ LocalDateTime.now().with(LocalTime.MIN).toInstant(ZoneOffset.of("+8")).toEpochMi
 
 ## Clock
 
-用于访问当前时刻、日期、时间, 用到时区
+用于访问当前时刻, 日期, 时间, 用到时区
 
 ## Period
 日期间隔

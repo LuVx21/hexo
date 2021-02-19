@@ -26,8 +26,8 @@ tags:
 
 ## 并集
 
-union:并集，并排除重复记录
-union all:并集，并包含重复记录
+union:并集, 并排除重复记录
+union all:并集, 并包含重复记录
 
 通过使用`union`可以解决MySQL不支持`full join`的问题
 

@@ -49,7 +49,7 @@ BEGIN
 
   #循环递归
   WHILE sTempPar is not null DO
-  #判断是否是第一个，不加的话第一个会为空
+  #判断是否是第一个, 不加的话第一个会为空
   IF sTemp != '' THEN
     SET sTemp = concat(sTemp, ',', sTempPar);
   ELSE

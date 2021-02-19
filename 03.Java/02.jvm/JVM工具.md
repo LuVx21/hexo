@@ -20,7 +20,7 @@ MAT
 | 工具     | 作用                                                         |
 | :-------- | :------------------------------------------------------------ |
 | jps      | 进程状态工具,查看正在运行的JVM进程                                |
-| jstat    | 统计信息监视工具,实时显示JVM进程中类装载、内存、垃圾收集、JIT编译等数据 |
+| jstat    | 统计信息监视工具,实时显示JVM进程中类装载, 内存, 垃圾收集, JIT编译等数据 |
 | jinfo    | 配置信息工具,查询当前运行着的JVM属性和参数的值                  |
 | jmap     | 内存映射工具,生成VM的内存转储快照       |
 | jhat     | 堆转储快照分析工具,分析使用jmap生成的dump文件                       |
@@ -127,14 +127,14 @@ jstat -heap 665
 ### jconsole
 
 
-1、使用hostname -i 查看远程主机的hostname.
-如果显示为 127.0.0.1，需要进行修改(vim /etc/hosts)
+1, 使用hostname -i 查看远程主机的hostname.
+如果显示为 127.0.0.1, 需要进行修改(vim /etc/hosts)
 修改127.0.0.0.1 为服务器真实的外网ip.
 
-2、被监控的程序运行时给虚拟机添加一些运行的参数
+2, 被监控的程序运行时给虚拟机添加一些运行的参数
 ```conf
 ## 无需认证的远程监控配置
-## 其中-Djava.rmi.server.hostname为上一步修改后主机的外网真实ip, 其中监控的端口号可以自己定义，在远程连接的时候会用到
+## 其中-Djava.rmi.server.hostname为上一步修改后主机的外网真实ip, 其中监控的端口号可以自己定义, 在远程连接的时候会用到
 -Dcom.sun.management.jmxremote.port=60001
 -Dcom.sun.management.jmxremote.authenticate=false
 -Dcom.sun.management.jmxremote.ssl=false
@@ -146,11 +146,11 @@ jstat -heap 665
 -Dcom.sun.management.jmxremote.pwd.file= {jmxremote.password}Path
 -Djava.rmi.server.hostname=192.168.1.50
 ```
-> 在/usr/lib/jvm/java-8-oracle/jre/lib/management下的jmxremote.access、jmxremote.password.
+> 在/usr/lib/jvm/java-8-oracle/jre/lib/management下的jmxremote.access, jmxremote.password.
 > jmxremote.access中存储用户名和对应的权限关系.
 > jmxremote.password中存储用户名密码.
 
-3、远程连接
+3, 远程连接
 
 
 

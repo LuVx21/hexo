@@ -40,17 +40,17 @@ tags:
 例:
 
 ```java
-//1、注册数据库的驱动
+//1, 注册数据库的驱动
 // 推荐使用Class.forName("com.mysql.jdbc.Driver");
 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-//2、获取与数据库的连接
+//2, 获取与数据库的连接
 //"jdbc:mysql://localhost:3306/java?user=root&password=d1121"
 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/java", "root", "d1121");
-//3、创建代表SQL语句的对象
+//3, 创建代表SQL语句的对象
 Statement stmt = conn.createStatement();
-//4、执行SQL语句
+//4, 执行SQL语句
 ResultSet rs = stmt.executeQuery("select id,name,password,email,birthday from users");
-//5、如果执行的是查询语句, 要对结果进行处理
+//5, 如果执行的是查询语句, 要对结果进行处理
 while(rs.next()){
 	System.out.println("--------------------");
 	System.out.println(rs.getObject("id"));
@@ -59,7 +59,7 @@ while(rs.next()){
 	System.out.println(rs.getObject("email"));
 	System.out.println(rs.getObject("birthday"));
 }
-//6、释放占用的资源
+//6, 释放占用的资源
 rs.close();//以打开的顺序的相反顺序进行关闭
 stmt.close();
 conn.close();

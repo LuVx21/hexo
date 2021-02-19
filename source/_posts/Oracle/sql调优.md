@@ -41,7 +41,7 @@ tags:
 | 避免使用HAVING子句                      | 检索出所有记录之后才对结果集进行过滤                         |
 | 减少访问数据库的次数                    | 解析SQL, 索引选择, 读数据等操作花费时间                      |
 | 合并简单的sql                           |                                                              |
-| 避免使用耗费资源的操作                  | DISTINCT、UNION、MINUS、INTERSECT、ORDER BY                  |
+| 避免使用耗费资源的操作                  | DISTINCT, UNION, MINUS, INTERSECT, ORDER BY                  |
 | 使用COMMIT                              | 释放资源, 回滚段上用于恢复数据的信息, 被程序语句获得的锁, redo log buffer 中的空间等 |
 | distinct,union,minus,intersect,order by | 会触发排序功能, distinct排序1次,其他至少2次                  |
 
@@ -139,7 +139,7 @@ select user_id, bill_id from user_tab1 d where exists(
 ;
 ```
 
-用EXISTS替代IN、用NOT EXISTS替代 NOT IN
+用EXISTS替代IN, 用NOT EXISTS替代 NOT IN
 ```sql
 -- 低效
 select a.* from temp a
@@ -179,19 +179,19 @@ select * from user_tab1 where age = 20
 
 
 01. 必须选择记录条数最少的表作为基础表.
-    from 是从前往后检索的，所以要最少记录的表放在最前面
+    from 是从前往后检索的, 所以要最少记录的表放在最前面
 02. 采用自下而上的顺序解析WHERE子句,根据这个原理,表之间的连接必须写在其他WHERE条件之前, 那些可以过滤掉最大数量记录的条件必须写在WHERE子句的末尾.同时在链接的表中能过滤的就应该先进行过滤.
-    where是从后往前检索，所以能过滤最多数据的条件应放到最后.
+    where是从后往前检索, 所以能过滤最多数据的条件应放到最后.
 03. SELECT子句中避免使用 `*`
 04. 尽量多使用COMMIT
-05. 计算记录条数时候，第一快：count(索引列)，第二快：cout(*)
+05. 计算记录条数时候, 第一快：count(索引列), 第二快：cout(*)
 06. 用Where子句替换HAVING子句
 07. 通过内部函数提高SQL效率
 08. 使用表的别名(Alias)
 09. 用EXISTS替代IN
 10. 用NOT EXISTS替代NOT IN
 11. 用表连接替换EXISTS
-13. 避免在索引列上使用计算（此条包括在select后面  where后面等任何地方，因为在索引列上计算会导致索引失效）
+13. 避免在索引列上使用计算（此条包括在select后面  where后面等任何地方, 因为在索引列上计算会导致索引失效）
 14. 避免在索引列上使用NOT（在索引列使用not会导致索引失效）
 19. 总是使用索引的第一个列
 21. ORDER BY 子句只在两种严格的条件下使用索引.

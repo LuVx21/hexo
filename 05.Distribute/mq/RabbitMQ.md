@@ -21,19 +21,19 @@ tags:
 
 MQ全称为Message Queue,RabbitMQ基于AMQP（Advanced Message Queue）协议实现
 
-在项目中，将一些无需即时返回且耗时的操作提取出来，进行了异步处理，而这种异步处理的方式大大的节省了服务器的请求响应时间，从而提高了系统的吞吐量
+在项目中, 将一些无需即时返回且耗时的操作提取出来, 进行了异步处理, 而这种异步处理的方式大大的节省了服务器的请求响应时间, 从而提高了系统的吞吐量
 
 ## 组件
 
 Brocker：消息队列服务器实体.
-Exchange：消息交换机，指定消息按什么规则，路由到哪个队列.
-Queue：消息队列，每个消息都会被投入到一个或者多个队列里.
-Binding：绑定，它的作用是把exchange和queue按照路由规则binding起来.
-Routing Key：路由关键字，exchange根据这个关键字进行消息投递.
-Vhost：虚拟主机，一个broker里可以开设多个vhost，用作不用用户的权限分离.
-Producer：消息生产者，就是投递消息的程序.
-Consumer：消息消费者，就是接受消息的程序.
-Channel：消息通道，在客户端的每个连接里，可建立多个channel，每个channel代表一个会话任务
+Exchange：消息交换机, 指定消息按什么规则, 路由到哪个队列.
+Queue：消息队列, 每个消息都会被投入到一个或者多个队列里.
+Binding：绑定, 它的作用是把exchange和queue按照路由规则binding起来.
+Routing Key：路由关键字, exchange根据这个关键字进行消息投递.
+Vhost：虚拟主机, 一个broker里可以开设多个vhost, 用作不用用户的权限分离.
+Producer：消息生产者, 就是投递消息的程序.
+Consumer：消息消费者, 就是接受消息的程序.
+Channel：消息通道, 在客户端的每个连接里, 可建立多个channel, 每个channel代表一个会话任务
 
 # 基本使用
 
@@ -51,9 +51,9 @@ rabbitmqctl add_user luvx 1121
 
 # API
 
-ConnectionFactory、Connection、Channel
+ConnectionFactory, Connection, Channel
 
-定义Queue、定义Exchange、绑定Queue与Exchange、发布消息
+定义Queue, 定义Exchange, 绑定Queue与Exchange, 发布消息
 
 生产者 -> Exchange -> Queue -> 消费者
 

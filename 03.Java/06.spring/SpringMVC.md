@@ -109,7 +109,7 @@ web.xml
 ```
 该配置只能访问webapp下的静态资源, 如果资源位于`webapp/WEB-INF`下则会访问失败.
 
-webapp/WEB-INF: WEB-INF是Java的WEB应用的安全目录. 所谓安全就是客户端无法访问，只有服务端可以访问的目录.
+webapp/WEB-INF: WEB-INF是Java的WEB应用的安全目录. 所谓安全就是客户端无法访问, 只有服务端可以访问的目录.
 若想访问需要修改配置为:
 ```xml
 <mvc:resources mapping="/images/**" location="/WEB-INF/images/" />

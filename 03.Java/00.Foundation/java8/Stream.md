@@ -18,7 +18,7 @@ BaseStream
 ## 基本类型Stream
 
 
-在Java 8的Stream API中提供了`of`方法，如果传入基本类型的参数，内部其实得到的是一个引用类型的Stream
+在Java 8的Stream API中提供了`of`方法, 如果传入基本类型的参数, 内部其实得到的是一个引用类型的Stream
 
 专门针对基本类型优化的API
 

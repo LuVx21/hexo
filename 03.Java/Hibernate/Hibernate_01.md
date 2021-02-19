@@ -223,7 +223,7 @@ Configuration configuration = new Configuration().configure();
 
 ## Session
 
-* Session是在Hibernate中使用最频繁的接口.也被称之为持久化管理器.它提供了和持久化有关的操作, 比如添加、修改、删除、加载和查询实体对象
+* Session是在Hibernate中使用最频繁的接口.也被称之为持久化管理器.它提供了和持久化有关的操作, 比如添加, 修改, 删除, 加载和查询实体对象
 * Session 是应用程序与数据库之间交互操作的一个单线程对象, 是 Hibernate 运作的中心
 * Session是线程不安全的,应避免多个线程使用同一个Session实例
 * 所有持久化对象必须在 session 的管理下才可以进行持久化操作

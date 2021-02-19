@@ -159,7 +159,7 @@ public String sayHello(){
 |配置文件|说明|
 |:---|:---|
 |default.properties|在org/apache/struts2/目录下, 代表的是配置的是Struts2的常量的值|
-|struts-default.xml|在Struts2的核心包下, 代表的是Struts2核心功能的配置(Bean、拦截器、结果类型等)|
+|struts-default.xml|在Struts2的核心包下, 代表的是Struts2核心功能的配置(Bean, 拦截器, 结果类型等)|
 |struts.xml|重点中的重点配置, 代表WEB应用的默认配置, 在工作中, 基本就配置它就可以了(可以配置常量)|
 |web.xml|配置前端控制器(可以配置常量)|
 

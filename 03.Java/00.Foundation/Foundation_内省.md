@@ -43,7 +43,7 @@ BeanUtils的方法
 ```Java
 //bean对象的name属性,等价于得到并调用getter方法
 public static String getProperty(Object bean,String name)
-//设置bean对象的name属性为value，等价于得到并调用setter方法
+//设置bean对象的name属性为value, 等价于得到并调用setter方法
 public static void setProperty(Object bean,String name,Object value)
 //可将Map的元素放到bean中
 public static void populate(Object bean,Map<String,? extends Object> properties)
@@ -56,12 +56,12 @@ USer user = new User();
 BeanUtils.populate(user, map);
 ```
 
-> BeanUtils可以进行类型的自动转换，但仅限基本类型
+> BeanUtils可以进行类型的自动转换, 但仅限基本类型
 
 ConvertUtils的方法
 
 ```Java
-// public static void register(Converter converter,Class clazz)//注册器，用于注册一个类型转换器
+// public static void register(Converter converter,Class clazz)//注册器, 用于注册一个类型转换器
 User user = new User();
 ConvertUtils.register(new DateLocaleConverter().Date.class);
 BeanUtils.setProperty(user,"birthday","1990-01-01");

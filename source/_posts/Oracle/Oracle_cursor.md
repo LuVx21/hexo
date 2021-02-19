@@ -24,7 +24,7 @@ declare
 	select empno,ename,job,sal
 	from emp
 	where job='MANAGER';
-	--定义一个游标变量v_cinfo c_emp%ROWTYPE ，该类型为游标c_emp中的一行数据类型
+	--定义一个游标变量v_cinfo c_emp%ROWTYPE , 该类型为游标c_emp中的一行数据类型
 	c_row c_job%rowtype;
 begin
 	for c_row in c_job loop
@@ -50,7 +50,7 @@ open c_job;
 loop
 --提取一行数据到c_row
 fetch c_job into c_row;
---判读是否提取到值，没取到值就退出
+--判读是否提取到值, 没取到值就退出
 --取到值c_job%notfound 是false
 --取不到值c_job%notfound 是true
 exit when c_job%notfound;
@@ -61,7 +61,7 @@ close c_job;
 end;
 ```
 ```sql
---1：任意执行一个update操作，用隐式游标sql的属性%found,%notfound,%rowcount,%isopen观察update语句的执行情况.
+--1：任意执行一个update操作, 用隐式游标sql的属性%found,%notfound,%rowcount,%isopen观察update语句的执行情况.
 begin
 update emp set ENAME='ALEARK' WHERE EMPNO=7469;
 if sql%isopen then
@@ -160,7 +160,7 @@ begin
 open csr_TestWhile;
 --给第一行喂数据
 fetch csr_TestWhile into row_loc;
---测试是否有数据，并执行循环
+--测试是否有数据, 并执行循环
 while csr_TestWhile%found loop
 dbms_output.put_line('部门地点：'||row_loc.LOC);
 --给下一行喂数据
@@ -173,7 +173,7 @@ select * from emp
 
 
 
---4,接收用户输入的部门编号，用for循环和游标，打印出此部门的所有雇员的所有信息(使用循环游标)
+--4,接收用户输入的部门编号, 用for循环和游标, 打印出此部门的所有雇员的所有信息(使用循环游标)
 --CURSOR cursor_name[(parameter[,parameter],...)] IS select_statement;
 --定义参数的语法如下:Parameter_name [IN] data_type[{:=|DEFAULT} value]
 
@@ -189,7 +189,7 @@ dbms_output.put_line('员工号：'||r_emp.EMPNO||'员工名：'||r_emp.ENAME||'
 end loop;
 end;
 select * from emp
---5：向游标传递一个工种，显示此工种的所有雇员的所有信息(使用参数游标)
+--5：向游标传递一个工种, 显示此工种的所有雇员的所有信息(使用参数游标)
 declare
 cursor
 c_job(p_job nvarchar2)
@@ -203,7 +203,7 @@ end loop;
 end;
 SELECT * FROM EMP
 
---6：用更新游标来为雇员加佣金：(用if实现,创建一个与emp表一摸一样的emp1表，对emp1表进行修改操作),并将更新前后的数据输出出来
+--6：用更新游标来为雇员加佣金：(用if实现,创建一个与emp表一摸一样的emp1表, 对emp1表进行修改操作),并将更新前后的数据输出出来
 --http://zheng12tian.iteye.com/blog/815770
 create table emp1 as select * from emp;
 
@@ -227,7 +227,7 @@ UPDATE emp1 SET SAL=saleInfo WHERE CURRENT OF csr_Update;
 END LOOP;
 END;
 
---7:编写一个PL/SQL程序块，对名字以‘A’或‘S’开始的所有雇员按他们的基本薪水(sal)的10%给他们加薪(对emp1表进行修改操作)
+--7:编写一个PL/SQL程序块, 对名字以‘A’或‘S’开始的所有雇员按他们的基本薪水(sal)的10%给他们加薪(对emp1表进行修改操作)
 declare
 cursor
 csr_AddSal
@@ -242,7 +242,7 @@ saleInfo:=r_AddSal.SAL*1.1;
 UPDATE emp1 SET SAL=saleInfo WHERE CURRENT OF csr_AddSal;
 end loop;
 end;
---8：编写一个PL/SQL程序块，对所有的salesman增加佣金(comm)500
+--8：编写一个PL/SQL程序块, 对所有的salesman增加佣金(comm)500
 declare
 cursor
 csr_AddComm(p_job nvarchar2)
@@ -257,7 +257,7 @@ UPDATE EMP1 SET COMM=commInfo where CURRENT OF csr_AddComm;
 END LOOP;
 END;
 
---9：编写一个PL/SQL程序块，以提升2个资格最老的职员为MANAGER（工作时间越长，资格越老）
+--9：编写一个PL/SQL程序块, 以提升2个资格最老的职员为MANAGER（工作时间越长, 资格越老）
 --（提示：可以定义一个变量作为计数器控制游标只提取两条数据；也可以在声明游标的时候把雇员中资格最老的两个人查出来放到游标中. ）
 declare
 cursor crs_testComput
@@ -279,8 +279,8 @@ close crs_testComput;
 end;
 
 
---10：编写一个PL/SQL程序块，对所有雇员按他们的基本薪水(sal)的20%为他们加薪，
---如果增加的薪水大于300就取消加薪(对emp1表进行修改操作，并将更新前后的数据输出出来)
+--10：编写一个PL/SQL程序块, 对所有雇员按他们的基本薪水(sal)的20%为他们加薪, 
+--如果增加的薪水大于300就取消加薪(对emp1表进行修改操作, 并将更新前后的数据输出出来)
 declare
 cursor
 crs_UpadateSal
@@ -323,7 +323,7 @@ dbms_output.put_line(r_WorkDay.ENAME||'已经工作了'||r_WorkDay.SPANDYEARS||'
 end loop;
 end;
 
---12:输入部门编号，按照下列加薪比例执行(用CASE实现，创建一个emp1表，修改emp1表的数据),并将更新前后的数据输出出来
+--12:输入部门编号, 按照下列加薪比例执行(用CASE实现, 创建一个emp1表, 修改emp1表的数据),并将更新前后的数据输出出来
 -- deptno raise(%)
 -- 10 5%
 -- 20 10%
@@ -355,7 +355,7 @@ update emp1 set SAL=salInfo where current of crs_caseTest;
 end loop;
 end;
 
---13:对每位员工的薪水进行判断，如果该员工薪水高于其所在部门的平均薪水，则将其薪水减50元，输出更新前后的薪水，员工姓名，所在部门编号.
+--13:对每位员工的薪水进行判断, 如果该员工薪水高于其所在部门的平均薪水, 则将其薪水减50元, 输出更新前后的薪水, 员工姓名, 所在部门编号.
 --AVG([distinct|all] expr) over (analytic_clause)
 ---作用：
 --按照analytic_clause中的规则求分组平均值.
