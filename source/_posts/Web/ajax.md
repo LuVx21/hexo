@@ -344,32 +344,32 @@ dom对象>>jquery对象
                 4 (完成) 数据接收完毕,此时可以通过通过responseBody和responseText获取完整的回应数据
             只有为4,客户端操作相应的处理
             -------------------------------------------------
-            status:代表服务器的HTTP相应码。200是成功。304服务器端内容没有改变。
+            status:代表服务器的HTTP相应码. 200是成功. 304服务器端内容没有改变.
             -------------------------------------------------
-            responseText:服务器返回文本数据。
+            responseText:服务器返回文本数据.
 
-            onreadystatechange:当XmlHttpRequest对象的readyState发生变化时,都会触发该事件。
+            onreadystatechange:当XmlHttpRequest对象的readyState发生变化时,都会触发该事件.
 
         常用方法:
-            open(method,url,isAsync):初始化XmlHttpRequest对象。
-                method:请求方式。一般使用get或者post
-                url:请求的服务器地址。可以使用相对路径或者绝对路径。
-                        特别注意:如果该地址没有变化,浏览器一般不会再次发出请求的。解决办法,加上一个时间戳。
+            open(method,url,isAsync):初始化XmlHttpRequest对象.
+                method:请求方式. 一般使用get或者post
+                url:请求的服务器地址. 可以使用相对路径或者绝对路径.
+                        特别注意:如果该地址没有变化,浏览器一般不会再次发出请求的. 解决办法,加上一个时间戳.
                             /ajaxday02/servlet/ServletDemo1?time="+new Date().getTime()
-                isAsync:是否是异步请求。默认是true。
-            send(requestData):向服务器发送请求数据。没有传递null。
-                数据时用在POST请求方式的。数据形式:username=admin&password=123
+                isAsync:是否是异步请求. 默认是true.
+            send(requestData):向服务器发送请求数据. 没有传递null.
+                数据时用在POST请求方式的. 数据形式:username=admin&password=123
 
         通过XmlHttpRequest向服务器发送POST请求:
-            //设置请求消息头,告知服务器,发送的正文数据的类型。
+            //设置请求消息头,告知服务器,发送的正文数据的类型.
                 xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");//固定写法
                 //发送数据
                 xhr.send("username=admin&password=123");
     4.4服务端返回的数据
         HTML数据
-            responseText:他是XmlHttpRequest对象的一个属性。服务器返回的数据会封装到此属性中。
+            responseText:他是XmlHttpRequest对象的一个属性. 服务器返回的数据会封装到此属性中.
 
         XML数据
-            responseXML:返回的是xml对象的DOM对象。
+            responseXML:返回的是xml对象的DOM对象.
 
         *****JSON数据

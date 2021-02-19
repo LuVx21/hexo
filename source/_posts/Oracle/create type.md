@@ -16,11 +16,11 @@ http://www.cnblogs.com/advocate/p/3729998.html
 
 # 一：Oracle中的类型有很多种，主要可以分为以下几类：
 
-1. 字符串类型。如：char、nchar、varchar2、nvarchar2。
-2. 数值类型。如：int、number(p,s)、integer、smallint。
-3. 日期类型。如：date、interval、timestamp。
-4. PL/SQL类型。如：pls_integer、binary_integer、binary_double(10g)、binary_float(10g)、boolean。plsql类型是不能在sql环境中使用的，比如建表时。
-5. 自定义类型：type / create type。
+1. 字符串类型. 如：char、nchar、varchar2、nvarchar2.
+2. 数值类型. 如：int、number(p,s)、integer、smallint.
+3. 日期类型. 如：date、interval、timestamp.
+4. PL/SQL类型. 如：pls_integer、binary_integer、binary_double(10g)、binary_float(10g)、boolean. plsql类型是不能在sql环境中使用的，比如建表时.
+5. 自定义类型：type / create type.
 
 # 二：type / create type 区别联系
 
@@ -76,15 +76,15 @@ type 自定义Object类型B is record(
 字段2 类型2
 );
 ## 3.1：什么是记录（Record）？
-由单行多列的标量构成的复合结构。可以看做是一种用户自定义数据类型。组成类似于多维数组。
-将一个或多个标量封装成一个对象进行操作。是一种临时复合对象类型。
-记录可以直接赋值。RECORD1 :=RECORD2；
+由单行多列的标量构成的复合结构. 可以看做是一种用户自定义数据类型. 组成类似于多维数组.
+将一个或多个标量封装成一个对象进行操作. 是一种临时复合对象类型.
+记录可以直接赋值. RECORD1 :=RECORD2；
 记录不可以整体比较.
-记录不可以整体判断为空。
+记录不可以整体判断为空.
 ## 3.2：%ROWTYPE和记录（Record）？
-请区别%ROWTYPE和记录（Record）类型。%ROWTYPE可以说是Record的升级简化版。
-区别在与前者结构为表结构，后者为自定义结构。二者在使用上没有很大区别。前者方便，后者灵活。在实际中根据情况来具体决定使用。
-Record + PL/SQL表可以进行数据的多行多列存储。
+请区别%ROWTYPE和记录（Record）类型. %ROWTYPE可以说是Record的升级简化版.
+区别在与前者结构为表结构，后者为自定义结构. 二者在使用上没有很大区别. 前者方便，后者灵活. 在实际中根据情况来具体决定使用.
+Record + PL/SQL表可以进行数据的多行多列存储.
 ## 3.3：如何创建和使用记录？
   ①创建记录类型   语法：
 ```
@@ -96,12 +96,12 @@ TYPE  记录名  IS RECORD
  ）
 ```
 
- 其中，filed1是标量的名字。
+ 其中，filed1是标量的名字.
   ②声明记录类型变量：    记录类型变量名 记录类型
-  ③填充记录。
+  ③填充记录.
   ④访问记录成员    记录类型变量名.filed1    .........    记录类型变量名.filedN
-  注意：   表字段类型修改后，还需要修改记录字段类型，有时候可能会忘记，从而出现错误。   对于记录内每个字段（filed1.。。。），可以指定也可以使用%TYPE和%ROWTYPE动态指定记录字段类型。
-  好处是表字段发生变化，记录字段自动改变。但是，由于每次执行前，遇到%TYPR或%ROWTYPE，   数据库系统都会去查看对应表字段类型，会造成一定的数据库开销，如果系统中大量使用记录类型，则对性能会有一定影响。   另外如果删除了某一字段，而自定义记录中使用了该字段，也会有可能忘记删除该字段。        对数据库负荷偏低的系统，性能问题一般可以不重点关注，但是对于高负荷数据库服务器，        各个环节都要考虑性能问题，每处节省一点出来，性能整体就有很大提高。
+  注意：   表字段类型修改后，还需要修改记录字段类型，有时候可能会忘记，从而出现错误.    对于记录内每个字段（filed1.. . . ），可以指定也可以使用%TYPE和%ROWTYPE动态指定记录字段类型.
+  好处是表字段发生变化，记录字段自动改变. 但是，由于每次执行前，遇到%TYPR或%ROWTYPE，   数据库系统都会去查看对应表字段类型，会造成一定的数据库开销，如果系统中大量使用记录类型，则对性能会有一定影响.    另外如果删除了某一字段，而自定义记录中使用了该字段，也会有可能忘记删除该字段.         对数据库负荷偏低的系统，性能问题一般可以不重点关注，但是对于高负荷数据库服务器，        各个环节都要考虑性能问题，每处节省一点出来，性能整体就有很大提高.
   语法：
 
 ```
@@ -162,7 +162,7 @@ Declare
    end if;
  End;
 ```
-例子：记录不可以整体判断为空，只可以判断记录字段。
+例子：记录不可以整体判断为空，只可以判断记录字段.
 ```
 Declare
      Type EmpType is Record(
@@ -179,7 +179,7 @@ Declare
    end if;
  End;
 ```
-例子：使用%TYPE和%ROWTYPE动态指定记录字段。
+例子：使用%TYPE和%ROWTYPE动态指定记录字段.
 ```
 /*conn scott/tiger
 Create Table  empa  As  Select * From emp;
@@ -199,7 +199,7 @@ Begin
  End If;
 End;
 ```
-例子：数据集中的记录和记录类型中的数据关系。
+例子：数据集中的记录和记录类型中的数据关系.
 ```
 DECLARE
   Type MyRecType Is  Record
@@ -220,7 +220,7 @@ DECLARE
  End;
  /
 ```
-3.4：使用记录向表中插入数据？ 根据表结构合理安排记录字段。比如主外键。 如果用记录(RECORD)插入数据，那么只能使用记录成员； 如果用%ROWTYPE插入数据,可以直接使用%ROWTYPE。
+3.4：使用记录向表中插入数据？ 根据表结构合理安排记录字段. 比如主外键.  如果用记录(RECORD)插入数据，那么只能使用记录成员； 如果用%ROWTYPE插入数据,可以直接使用%ROWTYPE.
 例子：使用记录成员向表中插入数据
 ```
 DECLARE
@@ -242,7 +242,7 @@ Begin
  DBMS_OUTPUT.PUT_LINE(EmpRec.RENO||'  '||EmpRec.RENAME||'  '||EmpRec.RJOB);
 End;
 ```
-3.5：使用记录更新数据？ 如果用记录(RECORD)更新数据，那么只能使用记录成员； 如果用%ROWTYPE更新数据,可以直接使用%ROWTYPE。
+3.5：使用记录更新数据？ 如果用记录(RECORD)更新数据，那么只能使用记录成员； 如果用%ROWTYPE更新数据,可以直接使用%ROWTYPE.
 例子：使用%ROWTYPE向表中插入数据
 ```
 DECLARE
@@ -252,7 +252,7 @@ Begin
  UpDate empa Set ROW = vEmp Where EMPNO = 1001;
 End;
 ```
-3.6：使用记录删除数据？ 删除记录时，只能在delete语句的where子句中使用记录成员。
+3.6：使用记录删除数据？ 删除记录时，只能在delete语句的where子句中使用记录成员.
 
 # 四：type  table用法
 4.1：定义
@@ -335,7 +335,7 @@ End;
 
 注意：
 Oracle中index by binary_integer的作用
-如语句：type  numbers  is table of number index by binary_integer;其作用是,加了”index by binary_integer ”后，numbers类型的下标就是自增长，numbers类型在插入元素时，不需要初始化，不需要每次extend增加一个空间。
+如语句：type  numbers  is table of number index by binary_integer;其作用是,加了”index by binary_integer ”后，numbers类型的下标就是自增长，numbers类型在插入元素时，不需要初始化，不需要每次extend增加一个空间.
 　　而如果没有这句话“index by binary_integer”，那就得要显示对初始化，且每插入一个元素到numbers类型的table中时，都需要先extend.
 　　示例：
 　　没加“index by binary_integer”时：
@@ -461,7 +461,7 @@ end   ;
 
 create   table   <表名>   of   <对象类型>意义：此表具有该类型和member方法的所有属性，
 
-我们不能通过DBA   STUDIO的表数据编辑器来编辑数据。
+我们不能通过DBA   STUDIO的表数据编辑器来编辑数据.
 
 例：create   table   FLIGHT_SCH_TAB   of   FLIGHT_SCH_TYPE
 
@@ -481,7 +481,7 @@ SELECT   <columnname>,   <aliasname>.<methodname(parameters)>FROM   <tablename> 
 
 create   table   FLIGHT_SCH_TABS(FLIGHT_DET   FLIGHT_SCH_TYPE   ,     FLIGHT_DESC   varchar2(20))   ;
 
-注：插入数据，对于对象类型的字段的值，需要通过构造函数来得到。对象类型名称(成员1,..成员n)
+注：插入数据，对于对象类型的字段的值，需要通过构造函数来得到. 对象类型名称(成员1,..成员n)
 
 例：insert   into   FLIGHT_SCH_TABS     values(FLIGHT_SCH_TYPE('SL36','AB02','SAN-LOU','5','13:30',3,6),'DESC1');
 
@@ -590,7 +590,7 @@ create table tcalendar of typ_calendar;
 SQL> insert into tcalendar
   2  select typ_calendar('2010','05','1','2','3','4','5','6','7','31') from dual
   3  /
---注意：插入的数据需要用typ_calendar进行转换。
+--注意：插入的数据需要用typ_calendar进行转换.
 1 row inserted
 --查看结果
 SQL> select * from tcalendar;
@@ -1491,6 +1491,6 @@ select a.id ,a.persion.id,a.person.name from aaa a;
 t_air(1,'23sdf') 使用这个方式创建一个自定义类型t_air的对象.
 
 
-三：下面简单的枚举下常用的几种自定义类型。
+三：下面简单的枚举下常用的几种自定义类型.
 
-1、子类型。 这种类型最简单，类似类型的一个别名，主要是为了对常用的一些类型简单化，它基于原始的某个类型。如： 有些应用会经常用到一些货币类型：number(16,2)。如果在全局范围各自定义这种类型，一旦需要修改该类型的精度，则需要一个个地修改。 那如何实现定义的全局化呢？于是就引出了子类型： subtype cc_num is number(16,2); 这样就很方便地解决了上述的麻烦。
+1、子类型.  这种类型最简单，类似类型的一个别名，主要是为了对常用的一些类型简单化，它基于原始的某个类型. 如： 有些应用会经常用到一些货币类型：number(16,2). 如果在全局范围各自定义这种类型，一旦需要修改该类型的精度，则需要一个个地修改.  那如何实现定义的全局化呢？于是就引出了子类型： subtype cc_num is number(16,2); 这样就很方便地解决了上述的麻烦.

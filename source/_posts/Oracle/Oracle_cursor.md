@@ -61,7 +61,7 @@ close c_job;
 end;
 ```
 ```sql
---1：任意执行一个update操作，用隐式游标sql的属性%found,%notfound,%rowcount,%isopen观察update语句的执行情况。
+--1：任意执行一个update操作，用隐式游标sql的属性%found,%notfound,%rowcount,%isopen观察update语句的执行情况.
 begin
 update emp set ENAME='ALEARK' WHERE EMPNO=7469;
 if sql%isopen then
@@ -258,7 +258,7 @@ END LOOP;
 END;
 
 --9：编写一个PL/SQL程序块，以提升2个资格最老的职员为MANAGER（工作时间越长，资格越老）
---（提示：可以定义一个变量作为计数器控制游标只提取两条数据；也可以在声明游标的时候把雇员中资格最老的两个人查出来放到游标中。）
+--（提示：可以定义一个变量作为计数器控制游标只提取两条数据；也可以在声明游标的时候把雇员中资格最老的两个人查出来放到游标中. ）
 declare
 cursor crs_testComput
 is
@@ -294,7 +294,7 @@ for r_UpdateSal in crs_UpadateSal loop
 salAdd:= r_UpdateSal.SAL*0.2;
 if salAdd>300 then
 salInfo:=r_UpdateSal.SAL;
-dbms_output.put_line(r_UpdateSal.ENAME||': 加薪失败。'||'薪水维持在：'||r_UpdateSal.SAL);
+dbms_output.put_line(r_UpdateSal.ENAME||': 加薪失败. '||'薪水维持在：'||r_UpdateSal.SAL);
 else
 salInfo:=r_UpdateSal.SAL+salAdd;
 dbms_output.put_line(r_UpdateSal.ENAME||': 加薪成功.'||'薪水变为：'||salInfo);
@@ -355,10 +355,10 @@ update emp1 set SAL=salInfo where current of crs_caseTest;
 end loop;
 end;
 
---13:对每位员工的薪水进行判断，如果该员工薪水高于其所在部门的平均薪水，则将其薪水减50元，输出更新前后的薪水，员工姓名，所在部门编号。
+--13:对每位员工的薪水进行判断，如果该员工薪水高于其所在部门的平均薪水，则将其薪水减50元，输出更新前后的薪水，员工姓名，所在部门编号.
 --AVG([distinct|all] expr) over (analytic_clause)
 ---作用：
---按照analytic_clause中的规则求分组平均值。
+--按照analytic_clause中的规则求分组平均值.
 --分析函数语法:
 --FUNCTION_NAME(<argument>,<argument>...)
 --OVER

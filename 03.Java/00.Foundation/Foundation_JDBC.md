@@ -136,7 +136,7 @@ void getObject(String fieldName):按照字段名(取数).
 
 使用mysql的预编译对象PrepateStatement时, 一定需要
 设置`useServerPrepStmts=true`开启服务器预编译功能,
-设置`cachePrepStmts=true`开启客户端对预编译对象的缓存。
+设置`cachePrepStmts=true`开启客户端对预编译对象的缓存.
 
 链接：https://www.jianshu.com/p/d46f84aef4bc
 

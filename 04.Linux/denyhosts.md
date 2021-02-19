@@ -36,7 +36,7 @@ DENY_THRESHOLD_RESTRICTED = 1
 ; 将deny的host或ip纪录到Work_dir中
 WORK_DIR = /usr/share/denyhosts/data
 
-; 将DenyHOts启动的pid纪录到LOCK_FILE中,已确保服务正确启动,防止同时启动多个服务。
+; 将DenyHOts启动的pid纪录到LOCK_FILE中,已确保服务正确启动,防止同时启动多个服务.
 LOCK_FILE = /var/lock/subsys/denyhosts
 
 ; 有效用户登录失败计数归零的时间

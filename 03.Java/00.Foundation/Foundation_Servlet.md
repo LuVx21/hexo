@@ -59,11 +59,11 @@ jsp是servlet的扩展,除可用上面两种之外,还可以用标签:`<jsp:forw
 
 JSP 共有以下6种基本动作:
 
-* jsp:include: 在页面被请求的时候引入一个文件。
-* jsp:useBean: 寻找或者实例化一个JavaBean。
-* jsp:setProperty: 设置JavaBean的属性。
-* jsp:getProperty: 输出某个JavaBean的属性。
-* jsp:forward: 把请求转到一个新的页面。
+* jsp:include: 在页面被请求的时候引入一个文件.
+* jsp:useBean: 寻找或者实例化一个JavaBean.
+* jsp:setProperty: 设置JavaBean的属性.
+* jsp:getProperty: 输出某个JavaBean的属性.
+* jsp:forward: 把请求转到一个新的页面.
 * jsp:plugin: 根据浏览器类型为Java插件生成OBJECT或EMBED标记
 
 # 域对象
@@ -96,7 +96,7 @@ import=”java.sql.*”%>
 
 1:
 动态引入是先执行,后包含,能动态区别加进来的是动态页面还是静态页面,对于静态页面则直接将资源包含(仅取其文本).
-静态引入则静态地包含页面,不管是静态页面还是动态页面都首先将页面的内容加进来。 
+静态引入则静态地包含页面,不管是静态页面还是动态页面都首先将页面的内容加进来.  
 
 2:
 动态引入可以传递参数

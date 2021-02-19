@@ -152,6 +152,6 @@ limit 0, 10;
 TokuDB 适用于数据写多读少，而且数据量比较大
 支持在线加减字段，在线创建索引，锁表时间很短
 
-TiDB是PingCAP公司推出的开源分布式关系型数据库，结合了传统的 RDBMS 和 NoSQL 的最佳特性。TiDB 兼容 MySQL，支持无限的水平扩展，具备强一致性和高可用性。
-TiDB 的目标是为 OLTP (Online Transactional Processing) 和 OLAP (Online Analytical Processing) 场景提供一站式的解决方案。
+TiDB是PingCAP公司推出的开源分布式关系型数据库，结合了传统的 RDBMS 和 NoSQL 的最佳特性. TiDB 兼容 MySQL，支持无限的水平扩展，具备强一致性和高可用性.
+TiDB 的目标是为 OLTP (Online Transactional Processing) 和 OLAP (Online Analytical Processing) 场景提供一站式的解决方案.
 

@@ -66,6 +66,6 @@ Java引用变量有两个类型: 编译时类型, 运行时类型.
 > Java语言提供的Cloneable接口和Serializable接口的代码非常简单，
 > 它们都是空接口，这种空接口也称为标识接口，标识接口中没有任何方法的定义，
 > 其作用是告诉jre这些接口的实现类是否具有某个功能，
-> 如是否支持克隆、是否支持序列化等。
+> 如是否支持克隆、是否支持序列化等.
 
 [![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

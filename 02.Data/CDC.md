@@ -141,9 +141,9 @@ public class App {
 * Get: 数据订阅获取的最后一次提取位置
 * Ack: 数据消费成功的最后一次消费位置
 
-在实现上, 为了尽可能加快解析速度, 可以让用户指定解析的开始位置或者起始消费的时间。
+在实现上, 为了尽可能加快解析速度, 可以让用户指定解析的开始位置或者起始消费的时间.
 
-把binlog文件解析成binlog event后, 再判断下是否符合指定的筛选条件, 如满足特定规则的表, 若不符合, 则丢弃该event。
+把binlog文件解析成binlog event后, 再判断下是否符合指定的筛选条件, 如满足特定规则的表, 若不符合, 则丢弃该event.
 
 ![22](https://awps-assets.meituan.net/mit-x/blog-images-bundle-2017/044be049.png)
 
