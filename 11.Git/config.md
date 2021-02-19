@@ -11,4 +11,3 @@ http://blog.konghy.cn/2017/03/19/git-lf-or-crlf/
 
 
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

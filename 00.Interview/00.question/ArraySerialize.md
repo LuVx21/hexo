@@ -167,4 +167,3 @@ public void loadTest() {
 
 可以看出连接符只有`=`,`;`,`\n`
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

@@ -213,4 +213,3 @@ Overloaded:重载, 指多个方法的方法名相同, 但参数的类型或数�
 编译运行:执行器前先编译成机器语言, 在由运行环境执行, 效率较高.
 类似Java等是编译执行
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

@@ -96,4 +96,3 @@
 >
 > 除特殊指明外, 本库所有内容均基于`Creative Commons BY-NC-ND 4.0`知识共享协议共享, 请遵守协议, 详情请[点击阅读](https://creativecommons.org/licenses/by-nc-nd/4.0/).
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

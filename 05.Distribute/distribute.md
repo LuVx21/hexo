@@ -78,4 +78,3 @@ https://blog.csdn.net/xlgen157387/article/details/57406162
 4. 操作数据库的场景下, 可借助悲观锁和乐观锁
 5. redis分布式锁
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

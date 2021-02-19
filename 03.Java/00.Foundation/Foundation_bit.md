@@ -209,4 +209,3 @@ class turn10_16{
 
 由于语言优化的存在, 在实际使用时并没有太大的差异
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

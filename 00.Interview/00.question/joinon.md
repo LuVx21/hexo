@@ -50,4 +50,3 @@ where a.id = 1
 否则(放在where后面)left和right不起任何作用.
 
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

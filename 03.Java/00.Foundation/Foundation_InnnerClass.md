@@ -253,4 +253,3 @@ Arrays.sort(data, new Comparator<Integer>() {
 
 1. [Java内部类详解](https://www.cnblogs.com/latter/p/5665015.html)
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

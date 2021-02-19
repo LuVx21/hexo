@@ -13,4 +13,3 @@ select * from table(dbms_xplan.display)
 
 1. [Oracle执行计划详解](https://www.cnblogs.com/jianggc/articles/2029854.html)
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

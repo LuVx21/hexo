@@ -82,4 +82,3 @@ private static int[] next(String w) {
 1. [克努斯-莫里斯-普拉特算法](https://zh.wikipedia.org/wiki/克努斯-莫里斯-普拉特算法)
 2. [理解 KMP](http://wiki.jikexueyuan.com/project/kmp-algorithm/define.html)
 
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
