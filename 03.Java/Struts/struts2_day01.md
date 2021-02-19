@@ -143,7 +143,7 @@ public String sayHello(){
 	* Prepare:预处理, 加载核心的配置文件
 	* Execute:执行, 让部分拦截器执行
 
-2. `StrutsPrepareAndExecuteFilter`过滤器会加载哪些配置文件呢？
+2. `StrutsPrepareAndExecuteFilter`过滤器会加载哪些配置文件呢?
 通过源代码可以看到具体加载的配置文件和加载配置文件的顺序
 
 |方法|说明|
@@ -174,7 +174,7 @@ public String sayHello(){
 	3. 再加载struts.xml的配置文件, 在src的目录下, 代表用户自己配置的配置文件
 	4. 最后加载web.xml的配置文件
 
-> 哪些配置文件中可以配置常量？
+> 哪些配置文件中可以配置常量?
 * default.properties:默认值, 是不能修改的
 * struts.xml:可以配置, 开发中基本上都在该配置文件中配置常量
 * struts.properties:可以配置, 基本不会在该配置文件中配置

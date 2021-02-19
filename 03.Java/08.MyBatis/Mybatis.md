@@ -42,7 +42,7 @@ tags:
 
 # 关于MyBatis
 
-1. 基于JDBC&Hibernate二种支持, 我们需要在中间找到一个平衡点呢？结合它们的优点, 摒弃它们的缺点,
+1. 基于JDBC&Hibernate二种支持, 我们需要在中间找到一个平衡点呢?结合它们的优点, 摒弃它们的缺点,
 2. MyBatis 本是apache的一个开源项目iBatis, 2010年这个项目由apache software foundation 迁移到了google code, 并且改名为MyBatis .2013年11月迁移到Github.
 3. iBATIS一词来源于“internet”和“abatis”的组合, 是一个基于Java的持久层框架.iBATIS提供的持久层框架包括SQL Maps和Data Access Objects(DAO)
 4. JDBC/dbutils/Springdao, Hibernate/SpringORM, MyBatis同属于ORM解决方案之一

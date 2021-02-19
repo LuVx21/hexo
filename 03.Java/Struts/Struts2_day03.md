@@ -295,7 +295,7 @@ request.getSession().setAttribute("msg", "小风");
 ## EL表达式获取值栈数据
 
 
-> 为什么EL也能访问值栈中的数据？
+> 为什么EL也能访问值栈中的数据?
 
 StrutsPreparedAndExecuteFilter的doFilter代码中
 ```java
