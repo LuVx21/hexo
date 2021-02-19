@@ -50,7 +50,7 @@ response.sendredirect("test.jsp");
 
 servlet的转发方式有两种: 
 
-response.sendRedirect(response.encodeURL(相对路径或绝对路径)); 
+response.sendRedirect(response.encodeURL(相对路径或绝对路径));
 request.getRequestDispatcher(相对路径).forward();
 
 jsp是servlet的扩展,除可用上面两种之外,还可以用标签:`<jsp:forward page="相对路径" />`

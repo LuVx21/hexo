@@ -17,7 +17,7 @@ tags:
 
 * Server:
 * Service:对外提供服务
-* Connector:用于处理连接相关的功能,并提供Socket与Request和Response相关的转化; 
+* Connector:用于处理连接相关的功能,并提供Socket与Request和Response相关的转化;
 * Container:用于封装和管理Servlet,以及具体处理Request请求;
 
 1个Server有多个Service,1个Service有多个Connector和1个Container

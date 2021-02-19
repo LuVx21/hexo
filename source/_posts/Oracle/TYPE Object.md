@@ -32,7 +32,7 @@ create or replace type address_typ as object (
     city            varchar2(20),  
     state           char(2),                              
     postal_code     varchar2(6)    
-); 
+);
 ```
 ```sql
 create or replace type employee_typ as object(  
@@ -86,7 +86,7 @@ begin
          address_typ('376 mission', 'san francisco', 'ca', '94222'));  
   dbms_output.put_line(emp.first_name || ' ' || emp.last_name); -- display details  
   emp.display_address();  -- call object method to display details  
-end; 
+end;
 ```
 # 初始化Object
 ```
@@ -104,7 +104,7 @@ begin
   insert into employee_tab values (employee_typ(320, 'martha', 'dunn', 'mdunn',  
     '555.111.3333', to_date('2012-11-5', 'yyyy-mm-dd'), 'ac_mgr', 12500, 0, 101, 110,  
     address_typ('123 broadway', 'redwood city', 'ca', '94065')) );  
-end; 
+end;
 ```
 ```sql
 declare  
@@ -135,7 +135,7 @@ begin
   select deref(emp_ref) into emp from dual; -- use dummy table dual  
   emp_name := emp.first_name || ' ' || emp.last_name;  
   dbms_output.put_line(emp_name);  
-end; 
+end;
 ```
 
 定义相当于pl/sql集合类型的sql类型(defining sql types equivalent to pl/sql collection types)
@@ -161,7 +161,7 @@ values(1,'dylan','carl street','active',
       );
 --查询
 select  a.*, b.* 
-from  sophomores a, table(a.courses) b; 
+from  sophomores a, table(a.courses) b;
 
 select /*+ nested_table_get_refs */ * 
 from courses_nt t;

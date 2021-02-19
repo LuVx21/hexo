@@ -46,8 +46,8 @@ tags:
 ## 常用函数
 常用正则表达式函数主要有:
 
-* re.findall: 返回所有匹配搜索模式的字符串组成的列表; 
-* re.search(string[, pos[, endpos]]): 搜索字符串直到找到匹配模式的字符串, 然后返回一个re.MatchObject对象, 否则返回None; 
+* re.findall: 返回所有匹配搜索模式的字符串组成的列表;
+* re.search(string[, pos[, endpos]]): 搜索字符串直到找到匹配模式的字符串, 然后返回一个re.MatchObject对象, 否则返回None;
 * re.match(string[, pos[, endpos]]): 存在从第一个字符开始的匹配项, 存在返回re.MatchObject对象, 否则返回None.
 * re.sub(repl, string, count=0): 返回repl替换pattern后的字符串.
 * re.split: 在pattern出现的地方分割字符串.
