@@ -21,7 +21,7 @@
 [Apache Flink 钉钉群直播教程-源码篇](https://ververica.cn/developers/flink-training-course4/)
 
 
-https://github.com/ververica/sql-training
+[例子代码sql-training](https://github.com/ververica/sql-training)
 
 ## 配置
 

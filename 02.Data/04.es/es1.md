@@ -30,7 +30,7 @@ cluster.initial_master_nodes: ["node-1"]
 ```
 
 can not run elasticsearch as root
-
+w
 ```bash
 adduser elasticsearch
 passwd elasticsearch
