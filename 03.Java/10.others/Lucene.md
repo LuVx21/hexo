@@ -94,7 +94,7 @@ java  -jar lukeall-4.10.3.jar
 
 # 索引:
 		Field域属性学习
-		索引维护（添加,修改,删除）
+		索引维护(添加,修改,删除)
 # 搜索:
 		使用Query子类对象搜索
 		使用QueryParser进行搜索

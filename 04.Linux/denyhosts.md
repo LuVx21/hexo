@@ -22,7 +22,7 @@ PURGE_DENY = 5m
 阻止服务名
 BLOCK_SERVICE = sshd
 
-允许无效用户（在/etc/passwd未列出）登录失败次数,允许无效用户登录失败的次数.
+允许无效用户(在/etc/passwd未列出)登录失败次数,允许无效用户登录失败的次数.
 DENY_THRESHOLD_INVALID = 5
 
 允许普通用户登录失败的次数

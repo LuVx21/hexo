@@ -14,9 +14,9 @@ tags:
 -- 声明游标；CURSOR cursor_name IS select_statement
 
 --For 循环游标
---（1）定义游标
---（2）定义游标变量
---（3）使用for循环来使用这个游标
+--(1)定义游标
+--(2)定义游标变量
+--(3)使用for循环来使用这个游标
 declare
 	--类型定义
 	cursor c_job
@@ -145,7 +145,7 @@ end loop;
 end;
 
 
---3,使用游标和while循环来显示所有部门的的地理位置（用%found属性）
+--3,使用游标和while循环来显示所有部门的的地理位置(用%found属性)
 declare
 --游标声明
 cursor csr_TestWhile
@@ -257,8 +257,8 @@ UPDATE EMP1 SET COMM=commInfo where CURRENT OF csr_AddComm;
 END LOOP;
 END;
 
---9：编写一个PL/SQL程序块, 以提升2个资格最老的职员为MANAGER（工作时间越长, 资格越老）
---（提示：可以定义一个变量作为计数器控制游标只提取两条数据；也可以在声明游标的时候把雇员中资格最老的两个人查出来放到游标中. ）
+--9：编写一个PL/SQL程序块, 以提升2个资格最老的职员为MANAGER(工作时间越长, 资格越老)
+--(提示：可以定义一个变量作为计数器控制游标只提取两条数据；也可以在声明游标的时候把雇员中资格最老的两个人查出来放到游标中. )
 declare
 cursor crs_testComput
 is

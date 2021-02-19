@@ -27,7 +27,7 @@ node的特点：
 
 1. 非阻塞, 异步的I/O
 2. 事件和回调函数
-3. 单线程（主线程单线程, 后台I/O线程池）
+3. 单线程(主线程单线程, 后台I/O线程池)
 4. 跨平台
 
 
@@ -35,7 +35,7 @@ node的特点：
 - Node中可以使用所有的内建对象
     String Number Boolean Math Date RegExp Function Object Array
     而BOM和DOM都不能使用
-        但是可以使用 console 也可以使用定时器（setTimeout() setInterval()）
+        但是可以使用 console 也可以使用定时器(setTimeout() setInterval())
 
 - Node可以在后台来编写服务器
     Node编写服务器都是单线程的服务器
@@ -75,7 +75,7 @@ node的特点：
 - 模块的标识
     - 模块的标识就是模块的名字或路径
         我们node通过模块的标识来寻找模块的
-        对于核心模块（npm中下载的模块）, 直接使用模块的名字对其进行引入
+        对于核心模块(npm中下载的模块), 直接使用模块的名字对其进行引入
             var fs = require("fs");
             var express = require("express");
 
@@ -123,7 +123,7 @@ Node Package Manager
 npm -v
 # 查看所有模块的版本
 npm version
-# 初始化项目（创建package.json）
+# 初始化项目(创建package.json)
 npm init
 # 搜索包
 npm s/search 包名
@@ -131,7 +131,7 @@ npm s/search 包名
 npm i/install 包名
 # 安装指定的包并添加依赖
 npm i/install 包名 --save
-# 全局安装（一般都是一些工具）
+# 全局安装(一般都是一些工具)
 npm i/install 包名 -g
 # 安装当前项目所依赖的包
 npm i/install
@@ -141,13 +141,13 @@ npm r/remove 包名
 npm install 包名 --save
 # 下载当前项目所依赖的包
 npm install
-# 全局安装包（全局安装的包一般都是一些工具）
+# 全局安装包(全局安装的包一般都是一些工具)
 npm install 包名 -g
 ```
 
 # 文件系统
 
-- Buffer（缓冲区）
+- Buffer(缓冲区)
     - Buffer和数组的结构的非常类似, Buffer是用来存储二进制数据的
     - Buffer的方法
         - Buffer.from(字符串)

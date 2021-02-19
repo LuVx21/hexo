@@ -8,7 +8,7 @@ Data Warehouse, DW或DWH
 
 
 操作数据存储
-ODS（Operational Data Store）
+ODS(Operational Data Store)
 
 [OLAP](https://baike.baidu.com/item/%E8%81%94%E6%9C%BA%E5%88%86%E6%9E%90%E5%A4%84%E7%90%86/423874?fromtitle=OLAP&fromid=1049009&fr=aladdin)
 OLTP即联机事务处理, 就是我们经常说的关系数据库, 意即记录即时的增, 删, 改, 查, 就是我们经常应用的东西, 这是数据库的基础；

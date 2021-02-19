@@ -138,7 +138,7 @@ begin
 end; 
 ```
 
-定义相当于pl/sql集合类型的sql类型（defining sql types equivalent to pl/sql collection types）
+定义相当于pl/sql集合类型的sql类型(defining sql types equivalent to pl/sql collection types)
 
 ## 定义嵌套表:
 ```sql
@@ -169,7 +169,7 @@ from courses_nt t;
 
 ## 定义数组:
 ```sql
--- 声明数组类型（each project has a 16-character code name）
+-- 声明数组类型(each project has a 16-character code name)
 -- we will store up to 50 projects at a time in a database column.
 create type projectlist as varray(50) of varchar2(16);
 --创建表

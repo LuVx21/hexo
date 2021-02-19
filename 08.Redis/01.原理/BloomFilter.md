@@ -83,7 +83,7 @@ Redis方式
 
 Redis有`setbit`和`getbit`命令, 且内存性能优秀, 是作为布隆过滤器使用的好工具
 
-阅读[BloomFilter（大数据去重）+Redis（持久化）策略](https://blog.csdn.net/qq_18495465/article/details/78500472)
+阅读[BloomFilter(大数据去重)+Redis(持久化)策略](https://blog.csdn.net/qq_18495465/article/details/78500472)
 
 除了以上比较基础的实现方式, redis本身是支持模块功能的
 

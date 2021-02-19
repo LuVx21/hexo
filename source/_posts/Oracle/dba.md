@@ -122,14 +122,14 @@ explain plan for <statement>;
 select * from table(dbms_xplan.display);
 ```
 
-* TABLE ACCESS FULL（全表扫描）
-* TABLE ACCESS BY ROWID（通过ROWID的表存取）
-* TABLE ACCESS BY INDEX SCAN（索引扫描）
-  * INDEX UNIQUE SCAN（索引唯一扫描）
-  * INDEX RANGE SCAN（索引范围扫描）
-  * INDEX FULL SCAN（索引全扫描）
-  * INDEX FAST FULL SCAN（索引快速扫描）
-  * INDEX SKIP SCAN（索引跳跃扫描）
+* TABLE ACCESS FULL(全表扫描)
+* TABLE ACCESS BY ROWID(通过ROWID的表存取)
+* TABLE ACCESS BY INDEX SCAN(索引扫描)
+  * INDEX UNIQUE SCAN(索引唯一扫描)
+  * INDEX RANGE SCAN(索引范围扫描)
+  * INDEX FULL SCAN(索引全扫描)
+  * INDEX FAST FULL SCAN(索引快速扫描)
+  * INDEX SKIP SCAN(索引跳跃扫描)
 
 # 参考
 

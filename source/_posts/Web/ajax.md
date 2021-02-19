@@ -334,10 +334,10 @@ dom对象>>jquery对象
     4.1概述
     4.2编写步骤
 
-    4.3XmlHttpRequest详解（JavaScript对象）
+    4.3XmlHttpRequest详解(JavaScript对象)
         常用属性:
             readyState:代表着XmlHttpRequest对象的当前状态
-                0 (未初始化) 对象已建立,但是尚未初始化（尚未调用open方法）
+                0 (未初始化) 对象已建立,但是尚未初始化(尚未调用open方法)
                 1 (初始化) 对象已建立,尚未调用send方法
                 2 (发送数据) send方法已调用,但是当前的状态及http头未知
                 3 (数据传送中) 已接收部分数据,因为响应及http头不全,

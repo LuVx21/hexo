@@ -61,7 +61,7 @@ mvn spring-boot:run -Dspring.profiles.active=dev
 
 ## @Controller
 
-如果你需要在Spring4之前开发 RESTful Web服务的话, 你需要使用@Controller 并结合@ResponseBody注解, 也就是说@Controller +@ResponseBody= @RestController（Spring 4 之后新加的注解）
+如果你需要在Spring4之前开发 RESTful Web服务的话, 你需要使用@Controller 并结合@ResponseBody注解, 也就是说@Controller +@ResponseBody= @RestController(Spring 4 之后新加的注解)
 
 https://dzone.com/articles/spring-framework-restcontroller-vs-controller
 

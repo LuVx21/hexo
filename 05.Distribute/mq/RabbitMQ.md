@@ -19,7 +19,7 @@ tags:
 
 # 关于
 
-MQ全称为Message Queue,RabbitMQ基于AMQP（Advanced Message Queue）协议实现
+MQ全称为Message Queue,RabbitMQ基于AMQP(Advanced Message Queue)协议实现
 
 在项目中, 将一些无需即时返回且耗时的操作提取出来, 进行了异步处理, 而这种异步处理的方式大大的节省了服务器的请求响应时间, 从而提高了系统的吞吐量
 

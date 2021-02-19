@@ -61,8 +61,8 @@ session.createQuery("from Orders").setFirstResult(0).setMaxResults(5).list();
 
 // 带条件的查询
 // setParameter("占位符?号的位置, 默认从0开始","参数的值"); 不用考虑参数的具体类型
-// 按位置绑定参数的条件查询(指定下标值, 默认从0开始）
-// 按名称绑定参数的条件查询(HQL语句中的 ? 号换成 :名称 的方式）
+// 按位置绑定参数的条件查询(指定下标值, 默认从0开始)
+// 按名称绑定参数的条件查询(HQL语句中的 ? 号换成 :名称 的方式)
 Query query = session.createQuery("from Orders where name like ? order by lkm_id desc");
 query.setFirstResult(0).setMaxResults(3);
 query.setParameter(0, "%PC%");
@@ -117,7 +117,7 @@ criteria.setFirstResult(0);
 criteria.setMaxResults(3);
 List<Orders> list = criteria.list();
 
-// 条件查询(Criterion是查询条件的接口, Restrictions类是Hibernate提供的工具类, 使用该工具类来设置查询条件）
+// 条件查询(Criterion是查询条件的接口, Restrictions类是Hibernate提供的工具类, 使用该工具类来设置查询条件)
 // 条件查询使用Criteria接口的add方法, 用来传入条件.
 // 使用Restrictions的添加条件的方法, 来添加条件, 例如:
 // Restrictions.eq		: 相等

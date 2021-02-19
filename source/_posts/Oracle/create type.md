@@ -75,14 +75,14 @@ type 自定义Object类型B is record(
 字段1 类型1,
 字段2 类型2
 );
-## 3.1：什么是记录（Record）？
+## 3.1：什么是记录(Record)？
 由单行多列的标量构成的复合结构. 可以看做是一种用户自定义数据类型. 组成类似于多维数组.
 将一个或多个标量封装成一个对象进行操作. 是一种临时复合对象类型.
 记录可以直接赋值. RECORD1 :=RECORD2；
 记录不可以整体比较.
 记录不可以整体判断为空.
-## 3.2：%ROWTYPE和记录（Record）？
-请区别%ROWTYPE和记录（Record）类型. %ROWTYPE可以说是Record的升级简化版.
+## 3.2：%ROWTYPE和记录(Record)？
+请区别%ROWTYPE和记录(Record)类型. %ROWTYPE可以说是Record的升级简化版.
 区别在与前者结构为表结构, 后者为自定义结构. 二者在使用上没有很大区别. 前者方便, 后者灵活. 在实际中根据情况来具体决定使用.
 Record + PL/SQL表可以进行数据的多行多列存储.
 ## 3.3：如何创建和使用记录？
@@ -93,14 +93,14 @@ TYPE  记录名  IS RECORD
   filed1 type1 [NOT NULL] [：=eXPr1],
 　     ....... ,
 　  filedN typen [NOT NULL] [：=exprn]
- ）
+ )
 ```
 
  其中, filed1是标量的名字.
   ②声明记录类型变量：    记录类型变量名 记录类型
   ③填充记录.
   ④访问记录成员    记录类型变量名.filed1    .........    记录类型变量名.filedN
-  注意：   表字段类型修改后, 还需要修改记录字段类型, 有时候可能会忘记, 从而出现错误.    对于记录内每个字段（filed1.. . . ）, 可以指定也可以使用%TYPE和%ROWTYPE动态指定记录字段类型.
+  注意：   表字段类型修改后, 还需要修改记录字段类型, 有时候可能会忘记, 从而出现错误.    对于记录内每个字段(filed1.. . . ), 可以指定也可以使用%TYPE和%ROWTYPE动态指定记录字段类型.
   好处是表字段发生变化, 记录字段自动改变. 但是, 由于每次执行前, 遇到%TYPR或%ROWTYPE,    数据库系统都会去查看对应表字段类型, 会造成一定的数据库开销, 如果系统中大量使用记录类型, 则对性能会有一定影响.    另外如果删除了某一字段, 而自定义记录中使用了该字段, 也会有可能忘记删除该字段.         对数据库负荷偏低的系统, 性能问题一般可以不重点关注, 但是对于高负荷数据库服务器,         各个环节都要考虑性能问题, 每处节省一点出来, 性能整体就有很大提高.
   语法：
 
@@ -111,7 +111,7 @@ TYPE  记录名  IS RECORD
  filed2 table.Filed%Type [NOT NULL] [：=eXPr1] ,
      ....... ,
   filedn table.Filed%Type [NOT NULL] [：=exprn]
-）;
+);
 
 ```
 例子：记录可以整体赋值
@@ -400,13 +400,13 @@ CREATE   [OR   REPLACE]   TYPE   <typename>   AS   OBJECT
 );
   说明：PRAGMA   RESTRICT_REFERENCES指定MEMBER方法按以下模式之一   操作：
 
-   –WNDS   （不能写入数据库状态）   不能修改数据库
+   –WNDS   (不能写入数据库状态)   不能修改数据库
 
-  –RNDS   （不能读出数据库状态）   不能执行查询
+  –RNDS   (不能读出数据库状态)   不能执行查询
 
-  –WNPS   （不能写入数据包状态）   不能更改数据包变量的值
+  –WNPS   (不能写入数据包状态)   不能更改数据包变量的值
 
-  –RNPS   （不能读出数据包状态）   不能引用数据包变量的值
+  –RNPS   (不能读出数据包状态)   不能引用数据包变量的值
 
   例：
 
@@ -527,7 +527,7 @@ CREATE   TYPE   name_type AS   OBJECT(name   VARCHAR2(20),   address   address_t
 
   称为引用的   REF   允许您创建行对象指针
 
-  它将创建对被引用对象位置的引用i该指针用于查询, 更新或删除对象iREF   由目标对象的   OID, 数据库标识符（列）和对象表构成iOID   用于创建使用   REF   和   DEREF   运算符的外键列的关系
+  它将创建对被引用对象位置的引用i该指针用于查询, 更新或删除对象iREF   由目标对象的   OID, 数据库标识符(列)和对象表构成iOID   用于创建使用   REF   和   DEREF   运算符的外键列的关系
 
   iSQL   和   PL/SQL   语句必须使用   REF   函数来处理对象引用
 
@@ -677,14 +677,14 @@ INSERT INTO SuperStar VALUES(''001'',SuperStarType(''Zidane'',AddressType(''Fran
 10
 11
 12
-（1）SQL> SELECT * FROM SuperStar;
+(1)SQL> SELECT * FROM SuperStar;
 STARID
 ----------
 STAR(STARNAME, ADDRESS(COUNTRY, CITY, STREET))
 --------------------------------------------------------------------------------
 001
 SUPERSTARTYPE(''Zidane'', ADDRESSTYPE(''France'', ''Paris'', ''People Street NO.1''))
-（2）
+(2)
 SELECT s.StarID,s.Star.StarName,s.Star.Address.Country,s.Star.Address.City,s.Star.Address.Street FROM SuperStar s
 STARID STAR.STARNAME STAR.ADDRESS.CO STAR.ADDRESS.CITY STAR.ADDRESS.STREET
 ---------- ------------------------------ --------------- -------------------- ---------------------
@@ -693,7 +693,7 @@ STARID STAR.STARNAME STAR.ADDRESS.CO STAR.ADDRESS.CITY STAR.ADDRESS.STREET
 
 7, 抽象数据类型的继承
 
-（1）创建一个类型
+(1)创建一个类型
 
 1
 2
@@ -763,7 +763,7 @@ Rose nv 02-MAY-83 1001 98
 
 1, 创建带有可变数组的表
 
-（1）创建可变数组的基类型
+(1)创建可变数组的基类型
 
 1
 2
@@ -777,11 +777,11 @@ GoodID varchar2(20),
 InCount int,
 ProviderID varchar(20)
 );
-（2）创建嵌套项类型的可变数组
+(2)创建嵌套项类型的可变数组
 
 1
 CREATE OR REPLACE TYPE arrMingXiType AS VARRAY(100) OF MingXiType;
-（3）创建一个主表
+(3)创建一个主表
 
 1
 2
@@ -801,7 +801,7 @@ MingXi arrMingXiType
 
 2, 操作可变数组
 
-（1）插入数据
+(1)插入数据
 
 1
 2
@@ -843,7 +843,7 @@ GOODID INCOUNT PROVIDERID
 -------------------- ---------- --------------------
 G001 100 1001
 G002 888 1002
-（4）修改数据
+(4)修改数据
 
 1
 2
@@ -861,7 +861,7 @@ WHERE OrderID=''200710110001''
 
 1, 创建嵌套表
 
-（1）创建嵌套表的基类型
+(1)创建嵌套表的基类型
 
 1
 2
@@ -879,7 +879,7 @@ ProviderID varchar(20)
 
 1
 CREATE OR REPLACE TYPE nestMingXiType AS TABLE OF MingXiType;
-（3）创建主表, 其中一列是嵌套表类型
+(3)创建主表, 其中一列是嵌套表类型
 
 1
 2
@@ -899,7 +899,7 @@ MingXi nestMingXiType
 
 2, 操作嵌套表
 
-（1）向嵌套表中插入记录
+(1)向嵌套表中插入记录
 
 1
 2
@@ -945,13 +945,13 @@ GOODID INCOUNT PROVIDERID
 G003 666 1001
 G004 888 1002
 G005 8888 1003
-（4）更新嵌套表中的数据
+(4)更新嵌套表中的数据
 
 1
 2
 UPDATE Table(SELECT t.MingXi FROM InStockTable t WHERE OrderID=''20071012001'') tt
 SET tt.InCount=1666 WHERE tt.GoodID=''G003'';
-（5）删除表中数据
+(5)删除表中数据
 
 1
 2
@@ -991,13 +991,13 @@ GOODID INCOUNT PROVIDERID
 -------------------- ---------- ---------------
 G001 500 P005
 G002 1000 P008
---B 用VALUE（）函数查询
+--B 用VALUE()函数查询
 SQL> SELECT VALUE(O) FROM ObjectTable O;
 VALUE(O)(GOODID, INCOUNT, PROVIDERID)
 ------------------------------------------
 MINGXITYPE(''G001'', 500, ''P005'')
 MINGXITYPE(''G002'', 1000, ''P008'')
-4, 查看对象标志符（OID）
+4, 查看对象标志符(OID)
 
 --A REF操作符引用行对象
 SQL> SELECT REF(t) FROM ObjectTable t;
@@ -1084,7 +1084,7 @@ REF(T)
 00004A038A004667BAC3685B444520A60ED30027E8F25F0000001426010001000100290000000000090604002A00078401FE
 00004A038A004667BAC3685B444520A60ED30027E8F25F0000001426010001000100290000000000090604002A00078401FE
 00004A038A004667BAC3685B444520A60ED30027E8F25F0000001426010001000100290000000000090604002A00078401FE
-2, 创建引用视图（类似于关系表创建一个从表）
+2, 创建引用视图(类似于关系表创建一个从表)
 
 1
 2
@@ -1167,7 +1167,7 @@ INSERT INTO STUDENTS (STUDENT) VALUES (HUMAN(''xling'',''M'',TO_DATE(''20060101'
 
 　　注意：HUMAN(''xling'',''M'',TO_DATE(''20060101'',''YYYYMMDD''),''测试''), 这是个默认的构造函数．
 
-　　如果想选出性别为女（F）的记录, 可以如下：
+　　如果想选出性别为女(F)的记录, 可以如下：
 
 
 
@@ -1229,7 +1229,7 @@ MEMBER FUNCTION method_name(args_list) RETURN return_type,
 
 　　注意：是MEMBER FUNCTION,(当然, 也可是MEMBER PROCEDURE,没有返回值)
 
-　　和包（PACKAGE）一样, 如果对象类型有方法的话, 还要声明一个BODY:
+　　和包(PACKAGE)一样, 如果对象类型有方法的话, 还要声明一个BODY:
 
 
 CREATE TYPE BODY type_name AS
@@ -1265,7 +1265,7 @@ END;
 
 　　注意：BODY的格式, 不是AS OBJECT,也不是用小括号括起来的．MEMBER FUNCTION 后的AS或IS不能省略．
 
-　　还以STUDENTS表为例（注：如果类型以被某个表使用, 是不能修改的, 必须把相关的表删除, 然后把类型删除, 在一个一个新建, 这里就省略了, 参见前文所述）
+　　还以STUDENTS表为例(注：如果类型以被某个表使用, 是不能修改的, 必须把相关的表删除, 然后把类型删除, 在一个一个新建, 这里就省略了, 参见前文所述)
 
 SELECT S.STUDENT.GET_AGE() FROM STUDENTS S
 
@@ -1440,10 +1440,10 @@ CREATE TYPE sales_country_t AS OBJECT (
    sum_amount_sold   NUMBER
 );
 
-（2）定义表类型：TYPE SUM_SALES_COUNTRY_T_TAB
+(2)定义表类型：TYPE SUM_SALES_COUNTRY_T_TAB
 CREATE TYPE sum_sales_country_t_tab AS TABLE OF sales_country_t;
 
-（3）定义对象类型：TYPE sales_gender_t
+(3)定义对象类型：TYPE sales_gender_t
 CREATE TYPE sales_gender_t AS OBJECT (
    YEAR              VARCHAR2 (4),
    country_id        CHAR (2),
@@ -1451,7 +1451,7 @@ CREATE TYPE sales_gender_t AS OBJECT (
    sum_amount_sold   NUMBER
 );
 
-（4）定义表类型：TYPE SUM_SALES_GENDER_T_TAB
+(4)定义表类型：TYPE SUM_SALES_GENDER_T_TAB
 CREATE TYPE sum_sales_gender_t_tab AS TABLE OF sales_gender_t;
 
 

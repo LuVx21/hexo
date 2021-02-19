@@ -44,4 +44,4 @@ ConcurrentSkipListSet
 
 ## 阅读
 
-1. [Skip List（跳跃表）原理详解](https://my.oschina.net/ljc94/blog/807388)
+1. [Skip List(跳跃表)原理详解](https://my.oschina.net/ljc94/blog/807388)

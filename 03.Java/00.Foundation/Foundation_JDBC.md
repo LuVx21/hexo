@@ -83,7 +83,7 @@ conn.close();
 注册驱动:
 * 方式一:DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 缺点:严重依赖驱动；导致驱动注册多次；
-* 方式二(建议）:Class.forName(“com.mysql.jdbc.Driver”)
+* 方式二(建议):Class.forName(“com.mysql.jdbc.Driver”)
 
 ## Connection
 

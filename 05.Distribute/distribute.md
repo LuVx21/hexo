@@ -44,9 +44,9 @@ WEB服务无法同时满足以下3个属性:
 
 BASE理论
 
-* Basically Available（基本可用）
-* Soft state（软状态）
-* Eventually consistent（最终一致性）
+* Basically Available(基本可用)
+* Soft state(软状态)
+* Eventually consistent(最终一致性)
 
 ## 缓存一致性协议
 

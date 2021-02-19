@@ -191,11 +191,11 @@ select * from user_tab1 where age = 20
 09. 用EXISTS替代IN
 10. 用NOT EXISTS替代NOT IN
 11. 用表连接替换EXISTS
-13. 避免在索引列上使用计算（此条包括在select后面  where后面等任何地方, 因为在索引列上计算会导致索引失效）
-14. 避免在索引列上使用NOT（在索引列使用not会导致索引失效）
+13. 避免在索引列上使用计算(此条包括在select后面  where后面等任何地方, 因为在索引列上计算会导致索引失效)
+14. 避免在索引列上使用NOT(在索引列使用not会导致索引失效)
 19. 总是使用索引的第一个列
 21. ORDER BY 子句只在两种严格的条件下使用索引.
-24. 避免使用耗费资源的操作（带有DISTINCT,UNION,MINUS,INTERSECT,ORDER BY）
+24. 避免使用耗费资源的操作(带有DISTINCT,UNION,MINUS,INTERSECT,ORDER BY)
 
 
 
