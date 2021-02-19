@@ -217,7 +217,7 @@ for (Customer customer : set) {
 Session对象的load()方法默认就是延迟加载
 
 延迟加载是默认开启的,若想不启用,方法有以下:
-1. 在`<class>`标签上配置`lazy=”false”`
+1. 在`<class>`标签上配置`lazy="false"`
 2. 使用`Hibernate.initialize(Object proxy);`初始化实体对象
 
 ```Java

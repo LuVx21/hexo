@@ -335,10 +335,10 @@ End;
 
 注意: 
 Oracle中index by binary_integer的作用
-如语句: type  numbers  is table of number index by binary_integer;其作用是,加了”index by binary_integer ”后, numbers类型的下标就是自增长, numbers类型在插入元素时, 不需要初始化, 不需要每次extend增加一个空间.
-　　而如果没有这句话“index by binary_integer”, 那就得要显示对初始化, 且每插入一个元素到numbers类型的table中时, 都需要先extend.
+如语句: type  numbers  is table of number index by binary_integer;其作用是,加了"index by binary_integer "后, numbers类型的下标就是自增长, numbers类型在插入元素时, 不需要初始化, 不需要每次extend增加一个空间.
+　　而如果没有这句话"index by binary_integer", 那就得要显示对初始化, 且每插入一个元素到numbers类型的table中时, 都需要先extend.
 　　示例: 
-　　没加“index by binary_integer”时: 
+　　没加"index by binary_integer"时: 
 
 ```
 declare
@@ -356,7 +356,7 @@ end;
 ```
 
 --输出: 2, 3
-　　而如果加了“index by binary_integer”, 代码如下写就可以达到上面的效果
+　　而如果加了"index by binary_integer", 代码如下写就可以达到上面的效果
 
 
 ```

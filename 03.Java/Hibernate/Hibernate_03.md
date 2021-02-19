@@ -117,7 +117,7 @@ cascade属性的可配置值
 
 解决:单方维护外键
 
-在<set>标签上配置一个`inverse=”true”`.true:放弃.false:不放弃.默认值是false
+在<set>标签上配置一个`inverse="true"`.true:放弃.false:不放弃.默认值是false
 
 
 ## cascade和inverse的区别

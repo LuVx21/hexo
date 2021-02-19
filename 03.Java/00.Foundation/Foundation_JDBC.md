@@ -83,14 +83,14 @@ conn.close();
 注册驱动:
 * 方式一:DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 缺点:严重依赖驱动;导致驱动注册多次;
-* 方式二(建议):Class.forName(“com.mysql.jdbc.Driver”)
+* 方式二(建议):Class.forName("com.mysql.jdbc.Driver")
 
 ## Connection
 
 `jdbc:mysql://localhost:3306/java`:数据库连接(URL).不同数据库的不同版本连接串也是不同的,等价于`jdbc:mysql:///java`(默认连接本机的3306端口)
 
 JDBC的URL＝协议名＋子协议名＋(据源).
-* 协议名总是“j(bc).
+* 协议名总是"j(bc).
 * 子协议名由JDBC驱动程序的编(者决).
 * 数据源名也可能包含用户与口令等信息;这些信息也可(独提).
 

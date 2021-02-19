@@ -69,9 +69,9 @@ JSP 共有以下6种基本动作:
 # 域对象
 
 ```jsp
-<%@page language=”java” contenType=”text/html;charset=gb2312” session=”true” buffer=”64kb” autoFlush=”true”
-isThreadSafe=”true” info=”text” errorPage=”error.jsp” isErrorPage=”true” isELIgnored=”true” pageEncoding=”gb2312”
-import=”java.sql.*”%>
+<%@page language="java" contenType="text/html;charset=gb2312" session="true" buffer="64kb" autoFlush="true"
+isThreadSafe="true" info="text" errorPage="error.jsp" isErrorPage="true" isELIgnored="true" pageEncoding="gb2312"
+import="java.sql.*"%>
 ```
 
 * request用户端请求,此请求会包含来自GET/POST请求的参数
