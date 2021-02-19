@@ -41,5 +41,3 @@ po的规范(Persistent Object 持久化对象)
 4. 提供public的getter或setter方法, 即属性.
 5. 一般需要实现java.io.Serializable
 
-
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

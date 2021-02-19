@@ -150,5 +150,3 @@ class Name {
 既然涉及到class文件, 那就有必要了解其内容, 可阅读`jvm 字节码技术`相关内容, 此处推荐[字节码增强技术探索](https://tech.meituan.com/2019/09/05/java-bytecode-enhancement.html)
 
 通过阅读反射部分的源码, 可以发现很多`native`方法, 通过这些方法, 从jvm内存区域(方法区内存储类信息, 推测应是此处)获取到相关信息进行后续使用
-
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)

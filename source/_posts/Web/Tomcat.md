@@ -44,5 +44,3 @@ Request和Response是按照HTTP协议来封装
 
 1. [Tomcat](http://blog.csdn.net/xlgen157387/article/details/79006434)
 
-
-[![](https://static.segmentfault.com/v-5b1df2a7/global/img/creativecommons-cc.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
