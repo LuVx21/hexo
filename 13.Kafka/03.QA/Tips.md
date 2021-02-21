@@ -6,51 +6,6 @@
 <!-- /TOC -->
 </details>
 
-**什么是Apache Kafka?**
-
-Apach Kafka是一款分布式流处理框架, 用于实时构建流处理应用.
-
-它有一个核心的功能广为人知, 即作为企业级的消息引擎被广泛使用
-
-Apache Kafka 一路发展到现在, 已经由最初的`分布式提交日志系统`逐渐演变成了`实时流处理框架`.
-
-主要基于事务日志设计.
-
-**Kafka 的设计时什么样的?**
-
-Kafka 将消息以 topic 为单位进行归纳
-
-将向 Kafka topic 发布消息的程序成为 producers.
-
-将预订 topics 并消费消息的程序成为 consumer.
-
-Kafka 以集群的方式运行, 可以由一个或多个服务组成, 每个服务叫做一个 broker.
-
-producers 通过网络将消息发送到 Kafka 集群, 集群向消费者提供消息
-
-**kafka的message格式是什么样的**
-
-一个Kafka的Message由一个固定长度的header和一个变长的消息体body组成
-
-header部分由一个字节的magic(文件格式)和四个字节的CRC32(用于判断body消息体是否正常)构成.
-
-当magic的值为1的时候, 会在magic和crc32之间多一个字节的数据: attributes(保存一些相关属性, 比如是否压缩, 压缩格式等等);
-
-如果magic的值为0, 那么不存在attributes属性, body是由N个字节构成的一个消息体, 包含了具体的key/value消息.
-
-2:
-
-消息由一个固定长度的头部和可变长度的字节数组组成.
-
-头部包含了一个版本号和 CRC32 校验码.
-
-* 消息长度: 4 bytes (value: 1 + 4 + n)
-* 版本号: 1 byte, magic(文件格式)
-* CRC 校验码: 4 bytes, 用于判断body消息体是否正常
-* 具体的消息: n bytes
-
----
-
 **数据传输的事务定义有哪三种?**
 
 数据传输的事务定义通常有以下三种级别:
