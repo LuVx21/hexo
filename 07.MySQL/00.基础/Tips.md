@@ -138,10 +138,10 @@ lines terminated by '\r\n';
 ```sql
 select
     ( @i := @i + 1 ) as `no`,
-    a.* 
+    a.*
 from
     user a,
-    ( select @i := 0 ) b 
+    ( select @i := 0 ) b
 order by
     a.id
 limit 0, 10;
