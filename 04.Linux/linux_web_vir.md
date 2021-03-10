@@ -92,9 +92,9 @@ k.开启防火墙端口 3306 退出mysql
 	将该设置添加到防火墙的规则中
 	/etc/rc.d/init.d/iptables save
 l:设置mysql的服务随着系统的启动而启动
-	加入到系统服务: 
+	加入到系统服务:
 	chkconfig --add mysql
-	自动启动: 
+	自动启动:
 	chkconfig mysql on
 
 # 安装tomcat
