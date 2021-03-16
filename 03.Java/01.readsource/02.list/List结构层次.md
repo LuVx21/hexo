@@ -2,24 +2,16 @@
 <summary>点击展开目录</summary>
 <!-- TOC -->
 
+- [类](#类)
 - [特征](#特征)
 - [汇总](#汇总)
 
 <!-- /TOC -->
 </details>
 
-抽象层:
+## 类
 
-1. `java.util.List`
-2. `java.util.AbstractList`
-3. `java.util.AbstractSequentialList`
-
-实现
-
-* `java.util.ArrayList`
-* `java.util.LinkedList`
-* `java.util.concurrent.CopyOnWriteArrayList`
-* 其他基于List实现的数据结构
+![](https://cdn.nlark.com/yuque/0/2020/png/159888/1592208047004-d2a45092-bb6a-4df7-b64a-570000d47a88.png)
 
 ## 特征
 

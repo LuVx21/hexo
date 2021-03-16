@@ -1,30 +1,17 @@
 <details>
-<summary>点击展开目录</summary>
+<summary>Set结构层次</summary>
 <!-- TOC -->
 
+- [类](#类)
 - [特征](#特征)
 - [汇总](#汇总)
 
 <!-- /TOC -->
 </details>
 
-抽象层:
+## 类
 
-1. `java.util.Set`
-2. `java.util.SortedSet`
-3. `java.util.NavigableSet`
-4. `java.util.AbstractSet`
-
-实现:
-
-* `java.util.HashSet`
-* `java.util.LinkedHashSet`
-* `java.util.TreeSet`
-* `java.util.EnumSet`
-* `java.util.JumboEnumSet`
-* `java.util.RegularEnumSet`
-* `java.util.concurrent.ConcurrentSkipListSet`
-* `java.util.concurrent.CopyOnWriteArraySet`
+![](https://cdn.nlark.com/yuque/0/2021/png/159888/1615862921510-f395cbf1-e2a7-4b23-952d-e909914b7774.png)
 
 ## 特征
 
