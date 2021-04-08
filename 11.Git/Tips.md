@@ -5,6 +5,18 @@
 
 某次提交的某文件的修改详情
 
+
+```bash
+git config --global core.quotepath false
+```
+
+
+版本库迁移:
+```bash
+git clone --bare git@github.com:LuVx21/doc
+git push --mirror git@github.com:LuVx21/doc1
+```
+
 **git push origin与git push -u origin master的区别**
 
 `git push`
